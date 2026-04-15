@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E883F8DE-7D7B-77B4-D6D9-5A1590ABB6CC" containerWithKeyObject="F836D63A-CC36-ABA8-C96F-529549E5D09D" localFKIndex="E9629252-AD45-FF05-DFDE-2518A143E339" name="Tournament_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>318A3929-0615-FBEA-5E23-A649728AAEFB</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<referredTableLongName>Player</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>7DA08A62-7661-5E4D-3C5B-82BB8C4CB85D</referredTableID>
+<keyObject>96613959-33BA-09F5-A084-33BD4FD29581</keyObject>
+<referredKeyID>96613959-33BA-09F5-A084-33BD4FD29581</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

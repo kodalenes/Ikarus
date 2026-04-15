@@ -1,0 +1,155 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F1B0495B-35E1-FF0C-30B2-CC69ABA997D5" name="Match">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:37:32 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="1F6311DD-1250-84AA-E72B-B679BE2F11AB">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:38:07 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="date" id="FDD300EE-66F4-973D-C044-738AE69C8B54">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:38:17 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="score_team1" id="ABF8D89E-A29E-C7B9-29F0-7F338C6F2037">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:38:26 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="score_team2" id="305E8AE4-D662-5000-BEDA-FE926A4C5BE2">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:38:54 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="stage" id="082FF736-7AF0-83BF-E59D-7BCD1B08CFE2">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:39:05 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="home_team_id" id="50E391FD-99BC-ADEF-5F98-5A7A8E19A6E6">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:13:31 UTC</createdTime>
+<generatorID>D5846B83-A3F0-295B-586F-7E54ADA49619</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<referedAttribute>5AA12C60-9A2B-519C-5486-E0A15F6F341D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="away_team_id" id="39339003-654C-E84C-3741-AFF44C371778">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:15:29 UTC</createdTime>
+<generatorID>8EB273BA-0041-3139-6A1A-072071E9C72E</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<referedAttribute>5AA12C60-9A2B-519C-5486-E0A15F6F341D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tournament_id" id="F2BD6B98-96FA-2D8B-32D6-83F902F83F25">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:19:10 UTC</createdTime>
+<generatorID>2119D74B-ABFB-376C-D4D5-B2AF8E85EA0F</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<referedAttribute>6E59C32D-3631-8799-515C-8E9C6D014E9A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="referee_id" id="BFCBEA91-F785-BDD1-8840-2275654EAEEB">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:22:17 UTC</createdTime>
+<generatorID>A5FA03EF-125C-78BB-D1AE-4206FBCC84DB</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>25D764A8-D28B-5366-C1A3-1E7F8AFED7BF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="38F33C1A-A5F7-F6F9-4ED5-6B4BC327D9C8" name="Match PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:38:16 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>1F6311DD-1250-84AA-E72B-B679BE2F11AB</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

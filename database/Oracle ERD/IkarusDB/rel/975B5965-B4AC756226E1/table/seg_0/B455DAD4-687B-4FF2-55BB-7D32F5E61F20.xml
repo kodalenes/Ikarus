@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B455DAD4-687B-4FF2-55BB-7D32F5E61F20" name="Referee">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>C37C5CD7-B286-483D-3EAA-401CA472D900</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="F71B4BF3-B37F-574E-E1E6-DA0D0AB226F3">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>25D764A8-D28B-5366-C1A3-1E7F8AFED7BF</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8229132F-A7C9-EE47-5167-0F780C75F6E6" referredColumn="31F323E1-76A7-4375-1F35-52BDF43033E9"/>
+</associations>
+</Column>
+<Column name="username" id="691D8622-CFAB-3147-D502-25C37539D215">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>57B9E338-4211-45FE-47BA-722B23E4D4C2</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="8BEB9D01-0FB6-2ACA-C629-F1159C296963">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>1A1D3244-9AF9-91DC-D6F2-B7E2E31F06E1</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password_hash" id="6D6C3205-5447-3400-68E6-F078CDEB6EAE">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>10057D0E-8A54-EF23-515C-AC24A89B52F6</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="birth_date" id="1FCD98B1-32E0-87EE-413B-34E1345AD293">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>F55EE9C3-AEB9-2AF0-8442-5CB06BBD9FE8</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="registered_at" id="F586518C-8BC3-9DE2-74A8-903E82784E9F">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>66DF6A66-F7D8-5AAB-6E01-CB7A8A149234</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="team_id" id="E0E33776-2A24-B2A7-5EC0-0828EF7BAAF8">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>5D2649BB-1807-D202-FC16-475FDA29FC98</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="expertise_game_id" id="78CDFDB7-CD4A-3754-8EF3-FD5863F17C0B">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>9658F07A-7845-0FE3-1D7F-06628C6843AB</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="09FE8AED-DA34-5D57-6A60-6B4C2AC64F3B" name="Referee_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>A2EDA172-76F4-B94A-12BC-D90A236D59D7</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F71B4BF3-B37F-574E-E1E6-DA0D0AB226F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="76796CCF-BECD-66B5-C8B4-E49D391A30B9" name="Referee_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>1801B09E-53A6-605E-5734-39F01AAA3F07</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F71B4BF3-B37F-574E-E1E6-DA0D0AB226F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

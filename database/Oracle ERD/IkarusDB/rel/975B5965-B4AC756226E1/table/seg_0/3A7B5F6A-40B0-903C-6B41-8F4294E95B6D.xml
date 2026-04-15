@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3A7B5F6A-40B0-903C-6B41-8F4294E95B6D" name="Prize">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>E3003E88-EC7A-683C-73E7-181B3E85881C</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="8B0770C6-439A-665E-7177-9AC1E51120FD">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>173A1384-4396-B606-8593-480E21DA3463</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="amount" id="DC3E2FB6-BA3B-6EBC-7ACA-969550046F05">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>95D7F3E7-157D-AB91-9EAF-0C2055C1E6B7</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="type" id="B69D4F62-4888-FF2E-44CF-888709A1FC40">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<comment><![CDATA[cash/trophy/medal]]></comment>
+<generatorID>D9475FAD-7A8E-80FE-2370-1E1A74454FF4</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="awarded_date" id="36137190-3E79-53B1-6DB0-45918BBB93C9">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>AD0C6883-1BEF-7AAE-78B6-88B6AA57EAE6</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tournament_id" id="9528E901-0CEB-8867-5B63-8738D794129A">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>0C27DA1F-6A78-999A-F7F5-B39773B967F0</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="19828E3C-7D32-429D-6D28-51E64A232FD2" referredColumn="00192B44-7997-8E03-E146-DEC4A4B4555E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B7843599-757B-1FD3-8192-9C5B3968A9CE" name="Prize_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>7DF56203-FC83-C940-DD45-C91A993AD49F</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8B0770C6-439A-665E-7177-9AC1E51120FD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CE117467-7D84-E09A-FDF0-2D755524F492" name="Prize_Tournament_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>4739EF03-5388-77FB-1571-E9C4F6CBC8F2</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9528E901-0CEB-8867-5B63-8738D794129A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

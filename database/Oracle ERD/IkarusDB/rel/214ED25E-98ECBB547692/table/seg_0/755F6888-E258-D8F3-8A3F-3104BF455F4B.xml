@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="755F6888-E258-D8F3-8A3F-3104BF455F4B" name="Team">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>3E9194D5-9B4C-2294-FDBE-9FA0D17AE8B3</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="7D20A424-9382-C062-FA6F-57A3FEB15121">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>5AA12C60-9A2B-519C-5486-E0A15F6F341D</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="A61844DA-D745-0324-DF36-CADDDE118F64">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>27FA5178-F292-FF9A-84D4-BF89F8D4F87B</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rank_point" id="607ABE99-F8BB-6153-174C-F60FC6D09695">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>F0D5EC3C-BC16-F061-06D3-A36EDD3BDAED</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="logo_url" id="7373DE9A-81C7-ABAF-BB65-0CE2B90831AF">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>8D5F7651-D7BB-BBF3-F5D7-5257E38C1464</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 CHAR</dataTypeSize>
+<ownDataTypeParameters>255 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="created_at" id="FDFEE89A-5478-B66E-BCA5-0CA7EB1DCFCC">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>2FC071FF-E9AF-3993-4165-B551C0309586</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="43629336-BEA9-BCDD-7DD3-CA990DB88E9B" name="Team_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>655159BF-9D8F-2381-5A6F-E76D320A2FD9</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7D20A424-9382-C062-FA6F-57A3FEB15121"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

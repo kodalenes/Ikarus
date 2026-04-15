@@ -1,0 +1,190 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="638218EA-7682-1F13-9D16-A8BD3F38C2EF" name="Match">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>F1B0495B-35E1-FF0C-30B2-CC69ABA997D5</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="EE75ACA4-7AD0-7202-80FF-CFA0FFCCF34F">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>1F6311DD-1250-84AA-E72B-B679BE2F11AB</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="date" id="C1AA9BF2-930B-E97B-E174-BD8949C63721">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>FDD300EE-66F4-973D-C044-738AE69C8B54</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="score_team1" id="0DF665E2-858C-F061-5AA4-2C3269B34985">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>ABF8D89E-A29E-C7B9-29F0-7F338C6F2037</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="score_team2" id="0F9AA182-EF27-1E0C-5EA2-AB7F7C0A54DB">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>305E8AE4-D662-5000-BEDA-FE926A4C5BE2</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="stage" id="F7E7D8B4-5733-B718-0B90-C6F5090A9ECE">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>082FF736-7AF0-83BF-E59D-7BCD1B08CFE2</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 CHAR</dataTypeSize>
+<ownDataTypeParameters>30 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="away_team_id" id="4637002C-D876-3D84-973C-9CBF8DDDE137">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>50E391FD-99BC-ADEF-5F98-5A7A8E19A6E6</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EF5FFB4D-CF30-4742-C20C-734B79465A46" referredColumn="0D8848C1-1FC1-F86F-5CE6-7EE4D3C6C322"/>
+</associations>
+</Column>
+<Column name="home_team_id" id="3C5F6FF0-33EA-709F-1934-DF351A78B373">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>39339003-654C-E84C-3741-AFF44C371778</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="913C0C01-A5AC-26A7-6513-0EDAAD92453A" referredColumn="0D8848C1-1FC1-F86F-5CE6-7EE4D3C6C322"/>
+</associations>
+</Column>
+<Column name="tournament_id" id="529698AE-9DC5-0F11-789E-72656B5BD1AA">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>F2BD6B98-96FA-2D8B-32D6-83F902F83F25</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4008C893-DBCF-BD00-EAC9-B9A26066AD21" referredColumn="00192B44-7997-8E03-E146-DEC4A4B4555E"/>
+</associations>
+</Column>
+<Column name="referee_id" id="BC091168-FB94-6794-AF86-11CD77490127">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>BFCBEA91-F785-BDD1-8840-2275654EAEEB</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F6D7DA8B-3825-2BD7-9597-A3C69BF711DC" referredColumn="31F323E1-76A7-4375-1F35-52BDF43033E9"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7B594F8F-5A7A-4DBB-3BE8-BB812EDE40DE" name="Match_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>38F33C1A-A5F7-F6F9-4ED5-6B4BC327D9C8</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EE75ACA4-7AD0-7202-80FF-CFA0FFCCF34F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4BC284F9-8164-06DB-294F-B6D4A6C8DE20" name="Match_Team_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>8EB273BA-0041-3139-6A1A-072071E9C72E</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3C5F6FF0-33EA-709F-1934-DF351A78B373"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AA4908A6-E1A4-7FCC-1A3D-6FC06FE0384C" name="Match_Team_FKv2">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>D5846B83-A3F0-295B-586F-7E54ADA49619</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4637002C-D876-3D84-973C-9CBF8DDDE137"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="643AB900-1BA8-86CC-8789-0AF0877830C3" name="Match_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>A5FA03EF-125C-78BB-D1AE-4206FBCC84DB</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BC091168-FB94-6794-AF86-11CD77490127"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7FB3959E-9BBF-A791-39A2-64D9CFB5CDCD" name="Match_Tournament_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>2119D74B-ABFB-376C-D4D5-B2AF8E85EA0F</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="529698AE-9DC5-0F11-789E-72656B5BD1AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

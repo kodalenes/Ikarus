@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0C3D2B19-F3AA-39EB-52A3-2932DE014F4E" name="FK_SPONSOR_TOURNAMENT">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="tournament_id" id="A00E0F44-9F1F-BB0B-33DE-86B4E9D6BE8C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="12E10366-EB88-57D4-8735-C36888D08B04" referredColumn="00192B44-7997-8E03-E146-DEC4A4B4555E"/>
+</associations>
+</Column>
+<Column name="sponsor_id" id="F06F7C51-FB20-BC3F-A5CA-9452F19D6412">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C1A708AD-BE2F-8BD3-696E-E61D27FD333A" referredColumn="79313B7E-987B-B63C-2590-B0E7337E98F8"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A6AE7459-8048-6583-8CCC-02CD247EF743" name="FK_SPONSOR_TOURNAMENT_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A00E0F44-9F1F-BB0B-33DE-86B4E9D6BE8C"/>
+<colUsage columnID="F06F7C51-FB20-BC3F-A5CA-9452F19D6412"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="41A84DFC-63B2-2D71-7894-0D1E7546B1CF" name="FK_SPONSOR_TOURNAMENT_Tournament_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>A04A0CE4-8675-FECB-1CE4-EB952BEC6417</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A00E0F44-9F1F-BB0B-33DE-86B4E9D6BE8C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0AC9BDAD-9F2C-24CF-D17E-F0990CC28718" name="FK_SPONSOR_TOURNAMENT_Sponsor_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 20:15:12 UTC</createdTime>
+<generatorID>A04A0CE4-8675-FECB-1CE4-EB952BEC6417</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F06F7C51-FB20-BC3F-A5CA-9452F19D6412"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="4471B808-27CE-7CEC-7340-57EE25AB772C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 11:59:49 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

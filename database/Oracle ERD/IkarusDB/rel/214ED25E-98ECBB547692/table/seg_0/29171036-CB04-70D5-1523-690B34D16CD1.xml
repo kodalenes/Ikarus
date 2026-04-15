@@ -1,0 +1,98 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="29171036-CB04-70D5-1523-690B34D16CD1" name="Game">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>8CF19BD8-39B5-BE43-96E1-216F0182553C</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="9307EDC0-B5AB-5304-286C-494B04B8127E">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>60D4166E-09B2-164C-1968-219061249BF2</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="550A7DB2-8727-5184-ED41-4CE25D1277EB">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>E19C659A-6953-DCA4-D86B-5773775AAEEC</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="genre" id="D96AF481-7907-1BF4-6A9C-D3A65869316F">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>50FCFD51-89B6-4B67-A746-5BB27E38C1D5</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="max_team_size" id="2E84916E-E43A-ADBD-B3FA-193FC09C5342">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>998430C6-559E-315F-9E4F-0F1D80A807E5</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="api_source_url" id="544CB7F6-756A-2601-BD88-B50EFBE4A1A6">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>5D0B9156-93A6-7A7D-1460-AD09042C9A00</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 CHAR</dataTypeSize>
+<ownDataTypeParameters>255 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="created_at" id="F3500AD2-4FFF-3EA8-BAD5-D449E667ACB1">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>26A4BF11-66A7-62C7-63E9-CFDA85362EFD</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E303A00D-E861-0DC5-FA60-527120F9ED25" name="Game_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>D809CE1E-4A4D-D7AE-4A32-C7A50B07A61A</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9307EDC0-B5AB-5304-286C-494B04B8127E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

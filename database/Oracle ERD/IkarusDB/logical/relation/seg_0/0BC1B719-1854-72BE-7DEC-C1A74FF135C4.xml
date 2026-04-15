@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_TEAM_PLAYER" directorySegmentName="seg_0" id="0BC1B719-1854-72BE-7DEC-C1A74FF135C4">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 12:22:24 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<sourcePk>655159BF-9D8F-2381-5A6F-E76D320A2FD9</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>consists of</nameOnSource>
+<nameOnTarget>belongs to</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>3E9194D5-9B4C-2294-FDBE-9FA0D17AE8B3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>6559FCC8-62D6-3502-A7D8-F06AE1F9B4F7</targetEntity>
+<transferable>true</transferable>
+<deleteRule>SET NULL</deleteRule>
+</Relation>

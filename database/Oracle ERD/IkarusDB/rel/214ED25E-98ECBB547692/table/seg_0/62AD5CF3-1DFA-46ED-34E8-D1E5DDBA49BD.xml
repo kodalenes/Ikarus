@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="62AD5CF3-1DFA-46ED-34E8-D1E5DDBA49BD" name="Sponsor">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>536AFE1C-F1CD-6956-7D27-23EDDDA5E9A8</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="5A48574F-25BD-01D1-2E41-4E3411D23864">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>F166C0A6-1973-0229-F7FB-5A682D01999E</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="company_name" id="3C0A4968-DF54-F1ED-A3E2-53F8918D4FF3">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>4CEB686F-D0BD-9EB4-40DA-2631A78FAD4E</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="contribution" id="B37BD03D-482C-F925-3384-9830FC758FAE">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>C31BF3F5-C0D3-8768-980D-D9174B060803</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="contract_date" id="2BAA354A-4225-22DE-0925-7B6D201F3660">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>ABBB3EAD-E346-C0CE-C580-6E7C0B8F90F1</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="logo_url" id="60DB4480-AAAF-C782-6411-FB9225605302">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>F010BE6A-B871-4C23-86A2-D47C2C54AD77</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 CHAR</dataTypeSize>
+<ownDataTypeParameters>255 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="website_url" id="B883F28F-59B7-CEDE-E863-DA2F790F8226">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>D7A63519-233E-522F-7CED-44AACF4F8ABA</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 CHAR</dataTypeSize>
+<ownDataTypeParameters>255 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BD3C8D5E-BD4A-DB46-26E5-9BF299DDBC9E" name="Sponsor_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-15 11:04:48 UTC</createdTime>
+<generatorID>B50770A8-DCA2-3634-D244-D10D4829E55B</generatorID>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5A48574F-25BD-01D1-2E41-4E3411D23864"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

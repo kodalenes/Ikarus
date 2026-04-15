@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_SPONSOR_TOURNAMENT" directorySegmentName="seg_0" id="A04A0CE4-8675-FECB-1CE4-EB952BEC6417">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:32:33 UTC</createdTime>
+<ownerDesignName>IkarusDB</ownerDesignName>
+<engineerTo>
+<item key="492A9C38-AC4D-14F1-5B87-E82317535568" value="true"/>
+</engineerTo>
+<sourcePk>BB66323B-5A0B-1D47-EEE9-3EFBDDCD8E28</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>sponsored_by</nameOnSource>
+<nameOnTarget>supports</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>41D636AC-3EB0-A66B-256B-B2CA38F2E971</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>536AFE1C-F1CD-6956-7D27-23EDDDA5E9A8</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
