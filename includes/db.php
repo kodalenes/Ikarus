@@ -4,7 +4,7 @@
     $db = 'ikarusdb';
     $user = 'root';
     $password = '';
-    $charset = 'utfmb4';
+    $charset = 'utf8';
 
     //Data Source Name 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

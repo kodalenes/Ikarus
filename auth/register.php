@@ -27,3 +27,13 @@
         }
     }
 ?>
+
+<form id="register-form" method="post" onsubmit="return validateForm()">
+    <input id="username" type="text" name="username" placeholder="Username">
+    <input type="email" name="email" id="email" placeholder="Email">
+    <input type="password" name="password" id="password" placeholder="Password">
+    <button id="password-btn" type="submit">Register</button>
+    <p id = "jsError"></p>
+</form>
+
+<script src="../assets\js\validation.js"></script>
