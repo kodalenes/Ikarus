@@ -1,29 +1,38 @@
-function validateForm() {
-    //Get the input values from html
-    let username = document.getElementById('username').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let errorField = document.getElementById('jsError');
+document.getElementById('register-form').addEventListener('submit' , function (e) {
+    e.preventDefault();
 
-    errorField.innerText = "";
-    errorField.style.color = "red";
-    //username check
-    if (username.length < 3) {
-        errorField.innerText = "Username must be greater than 3 characters!";
-        return false;
+    const feedback = document.getElementById('result');
+    const formData = new FormData(this);
+
+    if (formData.get('username').length < 4) {
+        feedback.style.color = 'red';
+        feedback.innerText = "Username must be at least 4 characters!";
+        return;
     }
 
-    //Email check : it  must be include @
-    if (!email.includes("@")) {
-        errorField.innerText = "Please enter valid email!";
-        return false;
+    //Password format check
+    if (formData.get('password').length < 6) {
+        feedback.style.color = 'red';
+        feedback.innerText = "Password must be at least 6 characters!";
+        return;
     }
 
-    //Password lenght check : it must be at least 6 character
-    if (password.length < 6) {
-        errorField.innerText = "Password is too short! Enter at least 6 characters!"
-        return false;
-    }
-
-    return true;
-}
+    fetch('../auth/register-action.php' , {
+        method: 'POST' ,
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success'){
+            feedback.style.color = 'green';
+            feedback.innerText = data.message;
+            setTimeout(() => {
+                window.location.href = 'login.php';
+            }, 1000);
+        }else{
+            feedback.style.color = 'red';
+            feedback.innerText = data.message;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
