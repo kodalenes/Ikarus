@@ -1,5 +1,5 @@
 <h2>Register</h2>
-<form id="register-form">
+<form id="register-form" novalidate>
     <input id="username" type="text" name="username" placeholder="Username" required>
     <input id="email" type="email" name="email" placeholder="Email" required>
     <input id="password" type="password" name="password" placeholder="Password" required>
