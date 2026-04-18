@@ -11,10 +11,20 @@
     <main>
         <h2>Register</h2>
         <form id="register-form" novalidate>
-            <input id="username" type="text" name="username" placeholder="Username" required>
-            <input id="email" type="email" name="email" placeholder="Email" required>
+            <div class="input-group">
+                <input id="username" type="text" name="username"  maxlength="20" required>
+                <label for="username">Username</label>
+                <span class="char-counter">0 / 20</span>
+            </div>
+            <div class="input-group">
+                <input id="email" type="email" name="email"  required>
+                <label for="email">Email</label>
+            </div>
             <div>
-                <input id ="password" type="password" name="password" placeholder="Password" required>
+                <div class="input-group">
+                     <input id ="password" type="password" name="password"  required>
+                     <label for="password">Password</label>
+                </div>
                 <button type="button" id="togglePassword" >
                     <img id="toggleIcon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
                 </button>
