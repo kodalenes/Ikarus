@@ -1,16 +1,30 @@
-<h2>Login</h2>
-<form id="login-form">
-    <input type="email" name="email" placeholder="Email" required>
-    <div>
-        <input id = "password" type="password" name="password" placeholder="Password" required>
-        <button type="button" id="togglePassword" >
-            <img id="toggleIcon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
-        </button>
-    </div>
-    <button id = "login-btn" type="submit">Login</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikarus |Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-<div id = "result"></div>
+<body>
+    <main>
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" name="email" placeholder="Email" required>
+            <div>
+                <input id ="password" type="password" name="password" placeholder="Password" required>
+                <button type="button" id="togglePassword" >
+                    <img id="toggleIcon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
+                </button>
+            </div>
+            <button id = "login-btn" type="submit">Login</button>
+        </form>
+    
+        <div id = "result"></div>
+    </main>
+</body>
 
-<script src="../assets/js/login-handler.js"></script>
 <script src="../assets/js/utils.js"></script>
+<script src="../assets/js/login-handler.js"></script>
+</html>
