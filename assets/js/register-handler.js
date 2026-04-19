@@ -1,64 +1,115 @@
-document.getElementById('register-form').addEventListener('submit' , function (e) {
-    //Sayfanin yenilenmesini onleyen kod!
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+	const registerForm = document.getElementById("register-form");
+	const usernameInput = document.getElementById("username");
+	const charCounter = document.getElementById("char-counter");
+	const feedback = document.getElementById("result");
+	const userTypeSelect = document.getElementById("user-type-select");
+	const userTypeError = document.getElementById("user-type-error");
 
-    //Geribildirim yapmak icin mesaji yazdiracagimiz kisim
-    const feedback = document.getElementById('result');
-    const formData = new FormData(this);
+	const updateUI = (inputEl, errorId, message, isError) => {
+		const errorEl = document.getElementById(errorId);
+		if (!errorEl) {
+			return;
+		}
 
-    const usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;//4-20 karakter ,bosluk yok , sadece harf ve rakam icerecek
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //Standart email formati    
-    
-    //Username format check
-    if (!usernameRegex.test(formData.get('username'))) {
-        feedback.style.color = 'red';
-        feedback.innerText = "Username must be at least 4 characters!";
-        return;
-    }
+		if (isError) {
+			errorEl.textContent = message;
+			errorEl.style.display = "block";
+			inputEl.style.borderColor = "var(--accent)";
+			inputEl.dataset.hasError = "true";
+		} else {
+			errorEl.style.display = "none";
+			inputEl.style.borderColor = "";
+			inputEl.dataset.hasError = "false";
+		}
+	};
 
-    //Email format check
-    if (!emailRegex.test(formData.get('email'))) {
-        feedback.style.color = 'red';
-        feedback.innerText = "Please enter valid email address!"
-        return;
-    }
+	const allInputs = document.querySelectorAll("input");
 
-    //Password format check
-    const password = formData.get('password');
-    let passwordError = "";
+	allInputs.forEach((input) => {
+		input.addEventListener("input", () => {
+			const val = input.value.trim();
 
-    if (password.length < 6) {
-        passwordError = "The password must be at least 6 characters!";
-    }else if(!/[A-Za-z]/.test(password)) {
-        passwordError = "The password must contain at least one letter!";
-    }else if (!/\d/.test(password)) {
-        passwordError = "The password must contain at least one digit!";
-    }
+			//Username check
+			if (input.id === "username") {
+				const maxLength = input.getAttribute("maxlength");
+				charCounter.textContent = `${val.length} / ${maxLength}`;
 
-    if (passwordError !== "") {
-        feedback.style.color = 'orange';
-        feedback.innerText = passwordError;
-        return;
-    }
+				if (val.length < 4) {
+					updateUI(input, "username-error", "Username must be at least 4 characters!", true);
+				} else {
+					updateUI(input, "username-error", "", false);
+				}
+			}
 
-    //
-    fetch('../auth/register-action.php' , {
-        method: 'POST' ,
-        body: formData //Verileri php ye yollar
-    })
-    .then(response => response.json()) //Sunucudan gelen metni json formatina donusturur.
-    //Sonra gelen veriyi duruma gore ui yansitir.
-    .then(data => {
-        if(data.status === 'success'){
-            feedback.style.color = 'green';
-            feedback.innerText = data.message;
-            setTimeout(() => {
-                window.location.href = 'login.php';
-            }, 1000);
-        }else{
-            feedback.style.color = 'red';
-            feedback.innerText = data.message;
-        }
-    })
-    .catch(error => console.error('Error:', error));
+			//Email check
+			if (input.id === "email") {
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //Standart email formati
+				if (val.length > 0 && !emailRegex.test(val)) {
+					updateUI(input, "email-error", "Invalid email format!", true);
+				} else {
+					updateUI(input, "email-error", "", false);
+				}
+			}
+
+			//Password check
+			if (input.type === "password") {
+				let msg = "";
+				if (val.length < 6) {
+					msg = "Min 6 characters!";
+				} else if (!/[A-Za-z]/.test(val)) {
+					msg = "Need at least one letter!";
+				} else if (val.length > 0 && !/\d/.test(val)) {
+					msg = "Need at least one digit!";
+				}
+
+				updateUI(input, "password-error", msg, msg !== "");
+			}
+		});
+	});
+
+	//Clear error when Select box changed
+	userTypeSelect.addEventListener("change", () => {
+		updateUI(userTypeSelect, "user-type-error", "", userTypeSelect.value === "");
+	});
+
+	if (registerForm) {
+		registerForm.addEventListener("submit", function (e) {
+			//Sayfanin yenilenmesini onleyen kod!
+			e.preventDefault();
+
+			allInputs.forEach((input) => input.dispatchEvent(new Event("input")));
+
+			if (!userTypeSelect.value) {
+				updateUI(userTypeSelect, "user-type-error", "Please select a type!", true);
+				return;
+			}
+
+			const hasErrors = Array.from(allInputs).some((i) => i.dataset.hasError === "true");
+			if (hasErrors) return;
+
+			const formData = new FormData(registerForm);
+
+			//
+			fetch("../auth/register-action.php", {
+				method: "POST",
+				body: formData, //Verileri php ye yollar
+			})
+				.then((response) => response.json()) //Sunucudan gelen metni json formatina donusturur.
+				//Sonra gelen veriyi duruma gore ui yansitir.
+				.then((data) => {
+					if (data.status === "success") {
+						feedback.style.color = "green";
+						feedback.innerText = data.message;
+						setTimeout(() => {
+							window.location.href = "login.php";
+						}, 1000);
+					} else {
+						feedback.style.color = "red";
+						feedback.innerText = data.message;
+					}
+				})
+				.catch((error) => console.error("Error:", error));
+		});
+	}
 });

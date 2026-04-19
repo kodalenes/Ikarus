@@ -14,16 +14,19 @@
             <div class="input-group">
                 <input id="username" type="text" name="username" placeholder="" maxlength="20" required>
                 <label for="username">Username</label>
-                <span class="char-counter">0 / 20</span>
+                <span id="char-counter" class="char-counter">0 / 20</span>
+                <span class="error-msg" id="username-error"></span>
             </div>
             <div class="input-group">
                 <input id="email" type="email" name="email" placeholder="" required>
                 <label for="email">Email</label>
+                <span class="error-msg" id="email-error"></span>
             </div>
             <div>
                 <div class="input-group">
                      <input id ="password" type="password" name="password" placeholder="" required>
                      <label for="password">Password</label>
+                     <span class="error-msg" id="password-error"></span>
                 </div>
                 <button type="button" id="togglePassword" >
                     <img id="toggleIcon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
@@ -35,13 +38,14 @@
                     <option value="player">Player</option>
                     <option value="organizer">Organizer</option>
                 </select>
-                <label for="user_type">User Type</label>
+                <label for="user-type-select">User Type</label>
+                <span class="error-msg" id="user-type-error" style="display: none;">Please select a user type!</span>
             </div>
 
             <button id="submit-btn" type="submit">Register</button>
-        </form>
-    
-        <div id = "result"></div>
+
+            <div id="result"></div>
+        </form>    
     </main>
 </body>
 
