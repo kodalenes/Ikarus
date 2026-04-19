@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded" , () => {
     const urlParams = new URLSearchParams(window.location.search);
     const modalParam = urlParams.get('modal'); // login veya register veya null
 
-    if(modalParam === 'login' || modalParam === 'register');{
+    if(modalParam === 'login' || modalParam === 'register'){
         openModal(modalParam);
         //url den parametreyi temizle temiz gozukmesi icin
         history.replaceState(null ,'' ,window.location.pathname);
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded" , () => {
     });
 
     //Tab gecisi Login <-> Register
-    window.switchTab = function(Tab) {
+    window.switchTab = function(tab) {
         clearFeedback();
 
         if (tab === 'login') {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded" , () => {
 
     function showFeedback(message, type ='error') {
         feedback.textContent = message;
-        feedback.className = 'modal-feedback ${type}'; //.error veya .success classi ekler
+        feedback.className = `modal-feedback ${type}`; //.error veya .success classi ekler
         feedback.classList.remove('hidden');
     }
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded" , () => {
 
             if(input.type === 'password'){
                 input.type = 'text';
-                icon.src = '/assets/images/toggle_pass_hide.webp';
+                icon.src = '../assets/images/toggle_pass_hide.webp';
             }
         });
     });

@@ -1,0 +1,284 @@
+/* z-index:200 — header(100) üstünde */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: overlayFadeIn 0.18s ease;
+}
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.modal-box {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 2px solid var(--accent);
+    width: 100%;
+    max-width: 420px;
+    color: var(--text);
+    animation: modalSlideUp 0.22s ease;
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(18px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--text);
+    letter-spacing: 2px;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.modal-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), color var(--transition);
+    flex-shrink: 0;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.13);
+    color: var(--text);
+}
+
+.modal-tabs {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.modal-tab {
+    flex: 1;
+    padding: 9px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background var(--transition), color var(--transition);
+}
+
+.modal-tab:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-tab.active {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+}
+
+/* JS tarafından .error veya .success class'ı eklenir */
+.modal-feedback {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+.modal-feedback.error {
+    background: rgba(220, 38, 38, 0.14);
+    border: 1px solid rgba(220, 38, 38, 0.32);
+    color: #fca5a5;
+}
+
+.modal-feedback.success {
+    background: rgba(72, 159, 181, 0.14);
+    border: 1px solid rgba(72, 159, 181, 0.38);
+    color: var(--accent-soft);
+}
+
+.modal-form .input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.modal-form input,
+.modal-form select {
+    width: 100%;
+    padding: 25px 15px 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: var(--transition);
+    outline: none;
+}
+
+.modal-form select {
+    cursor: pointer;
+}
+
+.modal-form input:focus,
+.modal-form select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.modal-form input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Floating label — placeholder="" boş olmalı, :not(:placeholder-shown) buna bağlı */
+.modal-form .input-group label {
+    position: absolute;
+    left: 15px;
+    top: 40%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.modal-form input:focus + label,
+.modal-form input:not(:placeholder-shown) + label {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: var(--accent);
+    background-color: transparent;
+    padding: 0 5px;
+}
+
+.modal-form select:focus + label,
+.modal-form select:valid + label {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: var(--accent);
+    background-color: transparent;
+    padding: 0 5px;
+}
+
+/* Tarayıcı autocomplete arkaplan rengini ezer */
+.modal-form input:-webkit-autofill,
+.modal-form input:-webkit-autofill:hover,
+.modal-form input:-webkit-autofill:focus,
+.modal-form input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--bg) inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.modal-form .char-counter {
+    position: absolute;
+    right: 12px;
+    top: 20%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.modal-form input:focus ~ .char-counter {
+    color: rgba(240, 239, 244, 0.7);
+}
+
+.modal-form .error-msg {
+    display: none;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.modal-form .toggle-pass-btn {
+    position: absolute;
+    right: 15px;
+    top: 35%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    padding: 0;
+}
+
+.modal-form .toggle-pass-icon {
+    width: 25px;
+    height: auto;
+    filter: invert(1);
+    opacity: 0.6;
+}
+
+.modal-form .toggle-pass-btn:hover .toggle-pass-icon {
+    opacity: 0.9;
+}
+
+.modal-form .btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    color: var(--bg);
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 4px;
+}
+
+.modal-form .btn-submit:hover {
+    background-color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(252, 163, 17, 0.3);
+}
+
+.modal-form .btn-submit:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}

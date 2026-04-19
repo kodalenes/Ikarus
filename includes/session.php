@@ -10,7 +10,7 @@
     }
 
     function getUsername() : string{
-        return $_SESSION['username'];
+        return htmlspecialchars($_SESSION['username'] ?? '');
     }
 
     //Check user type func

@@ -42,9 +42,9 @@
             <button class="modal-close" onclick="closeModal()" aria-label="Close">X</button>
         </div>
 
-        <div class="model-tabs">
+        <div class="modal-tabs">
             <button id="tab-login" class="modal-tab active" onclick="switchTab('login')">Login</button>
-            <button id="tab-register" class="model tab" onclick="switchtab('register')">Register</button>
+            <button id="tab-register" class="modal-tab" onclick="switchTab('register')">Register</button>
         </div>
 
         <div id="modal-feedback" class="modal-feedback hidden"></div>
@@ -59,7 +59,7 @@
             
             <div class="input-group">
                 <input id ="modal-password" type="password" name="password" placeholder="" required>
-                <label for="moda-password">Password</label>
+                <label for="modal-password">Password</label>
                 
                 <button type="button" class="toggle-pass-btn" data-target="modal-password" >
                     <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
@@ -67,7 +67,7 @@
 
             </div>
             
-            <button id ="submit-btn" type="submit">Login</button>
+            <button class ="btn-submit" type="submit">Login</button>
 
         </form>
 
@@ -87,16 +87,15 @@
                 <span class="error-msg" id="modal-email-error"></span>
             </div>
             
-            <div>
-                <div class="input-group">
-                     <input id ="modal-reg-password" type="password" name="password" placeholder="" required>
-                     <label for="modal-reg-password">Password</label>
-                </div>
+            <div class="input-group">
+                 <input id ="modal-reg-password" type="password" name="password" placeholder="" required>
+                 <label for="modal-reg-password">Password</label>
 
-                <button type="button" class="toggle-pass-btn" data-target="modal-reg-password">
-                    <img id="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
-                </button>
-                <span class="error-msg" id="modal-password-error"></span>
+                 <button type="button" class="toggle-pass-btn" data-target="modal-reg-password">
+                     <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
+                 </button>
+                 
+                 <span class="error-msg" id="modal-password-error"></span>
             </div>
             
             <div class="input-group">
@@ -110,7 +109,7 @@
                 <span class="error-msg" id="modal-user-type-error" style="display: none;">Please select a user type!</span>
             </div>
 
-            <button id="submit-btn" type="submit">Register</button>
+            <button class="btn-submit" type="submit">Register</button>
 
             <div id="result"></div>
         </form> 
