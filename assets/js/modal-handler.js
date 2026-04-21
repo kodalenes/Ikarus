@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded" , () => {
+    
     //URL parametresi ile ottomatik acma
     const urlParams = new URLSearchParams(window.location.search);
     const modalParam = urlParams.get('modal'); // login veya register veya null
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded" , () => {
         history.replaceState(null ,'' ,window.location.pathname);
     }
 
+    //DOM elementleri
     const modal        = document.getElementById('auth-modal');
     const modalTitle   = document.getElementById('modal-title');
     const feedback     = document.getElementById('modal-feedback');
@@ -17,6 +19,23 @@ document.addEventListener("DOMContentLoaded" , () => {
     const tabLogin     = document.getElementById('tab-login');
     const tabRegister  = document.getElementById('tab-register');    
 
+    const registerRules = {
+        'modal-username' : {minLength: 4},
+        'modal-reg-email' : {regex : /^[^\s@]+@[^\s@]+\.[^\s@]+$/ , regexMessage : 'Invalid email format!'},
+        'modal-reg-password' : {
+            custom: (val) => {
+                if (val.length < 6) return 'Must include at least 6 characters!';
+                if (!/[A-Za-z]/.test(val)) return 'Must include at least one letter!';
+                if (!/\d/.test(val)) return 'Must include at least one digit!';
+                return '';
+            }
+        },
+        'modal-user-type' : {required: true}
+    };
+
+    const registerValidator = new FormValidator(registerForm, registerRules);
+
+
     //Modal acma kapama
     window.openModal = function(tab = 'login'){
         modal.classList.remove('hidden');
@@ -24,13 +43,16 @@ document.addEventListener("DOMContentLoaded" , () => {
         switchTab(tab);
     };
 
-    window.closeModal =function() {
+    window.closeModal = function() {
         modal.classList.add('hidden');
         document.body.style.overflow = '';
         clearFeedback();
         loginForm.reset();
         registerForm.reset();
-        clearAllErrors();
+        
+        if (typeof registerValidator !== 'undefined') {
+            registerValidator.resetErrors();
+        }
     };
 
     //Modal disina tiklayinca kapat
@@ -65,7 +87,6 @@ document.addEventListener("DOMContentLoaded" , () => {
     }
 
     //Feedback fonksiyonu
-
     function showFeedback(message, type ='error') {
         feedback.textContent = message;
         feedback.className = `modal-feedback ${type}`; //.error veya .success classi ekler
@@ -81,7 +102,6 @@ document.addEventListener("DOMContentLoaded" , () => {
     //Show / Hide Password
     //data-target attribute u ile hangi input u hedef aldigini gosterir
     //bu sekilde bir fonksiyon birden fazla sifre alanini yonetir.
-
     document.querySelectorAll('.toggle-pass-btn').forEach(btn => {
         btn.addEventListener('click' , () => {
             const targetId = btn.dataset.target;//data-target="modal-password"
@@ -95,13 +115,14 @@ document.addEventListener("DOMContentLoaded" , () => {
             if(input.type === 'password'){
                 input.type = 'text';
                 icon.src = '../assets/images/toggle_pass_hide.webp';
+            }else {
+                input.type = 'password';
+                icon.src = '../assets/images/toggle_pass_eye.webp';
             }
         });
     });
 
     // Auth endpointlerini mevcut sayfa konumuna gore uret.
-    // Proje XAMPP altinda /Ikarus gibi bir alt klasorde calisiyorsa
-    // mutlak "/auth/..." yolu 404'e duser.
     const loginEndpoint = new URL('../auth/login-action.php', window.location.href);
     const registerEndpoint = new URL('../auth/register-action.php', window.location.href);
 
@@ -178,104 +199,15 @@ document.addEventListener("DOMContentLoaded" , () => {
         }
     });
 
-    //RegisterForm
-    const usernameInput  = document.getElementById('modal-username');
-    const regEmailInput  = document.getElementById('modal-reg-email');
-    const regPassInput   = document.getElementById('modal-reg-password');
-    const userTypeSelect = document.getElementById('modal-user-type');
-    const charCounter    = document.getElementById('modal-char-counter');
- 
-    function setFieldError(input, errorId, message, isError) {
-        const errorEl = document.getElementById(errorId);
-        if (!errorEl) return;
- 
-        if (isError) {
-            errorEl.textContent = message;
-            errorEl.style.display = 'block';
-            input.style.borderColor = 'var(--accent, #489fb5)';
-            input.dataset.hasError = 'true';
-        } else {
-            errorEl.style.display = 'none';
-            input.style.borderColor = '';
-            input.dataset.hasError = 'false';
-        }
-    }
- 
-    function clearAllErrors() {
-        document.querySelectorAll('.modal-form .error-msg').forEach(el => {
-            el.style.display = 'none';
-            el.textContent = '';
-        });
-        document.querySelectorAll('.modal-form input, .modal-form select').forEach(el => {
-            el.style.borderColor = '';
-            el.dataset.hasError = 'false';
-        });
-    }
- 
-    // Kullanıcı adı: anlık karakter sayacı ve format kontrolü
-    if (usernameInput) {
-        usernameInput.addEventListener('input', () => {
-            const val = usernameInput.value.trim();
-            charCounter.textContent = `${val.length} / 20`;
- 
-            if (val.length > 0 && val.length < 4) {
-                setFieldError(usernameInput, 'modal-username-error', 'Must be include at least 5 characters!', true);
-            } else {
-                setFieldError(usernameInput, 'modal-username-error', '', false);
-            }
-        });
-    }
- 
-    // E-posta: regex formatı kontrolü
-    if (regEmailInput) {
-        regEmailInput.addEventListener('input', () => {
-            const val   = regEmailInput.value.trim();
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const isErr = val.length > 0 && !regex.test(val);
-            setFieldError(regEmailInput, 'modal-email-error', 'Inalid email format!', isErr);
-        });
-    }
- 
-    // Şifre: uzunluk, harf ve rakam kontrolü
-    if (regPassInput) {
-        regPassInput.addEventListener('input', () => {
-            const val = regPassInput.value;
-            let msg = '';
-            if (val.length > 0 && val.length < 6)      msg = 'Must be include at least 6 characters!';
-            else if (val.length > 0 && !/[A-Za-z]/.test(val)) msg = 'Must be include at least one letter!';
-            else if (val.length > 0 && !/\d/.test(val))        msg = 'Must be include at least one digit!';
-            setFieldError(regPassInput, 'modal-password-error', msg, msg !== '');
-        });
-    }
- 
-    // Select kutusu değişince hata mesajını temizle
-    if (userTypeSelect) {
-        userTypeSelect.addEventListener('change', () => {
-            setFieldError(userTypeSelect, 'modal-user-type-error', '', false);
-        });
-    }    
-
     //Register form submit
     registerForm.addEventListener('submit' , async (e) => {
         e.preventDefault();
         clearFeedback();
 
-        [usernameInput, regEmailInput, regPassInput].forEach(input => {
-            if (input) input.dispatchEvent(new Event('input'));
-        });
- 
-        if (!userTypeSelect.value) {
-            setFieldError(userTypeSelect, 'modal-user-type-error', 'Please select user type!', true);
+        if (registerValidator.validateAll()) {
             return;
         }
- 
-        // Herhangi bir alanda hata var mı?
-        const hasErrors = Array.from(
-            registerForm.querySelectorAll('input, select')
-        ).some(el => el.dataset.hasError === 'true');
- 
-        if (hasErrors) return;
- 
+        
         // Mevcut register-action.php dosyan — hiç değişmedi!
         const data = await submitForm(registerForm, registerEndpoint);
  

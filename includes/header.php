@@ -84,7 +84,7 @@
             <div class="input-group">
                 <input id="modal-reg-email" type="email" name="email" placeholder="" required>
                 <label for="modal-reg-email">Email</label>
-                <span class="error-msg" id="modal-email-error"></span>
+                <span class="error-msg" id="modal-reg-email-error"></span>
             </div>
             
             <div class="input-group">
@@ -95,7 +95,7 @@
                      <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
                  </button>
                  
-                 <span class="error-msg" id="modal-password-error"></span>
+                 <span class="error-msg" id="modal-reg-password-error"></span>
             </div>
             
             <div class="input-group">

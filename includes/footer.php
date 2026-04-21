@@ -6,5 +6,6 @@
     </div>
  </footer>
 
+ <script src="../assets/js/FormValidator.js"></script>
  <script src="../assets/js/utils.js"></script>
  <script src="../assets/js/modal-handler.js"></script>
