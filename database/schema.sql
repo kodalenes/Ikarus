@@ -13,6 +13,8 @@ CREATE TABLE Team (
     name VARCHAR(50) NOT NULL,
     rank_point DECIMAL(18,6) DEFAULT 0 NOT NULL,
     logo_url VARCHAR(255),
+    invitation_code CHAR(8) UNIQUE,
+    captain_id      BIGINT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
@@ -21,7 +23,7 @@ CREATE TABLE Player (
     id BIGINT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password_hash CHAR(64) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
     birth_date DATETIME,
     registered_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
     team_id BIGINT,
@@ -89,13 +91,33 @@ CREATE TABLE tournament_sponsor (
     PRIMARY KEY (tournament_id, sponsor_id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE tournament_team (
+    team_id       BIGINT   NOT NULL,
+    tournament_id BIGINT   NOT NULL,
+    registered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (team_id, tournament_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE Invitations (
+    id           BIGINT      NOT NULL AUTO_INCREMENT,
+    team_id      BIGINT      NOT NULL,
+    sender_id    BIGINT      NOT NULL,
+    receiver_id  BIGINT      NOT NULL,
+    status       ENUM('pending' , 'accepted' , 'declined') NOT NULL DEFAULT 'pending',
+    sent_at      DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    responded_at DATETIME    NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT Inv_Unique_Pending UNIQUE (team_id, receiver_id, status)
+) ENGINE=InnoDB;
+
 ALTER TABLE Matches 
 ADD CONSTRAINT match_scores_ck 
 CHECK (score_team1 >= 0 AND score_team2 >= 0);
 
 ALTER TABLE Matches 
-ADD CONSTRAINT Matches_Player_FK 
-FOREIGN KEY (referee_id) REFERENCES Player (id);
+ADD CONSTRAINT Matches_Referee_FK 
+FOREIGN KEY (referee_id) REFERENCES Referee(id)
+ON DELETE SET NULL;
 
 ALTER TABLE Matches 
 ADD CONSTRAINT Matches_Home_Team_FK 
@@ -112,6 +134,11 @@ FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
 ALTER TABLE Player ADD CONSTRAINT Player_Team_FK 
 FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE SET NULL;
 
+ALTER TABLE Team
+    ADD CONSTRAINT Team_Captain_FK
+    FOREIGN KEY (captain_id) REFERENCES Player (id)
+    ON DELETE SET NULL;
+
 ALTER TABLE Prize 
 ADD CONSTRAINT prize_amount_ck CHECK (amount > 0);
 
@@ -122,6 +149,10 @@ FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
 ALTER TABLE Referee 
 ADD CONSTRAINT Referee_Player_FK 
 FOREIGN KEY (id) REFERENCES Player (id);
+
+ALTER TABLE Referee
+    ADD CONSTRAINT Referee_Game_FK
+    FOREIGN KEY (expertise_game_id) REFERENCES Game (id);
 
 ALTER TABLE Tournament 
 ADD CONSTRAINT tournament_dates_ck CHECK (end_date >= start_date);
@@ -144,3 +175,23 @@ FOREIGN KEY (sponsor_id) REFERENCES Sponsor (id);
 ALTER TABLE tournament_sponsor 
 ADD CONSTRAINT Tour_Spon_Tournament_FK 
 FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
+
+ALTER TABLE tournament_team
+    ADD CONSTRAINT TournTeam_Team_FK
+    FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE;
+
+ALTER TABLE tournament_team
+    ADD CONSTRAINT TournTeam_Tournament_FK
+    FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE;
+
+ALTER TABLE Invitations
+    ADD CONSTRAINT Invitations_Team_FK
+    FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE;
+
+ALTER TABLE Invitations
+    ADD CONSTRAINT Invitations_Sender_FK
+    FOREIGN KEY (sender_id) REFERENCES Player (id) ON DELETE CASCADE;
+
+ALTER TABLE Invitations
+    ADD CONSTRAINT Invitations_Receiver_FK
+    FOREIGN KEY (receiver_id) REFERENCES Player (id) ON DELETE CASCADE;
