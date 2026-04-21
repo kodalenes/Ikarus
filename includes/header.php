@@ -94,7 +94,7 @@
                  <button type="button" class="toggle-pass-btn" data-target="modal-reg-password">
                      <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
                  </button>
-                 
+                
                  <span class="error-msg" id="modal-reg-password-error"></span>
             </div>
             
@@ -106,7 +106,7 @@
                 </select>
 
                 <label for="modal-user-type">User Type</label>
-                <span class="error-msg" id="modal-user-type-error" style="display: none;">Please select a user type!</span>
+                <span class="error-msg" id="modal-user-type-error">Please select a user type!</span>
             </div>
 
             <button class="btn-submit" type="submit">Register</button>

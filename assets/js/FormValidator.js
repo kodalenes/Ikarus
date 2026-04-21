@@ -63,11 +63,11 @@ class FormValidator {
         //Hata varsa yazdir
         if (isError) {
             errorElement.textContent = message;
-            errorElement.style.display = 'block';
+            errorElement.classList.add('show-error');
             input.style.borderColor = 'var(--accent, #489fb5)';
             input.dataset.hasError = 'true';
         }else {
-            errorElement.style.display = 'none';
+            errorElement.classList.remove('show-error');
             input.style.borderColor = '';
             input.dataset.hasError = 'false';
         }

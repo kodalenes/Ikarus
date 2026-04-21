@@ -67,9 +67,15 @@ document.addEventListener("DOMContentLoaded" , () => {
         }
     });
 
+    let resizeTimeout;
     //Tab gecisi Login <-> Register
     window.switchTab = function(tab) {
         clearFeedback();
+
+        const modalBox = document.querySelector('.modal-box');
+        
+        const startHeight = modalBox.offsetHeight;
+        modalBox.style.height = startHeight + 'px';
 
         if (tab === 'login') {
             loginForm.classList.remove('hidden');
@@ -84,19 +90,35 @@ document.addEventListener("DOMContentLoaded" , () => {
             tabLogin.classList.remove('active');
             modalTitle.textContent = 'Register';
         }
+
+        modalBox.style.height = 'auto';
+        const targetHeight = modalBox.offsetHeight;
+        modalBox.style.height = startHeight + 'px';
+
+        modalBox.offsetHeight;
+        modalBox.style.height = targetHeight + 'px';
+
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            modalBox.style.height = 'auto';
+        }, 300);
     }
 
     //Feedback fonksiyonu
     function showFeedback(message, type ='error') {
         feedback.textContent = message;
-        feedback.className = `modal-feedback ${type}`; //.error veya .success classi ekler
-        feedback.classList.remove('hidden');
+        feedback.className = `modal-feedback ${type} show-feedback`; //.error veya .success classi ekler
     }
 
     function clearFeedback() {
-        feedback.classList.add('hidden');
-        feedback.textContent = '';
-        feedback.className = 'modal-feedback hidden';
+        feedback.classList.remove('show-feedback');
+
+        setTimeout(() => {
+            if (!feedback.classList.contains('show-feedback')) {
+                feedback.textContent = '';
+                feedback.className = 'modal-feedback';
+            }
+        }, 300);
     }
 
     //Show / Hide Password
