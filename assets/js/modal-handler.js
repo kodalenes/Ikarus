@@ -99,6 +99,12 @@ document.addEventListener("DOMContentLoaded" , () => {
         });
     });
 
+    // Auth endpointlerini mevcut sayfa konumuna gore uret.
+    // Proje XAMPP altinda /Ikarus gibi bir alt klasorde calisiyorsa
+    // mutlak "/auth/..." yolu 404'e duser.
+    const loginEndpoint = new URL('../auth/login-action.php', window.location.href);
+    const registerEndpoint = new URL('../auth/register-action.php', window.location.href);
+
     //Veritabani form gonderimi
     //Iki formda ayni seyi kullaniyor 
     //FormData olusturup fetch ile gondericez
@@ -112,7 +118,27 @@ document.addEventListener("DOMContentLoaded" , () => {
         try {
             const formData = new FormData(form);
             const response = await fetch(endpoint, {method: 'POST' , body: formData});
-            const data = await response.json();
+            const rawResponse = await response.text();
+            let data;
+
+            try {
+                data = JSON.parse(rawResponse);
+            } catch (parseError) {
+                console.error('Invalid JSON response:' , rawResponse);
+                return {
+                    status: 'error',
+                    message: response.ok
+                        ? 'Unexpected server response, please try again.'
+                        : `Request failed (${response.status}).`
+                };
+            }
+
+            if (!response.ok) {
+                return {
+                    status: 'error',
+                    message: data.message || `Request failed (${response.status}).`
+                };
+            }
 
             return data;
         } catch (err) {
@@ -138,7 +164,7 @@ document.addEventListener("DOMContentLoaded" , () => {
             return;
         }
 
-        const data = await submitForm(loginForm, '/auth/login-action.php');
+        const data = await submitForm(loginForm, loginEndpoint);
 
         if (data.status === 'success') {
             showFeedback('Logged In! You are being redirected...' , 'success');
@@ -251,7 +277,7 @@ document.addEventListener("DOMContentLoaded" , () => {
         if (hasErrors) return;
  
         // Mevcut register-action.php dosyan — hiç değişmedi!
-        const data = await submitForm(registerForm, '/auth/register-action.php');
+        const data = await submitForm(registerForm, registerEndpoint);
  
         if (data.status === 'success') {
             showFeedback('Successfully registered! Logging in...', 'success');

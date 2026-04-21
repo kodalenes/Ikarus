@@ -22,7 +22,7 @@
             <?php if (isLoggedIn()): ?>
                 <!-- Kullanıcı giriş yapmışsa: adını ve çıkış butonunu göster -->
                 <span class="welcome-text">Welcome, <strong><?= getUsername() ?></strong></span>
-                <a href="/auth/logout.php" class="btn-outline-header">Logout</a>
+                <a href="../auth/logout.php" class="btn-outline-header">Logout</a>
             <?php else: ?>
                 <button class="btn-outline-header" onclick="openModal('login')">Login</button>
                 <button class="btn-primary-header" onclick="openModal('register')">Register</button>
@@ -71,7 +71,7 @@
 
         </form>
 
-        <!--LOGIN FORM -->
+        <!--REGISTER FORM -->
         <form id="modal-register-form" class="modal-form hidden" novalidate>
             
             <div class="input-group">
