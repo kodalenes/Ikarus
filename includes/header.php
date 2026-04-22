@@ -7,7 +7,7 @@
 
         <a href="../pages/index.php" class="logo">
             <div class="logo-icon">
-                <img src="" alt="Logo">
+                <img src="../assets/images/Ikarus_Logo.webp" alt="Logo">
             </div>
             IKARUS
         </a>
