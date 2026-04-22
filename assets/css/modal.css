@@ -282,6 +282,29 @@
     opacity: 0.9;
 }
 
+.remember-me-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.remember-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--text-muted, #aaa);
+    user-select: none;
+}
+
+.remember-label input[type="checkbox"] {
+    accent-color: var(--accent, #489fb5);
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
 .modal-form .btn-submit {
     width: 100%;
     padding: 15px;

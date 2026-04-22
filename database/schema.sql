@@ -110,6 +110,16 @@ CREATE TABLE Invitations (
     CONSTRAINT Inv_Unique_Pending UNIQUE (team_id, receiver_id, status)
 ) ENGINE=InnoDB;
 
+CREATE TABLE Remember_Tokens (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    player_id   BIGINT NOT NULL,
+    token_hash  VARCHAR(64) NOT NULL,
+    expires_at  DATETIME NOT NULL,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
+    INDEX idx_token_hash (token_hash)
+);
+
 ALTER TABLE Matches 
 ADD CONSTRAINT match_scores_ck 
 CHECK (score_team1 >= 0 AND score_team2 >= 0);

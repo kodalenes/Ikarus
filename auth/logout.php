@@ -1,5 +1,11 @@
 <?php
+    require_once '../includes/db.php';
+    require_once '../includes/remember_me.php';
     require_once '../includes/session.php';
+
+    if (isset($_SESSION['user_id'])) {
+        clearRememberToken($pdo, $_SESSION['user_id']);
+    }
 
     $_SESSION = [];//veriyi temizleriz
 

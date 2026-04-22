@@ -63,8 +63,14 @@
                 
                 <button type="button" class="toggle-pass-btn" data-target="modal-password" >
                     <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
-                </button>
+                </button>    
+            </div>
 
+            <div class="remember-me-group">
+                <label class="remember-label">
+                    <input type="checkbox" name="remember-me" id="remember-me-check">
+                    <span class="rememebr-text">Remember Me</span>
+                </label>
             </div>
             
             <button class ="btn-submit" type="submit">Login</button>
