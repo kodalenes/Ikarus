@@ -120,6 +120,23 @@ CREATE TABLE Remember_Tokens (
     INDEX idx_token_hash (token_hash)
 );
 
+CREATE TABLE Tournament_Rule (
+    id  BIGINT AUTO_INCREMENT PRIMARY KEY ,
+    tournament_id   BIGINT NOT NULL,
+    rule_text   TEXT NOT NULL,
+    sort_order  INT DEFAULT 0,
+    FOREIGN KEY (tournament_id) REFERENCES Tournament(id) ON DELETE CASCADE
+)ENGINE = InnoDB;
+
+ALTER TABLE Tournament
+    ADD COLUMN IF NOT EXIST desciption          TEXT,
+    ADD COLUMN IF NOT EXIST checkin_minutes     INT DEFAULT 15,
+    ADD COLUMN IF NOT EXIST noshow_minutes      INT DEFAULT 10,
+    ADD COLUMN IF NOT EXIST prize_1st           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXIST prize_2nd           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXIST prize_3rd           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXIST created_at          DATETIME DEFAULT CURRENT_TIMESTAMP;
+
 ALTER TABLE Matches 
 ADD CONSTRAINT match_scores_ck 
 CHECK (score_team1 >= 0 AND score_team2 >= 0);
