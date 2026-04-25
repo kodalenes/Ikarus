@@ -182,7 +182,7 @@
             </div>
 
             <div class ="op-field">
-                <label class="op-select">Max Team Count *</label>
+                <label class="op-label">Max Team Count *</label>
                 <select class="op-select" name="max_teams" required>
                     <?php foreach([4,8,16,32,64] as $n): ?>
                         <option value="<?= $n ?>"
