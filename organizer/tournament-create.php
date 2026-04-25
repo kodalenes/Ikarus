@@ -21,9 +21,9 @@
         try {
             $stmt = $pdo->prepare("SELECT * FROM Tournament WHERE id = ? AND organizer_id = ?");
             $stmt->execute([$editId, $orgId]);
-            $tournmanent = $stmt->fetch();
+            $tournament = $stmt->fetch();
 
-            if (!$torunament) {
+            if (!$tournament) {
                 header('Location: tournaments.php');
                 exit;
             }
@@ -49,7 +49,7 @@
         $checkIn    = (int)($_POST['checkin_minutes'] ?? 15);
         $noshow     = (int)($_POST['noshow_minutes'] ?? 10);
         $description =trim($_POST['description'] ?? '');
-        $status     = $_POST['status'] ?? 'draft';
+        $status     = $_POST['status_override'] ?? 'draft';
         $ruleTexts  = $_POST['rules'] ?? [];
 
         //Validasyon
@@ -86,7 +86,7 @@
                     $tournament = $editId;
 
                     //Kurallaru sil ve yeniden ekle
-                    $pdo->prepare("DELETE FROM Tournament_Rule WHERE tournament_id = ?")->execute([$tournamentId]);
+                    $pdo->prepare("DELETE FROM Tournament_Rule WHERE tournament_id = ?")->execute([$editId]);
                 }else {
                     $pdo->prepare("
                         INSERT INTO Tournament(name,game_id,max_teams,prize_pool,start_date,end_date,status,organizer_id)
@@ -109,7 +109,7 @@
 
                 $pdo->commit();
 
-                $succes = $isEdit
+                $success = $isEdit
                     ? 'Tournament successfully updated.'
                     : 'Tournament successfully created.';
 
@@ -148,7 +148,7 @@
 <?php endif; ?>
 
 <?php if(isset($_GET['created'])): ?>
-    <div class="op-alert op-alert--succes">
+    <div class="op-alert op-alert--success">
         Tournament created! You can edit rules or 
         <a href="tournaments.php" class="op-link">back to tournaments list.</a>
     </div>
@@ -315,7 +315,7 @@
 
         <div class="op-form-actions">
             <a href="tournaments.php" class="op-btn op-btn--ghost">Cancel</a>
-            <button type="submit" name="status_override" value="draft" class="op-btn- op-btn--ghost">
+            <button type="submit" name="status_override" value="draft" class="op-btn op-btn--ghost">
                 Save Draft
             </button>
             <button type="submit" class="op-btn op-btn--primary">
