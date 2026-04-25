@@ -7,7 +7,7 @@
     $currentPage = basename($_SERVER['PHP_SELF']);
 
     $menuItem = [
-        ['file' => 'dashboard.php',                 'label' => 'Dashboard',         'icon' => 'dashboard'],
+        ['file' => 'dashboard.php',                     'label' => 'Dashboard',         'icon' => 'dashboard'],
         ['file' => 'tournaments.php',               'label' => 'Tournaments',       'icon' => 'trophy'],
         ['file' => 'tournament-create.php',         'label' => 'New Tournaments',   'icon' => 'plus'],
         ['file' => 'match-results.php',             'label' => 'Match Results',     'icon' => 'match'],
@@ -58,7 +58,7 @@
  
     <!-- SIDEBAR -->
     <aside class="op-sidebar">
-        <a href="../pages/dashboard.php" class="op-sb-logo">
+        <a href="../pages/index.php" class="op-sb-logo">
             IKA<span>RUS</span>
         </a>
  
