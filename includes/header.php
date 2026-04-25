@@ -1,6 +1,10 @@
 <?php
     require_once __DIR__ . "/session.php";
 ?>
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/index.css">
+<link rel="stylesheet" href="../assets/css/modal.css">
+<link rel="stylesheet" href="../assets/css/utils.css">
 
 <header class="site-header">
     <div class="header-inner">
