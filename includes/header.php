@@ -16,6 +16,9 @@
             <a href="../pages/tournaments.php">Tournaments</a>
             <a href="../pages/team.php">Team</a>
             <a href="../pages/leaderboard">Leaderboard</a>
+            <?php if(isOrganizer() || isAdmin()): ?>
+                <a href="../organizer/dashboard.php" class="nav-link-panel">Organizer Panel</a>
+            <?php endif; ?>
         </nav>
 
         <div class="header-auth">

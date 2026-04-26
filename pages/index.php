@@ -162,7 +162,7 @@
             <!--Sol Aktif turnuvalar -->
             <div class="home-section">
                 <div class="home-section-header">
-                    <h2 class="home-section-title">Active Tournaments</h2>
+                    <a href="tournaments.php" class="home-section-title">Active Tournaments</a>
                     <a href="tournaments.php" class="home-section-link">See All</a>
                 </div>
 
@@ -228,7 +228,7 @@
             <!--Sag Top 5 Leaderboard -->
             <div class="home-section">
                 <div class="home-section-header">
-                    <h2 class="home-section-title">Leaderboard</h2>
+                    <a href="leaderboard.php" class="home-section-title">Leaderboard</a>
                     <a href="leaderboard.php" class="home-section-link">See All</a>
                 </div>
 

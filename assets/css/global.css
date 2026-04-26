@@ -109,6 +109,21 @@ a {
     text-decoration: none;
 }
 
+.nav-link-panel {
+    color: var(--accent) !important;
+    border: 1px solid rgba(72, 159, 181, 0.35);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 13px;
+    transition: background var(--transition), border-color var(--transition);
+}
+ 
+.nav-link-panel:hover {
+    background: rgba(72, 159, 181, 0.1);
+    border-color: var(--accent);
+    color: var(--accent-soft) !important;
+}
+
 .nav-links a:hover {
     color: var(--text);
 }
