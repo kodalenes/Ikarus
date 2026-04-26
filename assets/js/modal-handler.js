@@ -98,7 +98,11 @@ document.addEventListener("DOMContentLoaded" , () => {
 
             //1 saniye sorna sayfa yeniliyoruz Cunku PHP session olustu
             setTimeout(() => {
-                window.location.reload();
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }else {
+                    window.location.reload();
+                }
             }, 1000);
         }else {
             showFeedback(data.message);

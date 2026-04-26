@@ -32,7 +32,17 @@
                     setRememberToken($pdo, $user['id']);
                 }
 
-                echo json_encode(['status' => 'success' , 'message' => 'Login succesfull!']);
+                //Organizer giris yapiyorsa organizer dashboarda gitsin
+                $redirect = match($user['user_type']){
+                    'organizer' , 'admin'   => '/Ikarus/organizer/dashboard.php',
+                    default                 => null //playersa ayni devam
+                };
+
+                echo json_encode([
+                    'status'    => 'success',
+                    'message'   => 'Login succesfull!',
+                    'redirect'  => $redirect
+                ]);
             }else {
                 echo json_encode(['status' => 'error' , 'message' => 'Email or password is incorrect.!']);
             }

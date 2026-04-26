@@ -129,13 +129,13 @@ CREATE TABLE Tournament_Rule (
 )ENGINE = InnoDB;
 
 ALTER TABLE Tournament
-    ADD COLUMN IF NOT EXIST desciption          TEXT,
-    ADD COLUMN IF NOT EXIST checkin_minutes     INT DEFAULT 15,
-    ADD COLUMN IF NOT EXIST noshow_minutes      INT DEFAULT 10,
-    ADD COLUMN IF NOT EXIST prize_1st           DECIMAL(10,2),
-    ADD COLUMN IF NOT EXIST prize_2nd           DECIMAL(10,2),
-    ADD COLUMN IF NOT EXIST prize_3rd           DECIMAL(10,2),
-    ADD COLUMN IF NOT EXIST created_at          DATETIME DEFAULT CURRENT_TIMESTAMP;
+    ADD COLUMN IF NOT EXISTS desciption          TEXT,
+    ADD COLUMN IF NOT EXISTS checkin_minutes     INT DEFAULT 15,
+    ADD COLUMN IF NOT EXISTS noshow_minutes      INT DEFAULT 10,
+    ADD COLUMN IF NOT EXISTS prize_1st           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXISTS prize_2nd           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXISTS prize_3rd           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXISTS created_at          DATETIME DEFAULT CURRENT_TIMESTAMP;
 
 ALTER TABLE Matches 
 ADD CONSTRAINT match_scores_ck 

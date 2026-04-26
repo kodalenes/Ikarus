@@ -3,7 +3,7 @@
 
     $pageTitle = 'Dashboard';
     $pageSubtitle = 'Overview';
-    $pageAction = ['href' => 'tournament-create.php', 'label' => '+New Tournament'];
+    $pageAction = ['href' => 'tournament-create.php', 'label' => '+ New Tournament'];
 
     //Stats
     try {
