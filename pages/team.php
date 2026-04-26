@@ -3,7 +3,7 @@ require_once '../includes/session.php';
 
 // Giriş zorunlu
 if (!isLoggedIn()) {
-    header('Location: /pages/index.php?modal=login');
+    header('Location: index.php?modal=login');
     exit;
 }
 

@@ -1,15 +1,5 @@
 document.addEventListener("DOMContentLoaded" , () => {
     
-    //URL parametresi ile ottomatik acma
-    const urlParams = new URLSearchParams(window.location.search);
-    const modalParam = urlParams.get('modal'); // login veya register veya null
-
-    if(modalParam === 'login' || modalParam === 'register'){
-        openModal(modalParam);
-        //url den parametreyi temizle temiz gozukmesi icin
-        history.replaceState(null ,'' ,window.location.pathname);
-    }
-
     //DOM elementleri
     const modal        = document.getElementById('auth-modal');
     const modalTitle   = document.getElementById('modal-title');
@@ -18,91 +8,8 @@ document.addEventListener("DOMContentLoaded" , () => {
     const registerForm = document.getElementById('modal-register-form');
     const tabLogin     = document.getElementById('tab-login');
     const tabRegister  = document.getElementById('tab-register');    
-
-    const registerRules = {
-        'modal-username' : {minLength: 4},
-        'modal-reg-email' : {regex : /^[^\s@]+@[^\s@]+\.[^\s@]+$/ , regexMessage : 'Invalid email format!'},
-        'modal-reg-password' : {
-            custom: (val) => {
-                if (val.length < 6) return 'Must include at least 6 characters!';
-                if (!/[A-Za-z]/.test(val)) return 'Must include at least one letter!';
-                if (!/\d/.test(val)) return 'Must include at least one digit!';
-                return '';
-            }
-        },
-        'modal-user-type' : {required: true}
-    };
-
-    const registerValidator = new FormValidator(registerForm, registerRules);
-
-
-    //Modal acma kapama
-    window.openModal = function(tab = 'login'){
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        switchTab(tab);
-    };
-
-    window.closeModal = function() {
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-        clearFeedback();
-        loginForm.reset();
-        registerForm.reset();
-        
-        if (typeof registerValidator !== 'undefined') {
-            registerValidator.resetErrors();
-        }
-    };
-
-    //Modal disina tiklayinca kapat
-    modal.addEventListener('click' ,(e) => {
-        if(e.target === modal) closeModal();
-    });
-
-    //Escape tusuna basinca kapat
-    document.addEventListener('keydown' , (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-            closeModal();
-        }
-    });
-
-    let resizeTimeout;
-    //Tab gecisi Login <-> Register
-    window.switchTab = function(tab) {
-        clearFeedback();
-
-        const modalBox = document.querySelector('.modal-box');
-        
-        const startHeight = modalBox.offsetHeight;
-        modalBox.style.height = startHeight + 'px';
-
-        if (tab === 'login') {
-            loginForm.classList.remove('hidden');
-            registerForm.classList.add('hidden');
-            tabLogin.classList.add('active');
-            tabRegister.classList.remove('active');
-            modalTitle.textContent = 'Login';
-        } else {
-            registerForm.classList.remove('hidden');
-            loginForm.classList.add('hidden');
-            tabRegister.classList.add('active');
-            tabLogin.classList.remove('active');
-            modalTitle.textContent = 'Register';
-        }
-
-        modalBox.style.height = 'auto';
-        const targetHeight = modalBox.offsetHeight;
-        modalBox.style.height = startHeight + 'px';
-
-        modalBox.offsetHeight;
-        modalBox.style.height = targetHeight + 'px';
-
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            modalBox.style.height = 'auto';
-        }, 300);
-    }
+    
+    if (!modal) { return;}
 
     //Feedback fonksiyonu
     function showFeedback(message, type ='error') {
@@ -121,30 +28,7 @@ document.addEventListener("DOMContentLoaded" , () => {
         }, 300);
     }
 
-    //Show / Hide Password
-    //data-target attribute u ile hangi input u hedef aldigini gosterir
-    //bu sekilde bir fonksiyon birden fazla sifre alanini yonetir.
-    document.querySelectorAll('.toggle-pass-btn').forEach(btn => {
-        btn.addEventListener('click' , () => {
-            const targetId = btn.dataset.target;//data-target="modal-password"
-            const input = document.getElementById(targetId);
-            const icon = btn.querySelector('.toggle-pass-icon');
-
-            if (!input) {
-                return;
-            }
-
-            if(input.type === 'password'){
-                input.type = 'text';
-                icon.src = '../assets/images/toggle_pass_hide.webp';
-            }else {
-                input.type = 'password';
-                icon.src = '../assets/images/toggle_pass_eye.webp';
-            }
-        });
-    });
-
-    // Auth endpointlerini mevcut sayfa konumuna gore uret.
+        // Auth endpointlerini mevcut sayfa konumuna gore uret.
     const loginEndpoint = new URL('../auth/login-action.php', window.location.href);
     const registerEndpoint = new URL('../auth/register-action.php', window.location.href);
 
@@ -246,5 +130,124 @@ document.addEventListener("DOMContentLoaded" , () => {
         } else {
             showFeedback(data.message);
         }
-    })
+    });
+
+    const registerRules = {
+        'modal-username' : {minLength: 4},
+        'modal-reg-email' : {regex : /^[^\s@]+@[^\s@]+\.[^\s@]+$/ , regexMessage : 'Invalid email format!'},
+        'modal-reg-password' : {
+            custom: (val) => {
+                if (val.length < 6) return 'Must include at least 6 characters!';
+                if (!/[A-Za-z]/.test(val)) return 'Must include at least one letter!';
+                if (!/\d/.test(val)) return 'Must include at least one digit!';
+                return '';
+            }
+        },
+        'modal-user-type' : {required: true}
+    };
+
+    const registerValidator = new FormValidator(registerForm, registerRules);
+
+        let resizeTimeout;
+    //Tab gecisi Login <-> Register
+    window.switchTab = function(tab) {
+        clearFeedback();
+
+        const modalBox = document.querySelector('.modal-box');
+        
+        const startHeight = modalBox.offsetHeight;
+        modalBox.style.height = startHeight + 'px';
+
+        if (tab === 'login') {
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+            tabLogin.classList.add('active');
+            tabRegister.classList.remove('active');
+            modalTitle.textContent = 'Login';
+        } else {
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+            tabRegister.classList.add('active');
+            tabLogin.classList.remove('active');
+            modalTitle.textContent = 'Register';
+        }
+
+        modalBox.style.height = 'auto';
+        const targetHeight = modalBox.offsetHeight;
+        modalBox.style.height = startHeight + 'px';
+
+        modalBox.offsetHeight;
+        modalBox.style.height = targetHeight + 'px';
+
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            modalBox.style.height = 'auto';
+        }, 300);
+    }
+
+    //Modal acma kapama
+    window.openModal = function(tab = 'login'){
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        switchTab(tab);
+    };
+
+    window.closeModal = function() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+        clearFeedback();
+        loginForm.reset();
+        registerForm.reset();
+        
+        if (typeof registerValidator !== 'undefined') {
+            registerValidator.resetErrors();
+        }
+    };
+
+    //URL parametresi ile ottomatik acma
+    const urlParams = new URLSearchParams(window.location.search);
+    const modalParam = urlParams.get('modal'); // login veya register veya null
+
+    if(modalParam === 'login' || modalParam === 'register'){
+        openModal(modalParam);
+        //url den parametreyi temizle temiz gozukmesi icin
+        history.replaceState(null ,'' ,window.location.pathname);
+    }
+
+    //Modal disina tiklayinca kapat
+    modal.addEventListener('click' ,(e) => {
+        if(e.target === modal) closeModal();
+    });
+
+    //Escape tusuna basinca kapat
+    document.addEventListener('keydown' , (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    //Show / Hide Password
+    //data-target attribute u ile hangi input u hedef aldigini gosterir
+    //bu sekilde bir fonksiyon birden fazla sifre alanini yonetir.
+    document.querySelectorAll('.toggle-pass-btn').forEach(btn => {
+        btn.addEventListener('click' , () => {
+            const targetId = btn.dataset.target;//data-target="modal-password"
+            const input = document.getElementById(targetId);
+            const icon = btn.querySelector('.toggle-pass-icon');
+
+            if (!input) {
+                return;
+            }
+
+            if(input.type === 'password'){
+                input.type = 'text';
+                icon.src = '../assets/images/toggle_pass_hide.webp';
+            }else {
+                input.type = 'password';
+                icon.src = '../assets/images/toggle_pass_eye.webp';
+            }
+        });
+    });
+
+
 });
