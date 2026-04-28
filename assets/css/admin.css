@@ -1,0 +1,207 @@
+/* ─── ADMIN PANEL — organizer.css üzerine ek stiller ─────────────── */
+
+/* Sidebar — kırmızımsı admin aksanı */
+.adm-sidebar {
+    border-right-color: rgba(220, 38, 38, 0.2);
+}
+
+.adm-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adm-logo-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.25);
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+/* Avatar ve rol rengi */
+.adm-avatar {
+    background: rgba(220, 38, 38, 0.15) !important;
+    color: #f87171 !important;
+}
+
+.adm-role {
+    color: #f87171 !important;
+}
+
+/* Sidebar aktif item — kırmızı vurgu */
+.adm-sidebar .op-sb-item.active {
+    color: #f87171;
+    background: rgba(220, 38, 38, 0.07);
+    border-left-color: #f87171;
+}
+
+/* Topbar */
+.adm-topbar {
+    border-bottom-color: rgba(220, 38, 38, 0.15);
+    background: rgba(30, 10, 10, 0.6);
+}
+
+.adm-env-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(220, 38, 38, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Primary button — admin kırmızısı */
+.adm-btn-primary {
+    background: rgba(220, 38, 38, 0.85) !important;
+    border-color: #dc2626 !important;
+    color: #fff !important;
+}
+
+.adm-btn-primary:hover {
+    background: #dc2626 !important;
+}
+
+/* Stat grid — 3 kolon (dashboard'da 6 kart için 2 satır) */
+.adm-stat-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.adm-prize-val {
+    color: var(--highlight) !important;
+}
+
+/* İki kolon layout */
+.adm-two-col {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+/* Son turnuvalar - satır görünümü */
+.adm-t-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.adm-t-row:last-child {
+    border-bottom: none;
+}
+
+.adm-t-info {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Role badge — admin */
+.adm-badge--admin {
+    background: rgba(220, 38, 38, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+/* Tehlikeli aksiyon butonları (ban, delete) */
+.adm-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    background: transparent;
+    color: #f87171;
+    transition: background var(--transition);
+}
+
+.adm-btn-danger:hover {
+    background: rgba(220, 38, 38, 0.1);
+}
+
+/* Role değiştirme select */
+.adm-role-select {
+    padding: 4px 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 12px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.adm-role-select:focus {
+    border-color: #f87171;
+}
+
+/* Kullanıcı detay paneli */
+.adm-user-detail {
+    background: var(--surface);
+    border: 1px solid rgba(220, 38, 38, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+/* Onay modalı */
+.adm-confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adm-confirm-box {
+    background: var(--surface);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 12px;
+    padding: 28px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+}
+
+.adm-confirm-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.adm-confirm-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.adm-confirm-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .adm-stat-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .adm-two-col {
+        grid-template-columns: 1fr;
+    }
+}
