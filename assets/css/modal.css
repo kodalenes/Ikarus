@@ -351,3 +351,48 @@
         transform: translateX(0);
     }
 }
+
+/* Şifremi Unuttum kapsayıcısı */
+.forgot-pass-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -8px;
+    margin-bottom: 16px;
+}
+
+/* Linkin varsayılan görünümü */
+.forgot-pass-group a {
+    font-size: 13px;
+    color: var(--text-muted, #a09d99);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Mouse ile üzerine gelindiğindeki efekt */
+.forgot-pass-group a:hover {
+    color: var(--accent, #489fb5);
+    text-decoration: underline;
+}
+
+/* Şifremi Unuttum - Başarı İkonu */
+.auth-success-icon { 
+    text-align: center; 
+    font-size: 40px; 
+    margin-bottom: 16px; 
+}
+
+/* Şifre Sıfırlama - Güç Göstergesi Barı */
+.strength-bar { 
+    height: 4px; 
+    border-radius: 2px; 
+    background: var(--border); 
+    margin-top: 6px; 
+    overflow: hidden; 
+}
+
+.strength-fill { 
+    height: 100%; 
+    border-radius: 2px; 
+    width: 0; 
+    transition: width 0.3s, background 0.3s; 
+}

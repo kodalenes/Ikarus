@@ -128,6 +128,17 @@ CREATE TABLE Tournament_Rule (
     FOREIGN KEY (tournament_id) REFERENCES Tournament(id) ON DELETE CASCADE
 )ENGINE = InnoDB;
 
+CREATE TABLE Password_Reset_Tokens (
+    id      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    player_id BIGINT NOT NULL,
+    token_hash VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
+    INDEX idx_reset_token (token_hash)
+)ENGINE = InnoDB;
+
 ALTER TABLE Tournament
     ADD COLUMN IF NOT EXISTS desciption          TEXT,
     ADD COLUMN IF NOT EXISTS checkin_minutes     INT DEFAULT 15,

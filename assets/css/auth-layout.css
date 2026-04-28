@@ -1,0 +1,91 @@
+/* =========================================
+   ORTAK KİMLİK DOĞRULAMA (AUTH) TASARIMI
+   ========================================= */
+
+/* Ana Kapsayıcılar */
+.auth-page { 
+    min-height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 24px; 
+}
+
+.auth-box { 
+    background: var(--surface); 
+    border: 2px solid var(--accent); 
+    border-radius: 15px;
+    padding: 40px 36px; 
+    width: 100%; 
+    max-width: 400px; 
+    box-shadow: 0 8px 32px rgba(0,0,0,.37); 
+}
+
+/* Tipografi ve Logo */
+.auth-logo { 
+    text-align: center; 
+    color: var(--accent-soft); 
+    font-size: 18px; 
+    font-weight: 700;
+    letter-spacing: 4px; 
+    margin-bottom: 28px; 
+}
+
+.auth-title { 
+    font-size: 20px; 
+    font-weight: 700; 
+    color: var(--text); 
+    letter-spacing: 2px;
+    margin-bottom: 8px; 
+    text-align: center; 
+}
+
+.auth-sub { 
+    font-size: 13px; 
+    color: var(--text-muted); 
+    text-align: center;
+    margin-bottom: 24px; 
+    line-height: 1.6; 
+}
+
+/* Linkler */
+.auth-back { 
+    display: block; 
+    text-align: center; 
+    margin-top: 20px; 
+    font-size: 13px;
+    color: var(--text-muted); 
+    text-decoration: none; 
+    transition: color var(--transition); 
+}
+
+.auth-back:hover { 
+    color: var(--accent); 
+}
+
+/* =========================================
+   SAYFALARA ÖZEL BİLEŞENLER
+   ========================================= */
+
+/* Şifremi Unuttum - Başarı İkonu */
+.auth-success-icon { 
+    text-align: center; 
+    font-size: 40px; 
+    margin-bottom: 16px; 
+}
+
+/* Şifre Sıfırlama - Güç Göstergesi Barı */
+.strength-bar { 
+    height: 4px; 
+    border-radius: 2px; 
+    background: var(--border); 
+    margin-top: 6px; 
+    overflow: hidden; 
+}
+
+.strength-fill { 
+    height: 100%; 
+    border-radius: 2px; 
+    width: 0; 
+    transition: width 0.3s, background 0.3s; 
+}

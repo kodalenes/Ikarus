@@ -68,6 +68,10 @@
                     <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
                 </button>    
             </div>
+            
+            <div class="forgot-pass-group">
+                <a href="../auth/forgot-password.php">Forgot Password</a>
+            </div>
 
             <div class="remember-me-group">
                 <label class="remember-label">
@@ -75,6 +79,7 @@
                     <span class="rememebr-text">Remember Me</span>
                 </label>
             </div>
+
             
             <button class ="btn-submit" type="submit">Login</button>
 
@@ -103,6 +108,10 @@
                  <button type="button" class="toggle-pass-btn" data-target="modal-reg-password">
                      <img class="toggle-pass-icon" src="../assets/images/toggle_pass_hide.webp" alt="Show" >
                  </button>
+
+                 <div class="strength-bar">
+                    <div class="strength-fill" id="reg-strength-fill"></div>
+                 </div>
                 
                  <span class="error-msg" id="modal-reg-password-error"></span>
             </div>

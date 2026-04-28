@@ -253,5 +253,25 @@ document.addEventListener("DOMContentLoaded" , () => {
         });
     });
 
+    const regPwInput = document.getElementById('modal-reg-password');
+    const regFill = document.getElementById('reg-strength-fill');
 
+    if (regPwInput && regFill) {
+        regPwInput.addEventListener('input' , () => {
+            const v = regPwInput.value;
+            let score = 0;
+
+            if(v.length >= 6) score++;
+            if(v.length >= 10) scrore++;
+            if(/[A-Z]/.test(v))score++;
+            if(/\d/.test(v)) score++;
+            if(/[^A-Za-z0-9]/.test(v)) score++;
+
+            const colors = ['', '#f87171', '#fbbf24', '#facc15', '#4ade80', '#22c55e'];
+            const widths = [0, 20, 40, 60, 100];
+
+            regFill.style.width = widths[score] + '%';
+            regFill.style.background = colors[score];
+        });
+    }
 });
