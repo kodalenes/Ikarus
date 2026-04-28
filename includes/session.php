@@ -37,7 +37,7 @@
 
     function requireLogin() : void {
         if (!isLoggedIn()) {
-            header('Location: /pages/index.php?modal=login');
+            header('Location: ../pages/index.php?modal=login');
             exit;
         }
     }
@@ -45,7 +45,7 @@
     function requireOrganizer() : void {
         requireLogin();
         if (!isOrganizer() && !isAdmin()) {
-            header('Location: /pagex/index.php');
+            header('Location: ../pagex/index.php');
             exit;
         }
     }

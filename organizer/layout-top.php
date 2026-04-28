@@ -83,7 +83,19 @@
  
         <div class="op-sb-bottom">
             <div class="op-sb-section">Profile</div>
-            <a href="../pages/index.php" class="op-sb-item">
+
+            <?php if (isAdmin()): ?>
+                <!-- Admin ise Admin Paneline geçiş linki -->
+                <a href="../admin/dashboard.php" class="op-sb-item op-sb-item--admin">
+                    <svg class="op-sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Admin Panel
+                    <span class="op-sb-badge op-sb-badge--admin">⚡</span>
+                </a>
+            <?php endif; ?>
+            
+                <a href="../pages/index.php" class="op-sb-item">
                 <svg class="op-sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
                 </svg>

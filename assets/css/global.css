@@ -122,6 +122,8 @@ a {
     background: rgba(72, 159, 181, 0.1);
     border-color: var(--accent);
     color: var(--accent-soft) !important;
+    transform: translateY(-1px);
+
 }
 
 .nav-links a:hover {
@@ -204,3 +206,25 @@ a {
     color: var(--text-faint);
     font-size: 12px;
 }
+
+/* Admin Panel Header Butonu — global.css sonuna ekle */
+.btn-admin-header {
+    background: rgba(220, 38, 38, 0.12);
+    border: 1px solid rgba(220, 38, 38, 0.35);
+    color: #f87171;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background var(--transition), transform var(--transition);
+}
+ 
+.btn-admin-header:hover {
+    background: rgba(220, 38, 38, 0.22);
+    transform: translateY(-1px);
+}
+ 

@@ -18,6 +18,9 @@
             <a href="../pages/leaderboard">Leaderboard</a>
             <?php if(isOrganizer() || isAdmin()): ?>
                 <a href="../organizer/dashboard.php" class="nav-link-panel">Organizer Panel</a>
+                <a href="../admin/dashboard.php" class="btn-admin-header">Admin Panel</a>
+            <?php elseif(isAdmin()): ?>
+                <a href="../admin/dashboard.php" class="btn-admin-header">Admin Panel</a>
             <?php endif; ?>
         </nav>
 

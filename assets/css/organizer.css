@@ -718,3 +718,25 @@
     align-items: center;
     gap: 8px;
 }
+
+/* ─── organizer.css SONUNA EKLE ──────────────────────────────────── */
+ 
+/* Admin paneli geçiş linki */
+.op-sb-item--admin {
+    color: #f87171;
+    border-left-color: rgba(220, 38, 38, 0.4);
+}
+ 
+.op-sb-item--admin:hover {
+    background: rgba(220, 38, 38, 0.07);
+    color: #fca5a5;
+}
+ 
+/* Admin badge (⚡ ikonu için) */
+.op-sb-badge--admin {
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.25);
+    font-size: 11px;
+    padding: 1px 5px;
+}
