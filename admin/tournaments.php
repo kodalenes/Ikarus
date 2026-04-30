@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['status' => 'error', 'message' => 'Cannot delete a live tournament. Change status first.']);
                 exit;
             }
-            $pdo->prepare("DELETE FROM Tournament WHERE id = ?")->execute([$id]);
+            $pdo->prepare("UPDATE Tournament SET deleted_at WHERE id = ?")->execute([$id]);
             echo json_encode(['status' => 'success', 'message' => 'Tournament deleted.']);
         } catch (Exception $e) {
             echo json_encode(['status' => 'error', 'message' => 'Database error. Tournament may have related match records.']);
@@ -73,6 +73,8 @@ $allowedStatuses = ['draft', 'upcoming', 'registration', 'live', 'finished'];
 // count query ve list query aynı $whereSql + $filterParams'ı paylaşır.
 $where        = [];
 $filterParams = [];
+
+$where[] = 't.deleted_at IS NULL';
 
 if ($search !== '') {
     $where[]        = '(t.name LIKE ? OR p.username LIKE ?)';

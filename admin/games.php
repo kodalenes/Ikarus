@@ -6,7 +6,7 @@
         header('Content-Type: application/json');
 
         enforceAjaxCsrf();
-        
+
         $action = $_POST['action'] ?? '';
 
         //Oyun ekle
@@ -117,7 +117,7 @@
                     exit;
                 }
             
-                $pdo->prepare("DELETE FROM Game WHERE id = ?")->execute([$id]);
+                $pdo->prepare("UPDATE Game SET deleted_at WHERE id = ?")->execute([$id]);
                 echo json_encode(['status' => 'success', 'message' => 'Game deleted.']);
             } catch (Exception $e) {
                 echo json_encode(['status' => 'error', 'message' => 'Database error.']);
@@ -141,7 +141,7 @@
                 COUNT(DISTINCT t.id)                                            AS total_tournaments,
                 COUNT(DISTINCT CASE WHEN t.status IN ('live','registration','upcoming') THEN t.id END) AS active_tournaments
             FROM Game g
-            LEFT JOIN Tournament t ON t.game_id = g.id
+            LEFT JOIN Tournament t ON t.game_id = g.id AND t.deleted_at IS NULL
             GROUP BY g.id
             ORDER BY g.name ASC
         ")->fetchAll();

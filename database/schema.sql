@@ -233,3 +233,8 @@ ALTER TABLE Invitations
 ALTER TABLE Invitations
     ADD CONSTRAINT Invitations_Receiver_FK
     FOREIGN KEY (receiver_id) REFERENCES Player (id) ON DELETE CASCADE;
+
+--SOFT DELETE yapabilmek icin ekledigimiz columns
+ALTER TABLE Player ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Tournament ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Game ADD COLUMN deleted_at DATETIME DEFAULT NULL;

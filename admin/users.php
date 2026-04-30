@@ -53,7 +53,7 @@
             }
 
             try {
-                $pdo->prepare('DELETE FROM Player WHERE id = ?')->execute([$userId]);
+                $pdo->prepare('UPDATE Player SET deleted_at = NOW() WHERE id = ?')->execute([$userId]);
                 echo json_encode(['status' => 'success', 'message' => 'User deleted.']);
             } catch (Exception $e) {
                 echo json_encode(['status' => 'error', 'message' => 'Database error. User may have related records.']);
@@ -74,6 +74,8 @@
 
     $where = [];
     $params = [];
+
+    $where[] = 'p.deleted_at IS NULL';
 
     if ($search !== '') {
         $where[] = '(p.username LIKE ? OR p.email LIKE ?)';
