@@ -37,6 +37,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?= $_SESSION['csrf_token'] ?>">
     <title><?= htmlspecialchars($pageTitle ?? 'Admin') ?> — Ikarus Admin</title>
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/organizer.css">

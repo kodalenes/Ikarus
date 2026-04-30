@@ -48,6 +48,9 @@
 .adm-env-badge {
     font-size: 11px;
     padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 6px;
     background: rgba(220, 38, 38, 0.1);
     color: #f87171;
@@ -194,6 +197,474 @@
     display: flex;
     gap: 10px;
     justify-content: center;
+}
+
+/* ─── USERS SAYFASI ───────────────────────────────────────────────── */
+
+/* Filtre bar */
+.adm-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    flex-wrap: wrap;
+}
+
+.adm-search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.adm-filter-select {
+    width: 140px;
+}
+
+.adm-result-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* Kullanıcı hücre (avatar + isim) */
+.adm-user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adm-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(72, 159, 181, 0.12);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.adm-user-avatar--admin {
+    background: rgba(220, 38, 38, 0.12);
+    color: #f87171;
+}
+
+/* "You" badge */
+.adm-you-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(220, 38, 38, 0.12);
+    color: #f87171;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* Sayfalama */
+.adm-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.adm-page-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    background: transparent;
+    transition: all var(--transition);
+}
+
+.adm-page-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.adm-page-btn--active {
+    background: rgba(72, 159, 181, 0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ─── FILTER BAR ─────────────────────────────────────────────────── */
+.adm-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.adm-role-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.adm-role-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 7px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+}
+
+.adm-role-tab:hover {
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+}
+
+.adm-role-tab.active {
+    background: rgba(220,38,38,0.1);
+    border-color: rgba(220,38,38,0.25);
+    color: #f87171;
+    font-weight: 600;
+}
+
+.adm-role-tab-count {
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.07);
+    color: var(--text-muted);
+}
+
+.adm-role-tab.active .adm-role-tab-count {
+    background: rgba(220,38,38,0.15);
+    color: #f87171;
+}
+
+/* ─── SEARCH ─────────────────────────────────────────────────────── */
+.adm-search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adm-search-input {
+    padding: 7px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    width: 240px;
+    transition: border-color var(--transition);
+}
+
+.adm-search-input:focus {
+    border-color: rgba(220,38,38,0.4);
+}
+
+.adm-search-input::placeholder {
+    color: var(--text-faint);
+}
+
+/* ─── USER TABLE CELLS ───────────────────────────────────────────── */
+.adm-user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adm-u-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(72,159,181,0.12);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.adm-u-avatar--admin {
+    background: rgba(220,38,38,0.12);
+    color: #f87171;
+}
+
+.adm-you-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(220,38,38,0.1);
+    color: #f87171;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* ─── PAGINATION ─────────────────────────────────────────────────── */
+.adm-pagination {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.adm-page-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    background: transparent;
+    transition: all var(--transition);
+}
+
+.adm-page-btn:hover {
+    border-color: rgba(220,38,38,0.3);
+    color: #f87171;
+}
+
+.adm-page-btn.active {
+    background: rgba(220,38,38,0.1);
+    border-color: rgba(220,38,38,0.3);
+    color: #f87171;
+    font-weight: 600;
+}
+
+.adm-page-info {
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-left: 8px;
+}
+
+/* ─── GAMES PAGE ─────────────────────────────────────────────────── */
+.adm-game-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 140px auto;
+    gap: 12px;
+    align-items: end;
+    padding: 16px 18px;
+}
+
+.adm-gf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.adm-gf-field--sm {
+    max-width: 140px;
+}
+
+.adm-gf-error {
+    font-size: 11px;
+    color: #f87171;
+    min-height: 14px;
+}
+
+.adm-gf-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    padding-bottom: 1px;
+}
+
+/* Oyun hücre görünümü */
+.adm-game-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adm-game-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(72,159,181,0.1);
+    border: 1px solid rgba(72,159,181,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    letter-spacing: 1px;
+}
+
+.adm-team-size-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.05);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Inline düzenleme satırı */
+.adm-edit-row td {
+    background: rgba(72,159,181,0.04);
+    border-top: 1px solid rgba(72,159,181,0.15);
+    border-bottom: 1px solid rgba(72,159,181,0.15);
+    padding: 14px 18px;
+}
+
+.adm-inline-edit {
+    display: grid;
+    grid-template-columns: 1fr 1fr 140px auto;
+    gap: 12px;
+    align-items: end;
+}
+
+/* ─── TOURNAMENTS PAGE ───────────────────────────────────────────── */
+
+/* Organizatör hücre */
+.adm-org-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adm-org-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(72,159,181,0.1);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Takım doluluk çubuğu */
+.adm-slot-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.adm-slot-bar {
+    width: 52px;
+    height: 4px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.adm-slot-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.adm-slot-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* Bekleyen maç göstergesi */
+.adm-pending-dot {
+    font-size: 10px;
+    color: #EF9F27;
+    margin-left: 4px;
+}
+
+/* Aksiyon butonları */
+.adm-tour-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: nowrap;
+}
+
+/* Status badge (data-id ile JS hedefleniyor) */
+.adm-status-badge {
+    cursor: default;
+    white-space: nowrap;
+}
+
+/* ─── STATUS PANEL (floating) ────────────────────────────────────── */
+.adm-status-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 400;
+    background: var(--surface);
+    border: 1px solid rgba(220,38,38,0.25);
+    border-radius: 12px;
+    padding: 20px;
+    width: 240px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.adm-sp-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.adm-sp-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.adm-sp-option {
+    padding: 8px 12px;
+    border-radius: 7px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    transition: all var(--transition);
+}
+
+.adm-sp-option:hover {
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    border-color: rgba(255,255,255,0.15);
+}
+
+.adm-sp-option--active {
+    background: rgba(220,38,38,0.08);
+    border-color: rgba(220,38,38,0.25);
+    color: #f87171;
+    font-weight: 600;
+    cursor: default;
+}
+
+.adm-sp-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 399;
+    background: rgba(0,0,0,0.5);
 }
 
 /* Responsive */
