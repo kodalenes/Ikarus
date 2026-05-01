@@ -128,10 +128,10 @@
             try {
                 $stats = $pdo->query("
                     SELECT
-                        (SELECT COUNT(*) FROM Player) AS total_players,
-                        (SELECT COUNT(*) FROM Tournament WHERE status IN ('live','registration')) AS active_tournaments,
-                        (SELECT COUNT(*) FROM Team) AS total_teams,
-                        (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NOT NULL) AS total_matches
+                        (SELECT COUNT(*) FROM Player WHERE deleted_at IS NULL) AS total_players,
+                        (SELECT COUNT(*) FROM Tournament WHERE status IN ('live','registration') AND deleted_at IS NULL) AS active_tournaments,
+                        (SELECT COUNT(*) FROM Team WHERE deleted_at IS NULL) AS total_teams,
+                        (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NOT NULL AND deleted_at IS NULL) AS total_matches
                 ")->fetch();
             } catch (Exception $e) {
                 $stats = ['total_players' => 0, 'active_tournaments' => 0, 'total_teams => 0', 'total_matches' => 0];
@@ -175,7 +175,7 @@
                             FROM Tournament t
                             LEFT JOIN Game g ON g.id = t.game_id
                             LEFT JOIN tournament_team tt ON tt.tournament_id = t.id
-                            WHERE t.status IN ('live','registration', 'upcoming')
+                            WHERE t.status IN ('live','registration', 'upcoming') AND t.deleted_at IS NULL
                             GROUP BY t.id
                             ORDER BY FIELD(t.status, 'live','registration','upcoming'), t.start_date ASC
                             LIMIT 4
@@ -253,9 +253,10 @@
                                         , 0)
                                     ) AS points
                                 FROM Player p
-                                LEFT JOIN Team t2 ON t2.id = p.team_id
+                                LEFT JOIN Team t2 ON t2.id = p.team_id AND t2.deleted_at IS NULL
                                 LEFT JOIN Matches m ON (m.home_team_id = t2.id OR m.away_team_id = t2.id)
-                                    AND m.score_team1 IS NOT NULL
+                                    AND m.score_team1 IS NOT NULL AND m.deleted_at IS NULL
+                                WHERE p.deleted_at IS NULL
                                 GROUP BY p.id
                                 ORDER BY points DESC, wins DESC
                                 LIMIT 5
