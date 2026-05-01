@@ -667,6 +667,270 @@
     background: rgba(0,0,0,0.5);
 }
 
+/* ─── REPORTS PAGE SPECIFIC STYLES ───────────────────────────────── */
+
+/* ─── CHART WRAPPER & BAR CHART (Dikey Bar Grafikleri) ───────────── */
+.adm-chart-wrap {
+    padding: 24px 18px;
+    overflow-x: auto;
+}
+
+.adm-bar-chart {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    height: 180px;
+    min-width: 400px; /* Mobilde kaydırma sağlaması için */
+}
+
+.adm-bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.adm-bar-value {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.adm-bar-col-wrap {
+    width: 100%;
+    max-width: 48px;
+    height: 130px; /* Grafiğin bar alanı maksimum yüksekliği */
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.adm-bar-col {
+    width: 100%;
+    background: rgba(72, 159, 181, 0.6); /* --accent saydam */
+    border-radius: 4px 4px 0 0;
+    transition: height 0.6s ease, background 0.3s ease;
+}
+
+.adm-bar-col:hover {
+    background: var(--accent);
+}
+
+/* Turnuva grafiğinde admin kırmızısı aksanı */
+.adm-bar-col--highlight {
+    background: rgba(220, 38, 38, 0.5); 
+}
+
+.adm-bar-col--highlight:hover {
+    background: #f87171;
+}
+
+.adm-bar-label {
+    font-size: 11px;
+    color: var(--text-faint);
+    white-space: nowrap;
+}
+
+/* ─── HORIZONTAL BAR LIST (Oyun Dağılımı) ────────────────────────── */
+.adm-hbar-list {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.adm-hbar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.adm-hbar-label {
+    width: 100px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.adm-hbar-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.adm-hbar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+.adm-hbar-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    width: 85px;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+/* ─── DISTRIBUTION LIST (Durum Dağılımı Donut Görünümü) ──────────── */
+.adm-dist-list {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.adm-dist-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adm-dist-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.adm-dist-label {
+    width: 90px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.adm-dist-bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.adm-dist-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+.adm-dist-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 45px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.adm-dist-pct {
+    font-size: 10px;
+    color: var(--text-faint);
+    font-weight: normal;
+    margin-left: 4px;
+}
+
+.adm-dist-total {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ─── RANKING AND TABLES ─────────────────────────────────────────── */
+.adm-rank-num {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+}
+
+/* İlk 3 için özel rank renkleri (Altın, Gümüş, Bronz) */
+.adm-rank-num--1 {
+    background: rgba(239, 159, 39, 0.15);
+    color: #ef9f27; /* --highlight referansı */
+}
+
+.adm-rank-num--2 {
+    background: rgba(180, 178, 169, 0.15);
+    color: #b4b2a9;
+}
+
+.adm-rank-num--3 {
+    background: rgba(216, 90, 48, 0.15);
+    color: #d85a30;
+}
+
+/* ─── WIN RATE BAR (Kazanma Oranı Göstergesi) ────────────────────── */
+.adm-wr-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100px; /* Tabloda sabit genişlik */
+}
+
+.adm-wr-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.adm-wr-fill {
+    height: 100%;
+    background: #97c459; /* Başarı yeşili */
+    border-radius: 2px;
+}
+
+.adm-wr-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 32px;
+    text-align: right;
+    font-weight: 600;
+}
+
+/* ─── RESPONSIVE AYARLAR ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .adm-hbar-label {
+        width: 70px;
+    }
+    .adm-dist-label {
+        width: 70px;
+    }
+    .adm-wr-wrap {
+        width: 80px;
+    }
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .adm-stat-grid {
