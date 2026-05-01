@@ -8,17 +8,17 @@
     try {
         $stats = $pdo->query("
             SELECT
-                (SELECT COUNT(*) FROM Player)                                       AS total_players,
-                (SELECT COUNT(*) FROM Player WHERE user_type = 'organizer')         AS total_organizers,
-                (SELECT COUNT(*) FROM Player WHERE user_type = 'admin')             AS total_admins,
-                (SELECT COUNT(*) FROM Team)                                         AS total_teams,
-                (SELECT COUNT(*) FROM Tournament)                                   AS total_tournaments,
-                (SELECT COUNT(*) FROM Tournament WHERE status = 'live')             AS live_tournaments,  
-                (SELECT COUNT(*) FROM Tournament WHERE status = 'registration')     AS reg_tournaments,
-                (SELECT COUNT(*) FROM Matches )                                     AS total_matches, 
-                (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NULL)            AS pending_matches,
-                (SELECT COALESCE(SUM(prize_pool), 0) FROM Tournament)               AS total_prize,
-                (SELECT COUNT(*) FROM Game)                                         AS total_games
+                (SELECT COUNT(*) FROM Player WHERE deleted_at IS NULL)                                       AS total_players,
+                (SELECT COUNT(*) FROM Player WHERE user_type = 'organizer' AND deleted_at IS NULL)         AS total_organizers,
+                (SELECT COUNT(*) FROM Player WHERE user_type = 'admin' AND deleted_at IS NULL)             AS total_admins,
+                (SELECT COUNT(*) FROM Team WHERE deleted_at IS NULL)                                         AS total_teams,
+                (SELECT COUNT(*) FROM Tournament WHERE deleted_at IS NULL)                                   AS total_tournaments,
+                (SELECT COUNT(*) FROM Tournament WHERE status = 'live' AND deleted_at IS NULL)             AS live_tournaments,  
+                (SELECT COUNT(*) FROM Tournament WHERE status = 'registration' AND deleted_at IS NULL)     AS reg_tournaments,
+                (SELECT COUNT(*) FROM Matches WHERE deleted_at IS NULL)                                     AS total_matches, 
+                (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NULL AND deleted_at IS NULL)            AS pending_matches,
+                (SELECT COALESCE(SUM(prize_pool), 0) FROM Tournament WHERE deleted_at IS NULL)               AS total_prize,
+                (SELECT COUNT(*) FROM Game WHERE deleted_at IS NULL)                                         AS total_games
         ")->fetch();
     } catch (Exception $e) {
         //Hata cikarsa cekilmek istenen verileri 0 olarak atiyoruz
@@ -48,8 +48,9 @@
                     p.username AS organizer_name,
                     g.name AS game_name
             FROM Tournament t
-            LEFT JOIN Player p ON p.id = t.organizer_id
-            LEFT JOIN Game g ON g.id = t.game_id
+            LEFT JOIN Player p ON p.id = t.organizer_id AND p.deleted_at IS NULL
+            LEFT JOIN Game g ON g.id = t.game_id AND g.deleted_at IS NULL
+            WHERE t.deleted_at IS NULL
             ORDER BY t.created_at DESC
             LIMIT 5
         ")->fetchAll();

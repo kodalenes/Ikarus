@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
         try {
-            $check = $pdo->prepare("SELECT status FROM Tournament WHERE id = ?");
+            $check = $pdo->prepare("SELECT status FROM Tournament WHERE id = ? AND deleted_at IS NULL");
             $check->execute([$id]);
             $t = $check->fetch();
             if (!$t) {
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['status' => 'error', 'message' => 'Cannot delete a live tournament. Change status first.']);
                 exit;
             }
-            $pdo->prepare("UPDATE Tournament SET deleted_at WHERE id = ?")->execute([$id]);
+            $pdo->prepare("UPDATE Tournament SET deleted_at = NOW() WHERE id = ?")->execute([$id]);
             echo json_encode(['status' => 'success', 'message' => 'Tournament deleted.']);
         } catch (Exception $e) {
             echo json_encode(['status' => 'error', 'message' => 'Database error. Tournament may have related match records.']);
@@ -160,7 +160,7 @@ try {
 // ─── Durum sayaçları ──────────────────────────────────────────────────────
 try {
     $statusCounts = ['all' => 0, 'live' => 0, 'registration' => 0, 'upcoming' => 0, 'draft' => 0, 'finished' => 0];
-    foreach ($pdo->query("SELECT status, COUNT(*) AS cnt FROM Tournament GROUP BY status")->fetchAll() as $r) {
+    foreach ($pdo->query("SELECT status, COUNT(*) AS cnt FROM Tournament WHERE deleted_at IS NULL GROUP BY status")->fetchAll() as $r) {
         $statusCounts[$r['status']] = (int)$r['cnt'];
     }
     $statusCounts['all'] = array_sum(array_diff_key($statusCounts, ['all' => 0]));
@@ -170,7 +170,7 @@ try {
 
 // ─── Oyun listesi (dropdown için) ─────────────────────────────────────────
 try {
-    $allGames = $pdo->query("SELECT id, name FROM Game ORDER BY name")->fetchAll();
+    $allGames = $pdo->query("SELECT id, name FROM Game WHERE deleted_at IS NULL ORDER BY name")->fetchAll();
 } catch (Exception $e) {
     $allGames = [];
 }

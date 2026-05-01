@@ -123,7 +123,7 @@
     //Rol sayaclari
     try {
         $roleCounts = ['all' => 0, 'player' => 0, 'organizer' => 0, 'admin' => 0];
-        foreach($pdo->query("SELECT user_type, COUNT(*) AS cnt FROM Player GROUP BY user_type")->fetchAll() as $c){
+        foreach($pdo->query("SELECT user_type, COUNT(*) AS cnt FROM Player WHERE deleted_at IS NULL GROUP BY user_type")->fetchAll() as $c){
             $roleCounts[$c['user_type']] = (int)$c['cnt'];
         }
         $roleCounts['all'] = array_sum($roleCounts);

@@ -5,18 +5,18 @@ require_once __DIR__ . '/guard.php';
 try {
     $overview = $pdo->query("
         SELECT
-            (SELECT COUNT(*) FROM Player)                                               AS total_players,
-            (SELECT COUNT(*) FROM Player WHERE user_type = 'organizer')                AS total_organizers,
-            (SELECT COUNT(*) FROM Team)                                                 AS total_teams,
-            (SELECT COUNT(*) FROM Tournament)                                           AS total_tournaments,
-            (SELECT COUNT(*) FROM Tournament WHERE status = 'live')                    AS live_tournaments,
-            (SELECT COUNT(*) FROM Tournament WHERE status = 'finished')                AS finished_tournaments,
-            (SELECT COUNT(*) FROM Matches)                                              AS total_matches,
-            (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NOT NULL)               AS played_matches,
-            (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NULL)                   AS pending_matches,
-            (SELECT COUNT(*) FROM Game)                                                 AS total_games,
-            (SELECT COALESCE(SUM(prize_pool), 0) FROM Tournament)                      AS total_prize,
-            (SELECT COALESCE(SUM(prize_pool), 0) FROM Tournament WHERE status='finished') AS paid_prize
+            (SELECT COUNT(*) FROM Player WHERE deleted_at IS NULL)                                               AS total_players,
+            (SELECT COUNT(*) FROM Player WHERE user_type = 'organizer' AND deleted_at IS NULL)                AS total_organizers,
+            (SELECT COUNT(*) FROM Team WHERE deleted_at IS NULL)                                                 AS total_teams,
+            (SELECT COUNT(*) FROM Tournament WHERE deleted_at IS NULL)                                           AS total_tournaments,
+            (SELECT COUNT(*) FROM Tournament WHERE status = 'live' AND deleted_at IS NULL)                    AS live_tournaments,
+            (SELECT COUNT(*) FROM Tournament WHERE status = 'finished' AND deleted_at IS NULL)                AS finished_tournaments,
+            (SELECT COUNT(*) FROM Matches WHERE deleted_at IS NULL)                                              AS total_matches,
+            (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NOT NULL AND deleted_at IS NULL)               AS played_matches,
+            (SELECT COUNT(*) FROM Matches WHERE score_team1 IS NULL AND deleted_at IS NULL)                   AS pending_matches,
+            (SELECT COUNT(*) FROM Game WHERE deleted_at IS NULL)                                                 AS total_games,
+            (SELECT COALESCE(SUM(prize_pool), 0) FROM Tournament WHERE deleted_at IS NULL)                      AS total_prize,
+            (SELECT COALESCE(SUM(prize_pool), 0) FROM Tournament WHERE status='finished' AND deleted_at IS NULL) AS paid_prize
     ")->fetch();
 } catch (Exception $e) {
     $overview = array_fill_keys([
@@ -34,7 +34,7 @@ try {
             DATE_FORMAT(registered_at, '%b %Y') AS label,
             COUNT(*) AS cnt
         FROM Player
-        WHERE registered_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        WHERE registered_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND deleted_at IS NULL
         GROUP BY DATE_FORMAT(registered_at, '%Y-%m')
         ORDER BY month ASC
     ")->fetchAll();
@@ -51,7 +51,8 @@ try {
             COUNT(CASE WHEN t.status IN ('live','registration') THEN 1 END)    AS active,
             COALESCE(SUM(t.prize_pool), 0)                                      AS prize
         FROM Game g
-        LEFT JOIN Tournament t ON t.game_id = g.id
+        LEFT JOIN Tournament t ON t.game_id = g.id AND t.deleted_at IS NULL
+        WHERE g.deleted_at IS NULL
         GROUP BY g.id, g.name
         ORDER BY total DESC
         LIMIT 8
@@ -69,7 +70,8 @@ try {
             COUNT(CASE WHEN t.status = 'live' THEN 1 END) AS live_count,
             COALESCE(SUM(t.prize_pool), 0)          AS total_prize
         FROM Player p
-        JOIN Tournament t ON t.organizer_id = p.id
+        JOIN Tournament t ON t.organizer_id = p.id AND t.deleted_at IS NULL
+        WHERE p.deleted_at IS NULL
         GROUP BY p.id, p.username
         ORDER BY tournament_count DESC
         LIMIT 5
@@ -89,8 +91,8 @@ try {
                 (m.away_team_id = tm.id AND m.score_team2 > m.score_team1)
             ) AS wins
         FROM Team tm
-        JOIN Matches m ON (m.home_team_id = tm.id OR m.away_team_id = tm.id)
-        WHERE m.score_team1 IS NOT NULL
+        JOIN Matches m ON (m.home_team_id = tm.id OR m.away_team_id = tm.id) AND m.deleted_at IS NULL
+        WHERE m.score_team1 IS NOT NULL AND tm.deleted_at IS NULL
         GROUP BY tm.id, tm.name
         HAVING total_matches > 0
         ORDER BY wins DESC, total_matches DESC
@@ -108,7 +110,7 @@ try {
             DATE_FORMAT(created_at, '%b %Y') AS label,
             COUNT(*) AS cnt
         FROM Tournament
-        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND deleted_at IS NULL
         GROUP BY DATE_FORMAT(created_at, '%Y-%m')
         ORDER BY month ASC
     ")->fetchAll();
