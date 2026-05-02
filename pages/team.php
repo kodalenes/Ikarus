@@ -329,8 +329,8 @@ if ($hasTeam) {
 // Oyun listesi
 $games = [];
 try {
-    $games = $pdo->query("SELECT name FROM Game WHERE deleted_at IS NULL ORDER BY name")->fetchAll();
-} catch (Exception $e) {}
+    $games = $pdo->query("SELECT name FROM Game ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {die("A database error occurred while downloading the games: " . $e->getMessage());}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -438,8 +438,10 @@ try {
         .tm-remove-avatar-btn:hover { background: rgba(220,38,38,0.08); }
     </style>
 </head>
+
 <body>
 <?php require_once '../includes/header.php'; ?>
+
 
 <main>
 <div class="team-page">
@@ -556,9 +558,24 @@ try {
                 <div class="tm-meta-item">Region <span><?= htmlspecialchars($team['region']) ?></span></div>
             <?php endif; ?>
             <div class="tm-meta-item">Members <span><?= count($members) ?> / 6</span></div>
+            
+            <!-- DAVET KODU VE KOPYALA BUTONU BURADA -->
             <?php if (!empty($team['invitation_code'])): ?>
-                <div class="tm-meta-item">Invite Code <span style="color:var(--accent); letter-spacing:2px;"><?= htmlspecialchars($team['invitation_code']) ?></span></div>
+                <div class="tm-meta-item" style="display: flex; align-items: center; gap: 8px;">
+                    Invite Code 
+                    <span id="inviteCodeText" style="color:var(--accent); letter-spacing:2px; font-weight:bold;">
+                        <?= htmlspecialchars($team['invitation_code']) ?>
+                    </span>
+                    <button type="button" onclick="copyInviteCode()" title="Copy Code" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; padding:2px; display:flex;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
             <?php endif; ?>
+            <!-- DAVET KODU SONU -->
+
         </div>
     </div>
 
@@ -765,7 +782,10 @@ try {
 </div>
 </main>
 
+  <div id="toast" class="tm-toast"></div>
+
 <?php require_once '../includes/footer.php'; ?>
+
 
 <script>
 function togglePanel(id) {
@@ -821,6 +841,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+
+    // Önce varsa eski sınıfları temizle
+    toast.className = 'tm-toast';
+    
+    // Mesajı ve tipi ayarla
+    toast.innerText = message;
+    toast.classList.add('tm-toast--' + type);
+
+    // Görünür yap (Küçük bir delay tarayıcının render etmesini sağlar)
+    setTimeout(() => {
+        toast.classList.add('tm-toast--show');
+    }, 50);
+
+    // 3 saniye sonra kapat
+    setTimeout(() => {
+        toast.classList.remove('tm-toast--show');
+    }, 3000);
+}
+function copyInviteCode() {
+    const codeEl = document.getElementById('inviteCodeText');
+    if (!codeEl) return;
+    
+    const code = codeEl.innerText.trim();
+    
+    navigator.clipboard.writeText(code).then(() => {
+        showToast('Code copied: ' + code, 'success');
+    }).catch(err => {
+        console.error('Copy error:', err);
+        alert('Code: ' + code); 
+    });
+}
 </script>
 </body>
 </html>

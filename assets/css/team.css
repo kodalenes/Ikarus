@@ -237,4 +237,34 @@
     .tm-field--full { grid-column:1; }
     .tm-actions   { flex-direction:row; flex-wrap:wrap; }
     .tm-role-input { width:120px; }
+}  
+.tm-toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 99999;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), var(--accent-glow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+.tm-toast--show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Durum renkleri */
+.tm-toast--success { border-left: 4px solid var(--success); }
+.tm-toast--error   { border-left: 4px solid var(--danger); }
