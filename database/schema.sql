@@ -91,7 +91,7 @@ CREATE TABLE tournament_sponsor (
     PRIMARY KEY (tournament_id, sponsor_id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE tournament_team (
+CREATE TABLE tournament_teams (
     team_id       BIGINT   NOT NULL,
     tournament_id BIGINT   NOT NULL,
     registered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -214,11 +214,11 @@ ALTER TABLE tournament_sponsor
 ADD CONSTRAINT Tour_Spon_Tournament_FK 
 FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
 
-ALTER TABLE tournament_team
+ALTER TABLE tournament_teams
     ADD CONSTRAINT TournTeam_Team_FK
     FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE;
 
-ALTER TABLE tournament_team
+ALTER TABLE tournament_teams
     ADD CONSTRAINT TournTeam_Tournament_FK
     FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE;
 
@@ -234,7 +234,6 @@ ALTER TABLE Invitations
     ADD CONSTRAINT Invitations_Receiver_FK
     FOREIGN KEY (receiver_id) REFERENCES Player (id) ON DELETE CASCADE;
 
---SOFT DELETE yapabilmek icin ekledigimiz columns
 ALTER TABLE Player ADD COLUMN deleted_at DATETIME DEFAULT NULL;
 ALTER TABLE Tournament ADD COLUMN deleted_at DATETIME DEFAULT NULL;
 ALTER TABLE Game ADD COLUMN deleted_at DATETIME DEFAULT NULL;

@@ -113,7 +113,7 @@ INSERT INTO tournament_sponsor (tournament_id, sponsor_id) VALUES
 (1,1),(1,2),(2,2),(2,3),(3,1),(3,3),(4,2);
 
 -- ─── 9. TOURNAMENT - TEAM ───────────────────────────────────
-INSERT INTO tournament_team (team_id, tournament_id, registered_at) VALUES
+INSERT INTO tournament_teams (team_id, tournament_id, registered_at) VALUES
 (1,1,'2025-02-15 10:00:00'),
 (2,1,'2025-02-16 11:00:00'),
 (3,1,'2025-02-17 09:30:00'),
