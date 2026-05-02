@@ -15,7 +15,7 @@
         <nav class="nav-links">
             <a href="../pages/tournaments.php">Tournaments</a>
             <a href="../pages/team.php">Team</a>
-            <a href="../pages/leaderboard">Leaderboard</a>
+            <a href="../pages/leaderboard.php">Leaderboard</a>
         </nav>
 
         <div class="header-auth">
