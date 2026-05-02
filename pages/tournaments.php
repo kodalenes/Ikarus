@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/session.php';
+include '../includes/db.php'; 
 
 // PDO kullanarak veritabanından turnuvaları çekiyoruz
 try {
@@ -22,15 +23,22 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournaments - Ikarus</title>
 
-    <!-- Main CSS files used in index.php -->
+    <!-- Ana Stiller -->
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/modal.css">
     <link rel="stylesheet" href="../assets/css/utils.css">
+    
+    <!-- Turnuva Stilleri -->
     <link rel="stylesheet" href="../assets/css/tournaments.css">
+
+    <style>
+        /* Tıklamayı engelleyen görünmez bir katman (overlay) varsa diye üstte tutma garantisi */
+        main, .game-filter, .t-card { position: relative; z-index: 10; }
+        .t-card { text-decoration: none !important; cursor: pointer !important; }
+    </style>
 </head>
 
 <body>
-    <!-- Original header (Menus and modals come from here) -->
     <?php require_once '../includes/header.php' ?>
     
     <main>
@@ -45,21 +53,21 @@ try {
 
             <!-- Game Filters -->
             <div class="game-filter" id="gameFilter">
-              <button class="game-btn all active" onclick="filterGame('all',this)">
+              <button type="button" class="game-btn all active" onclick="filterGame('all',this)">
                 <div class="game-icon icon-all">∞</div>All Games
               </button>
-              <button class="game-btn" onclick="filterGame('cs2',this)">
+              <button type="button" class="game-btn" onclick="filterGame('cs',this)">
                 <div class="game-icon icon-cs">CS</div>CS2
               </button>
-              <button class="game-btn" onclick="filterGame('val',this)">
+              <button type="button" class="game-btn" onclick="filterGame('v',this)">
                 <div class="game-icon icon-val">V</div>Valorant
               </button>
             </div>
 
             <div class="tournaments-list" id="tList">
               <?php if (!empty($tournaments)): ?>
-                <?php foreach($tournaments as $row): ?> 
-                    // Set icon and color based on game name
+                <?php foreach($tournaments as $row): 
+                    // Oyun ismine göre ikon ve renk belirleme
                     $game_lower = strtolower($row['game_name'] ?? '');
                     $icon_class = 'icon-all';
                     $game_short = 'T';
@@ -68,7 +76,8 @@ try {
                     elseif (strpos($game_lower, 'val') !== false) { $icon_class = 'icon-val'; $game_short = 'V'; }
                     elseif (strpos($game_lower, 'fc') !== false) { $icon_class = 'icon-fc'; $game_short = 'FC'; }
                 ?>
-                  <div class="t-card" onclick="window.location.href='tournament-details.php?id=<?php echo $row['id']; ?>'">
+                  <!-- Link Etiketi İle Kart Oluşturma -->
+                  <a href="tournaments-details.php?id=<?php echo $row['id']; ?>" class="t-card" data-game="<?php echo strtolower($game_short); ?>">
                     <div class="t-game-badge <?php echo $icon_class; ?>"><?php echo $game_short; ?></div>
                     <div class="t-main">
                       <div class="t-top">
@@ -90,7 +99,7 @@ try {
                       <div class="prize-label">Prize</div>
                       <div class="prize-val">₺<?php echo number_format($row['prize_pool'], 0, ',', '.'); ?></div>
                     </div>
-                  </div>
+                  </a>
                 <?php endforeach; ?>
               <?php else: ?>
                 <div class="empty-state">No tournaments found in the database yet.</div>
@@ -101,5 +110,24 @@ try {
     </main>
 
     <?php require_once '../includes/footer.php' ?>
+
+    <!-- JavaScript Filtreleme Fonksiyonu -->
+    <script>
+    function filterGame(game, el) {
+      // Aktif buton rengini değiştirme
+      document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      
+      // Kartları filtreleme
+      const cards = document.querySelectorAll('.t-card');
+      cards.forEach(c => {
+        if (game === 'all' || c.dataset.game === game) {
+          c.style.display = ''; // Görünür yap
+        } else {
+          c.style.display = 'none'; // Gizle
+        }
+      });
+    }
+    </script>
 </body>
 </html>
