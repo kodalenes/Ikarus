@@ -2,10 +2,11 @@
 require_once '../includes/session.php';
 include '../includes/db.php'; 
 
-// Fetch tournaments from database
+// Fetch tournaments from database with registered team count
 try {
     $stmt = $pdo->query("
-        SELECT t.*, g.name as game_name 
+        SELECT t.*, g.name as game_name,
+               (SELECT COUNT(*) FROM tournament_teams tt WHERE tt.tournament_id = t.id) as registered_count
         FROM Tournament t 
         LEFT JOIN Game g ON t.game_id = g.id 
         ORDER BY t.start_date DESC
@@ -42,14 +43,18 @@ try {
     <?php require_once '../includes/header.php' ?>
     
     <main>
-        <!-- Added tournaments-wrapper for layout alignment -->
         <div class="page tournaments-wrapper">
           <div class="content">
-            <div class="page-header">
+            
+            <!-- Header with Create Button -->
+            <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <div class="page-title">Tournaments</div>
                 <div class="page-sub">Choose the tournament you want to join and compete with your team.</div>
               </div>
+              <?php if (isLoggedIn() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'organizer'): ?>
+                <a href="../organizer/tournament-create.php" class="join-btn" style="text-decoration: none;">Create Tournament</a>
+              <?php endif; ?>
             </div>
 
             <!-- Game Filters -->
@@ -76,6 +81,11 @@ try {
                     if (strpos($game_lower, 'counter') !== false || strpos($game_lower, 'cs') !== false) { $icon_class = 'icon-cs'; $game_short = 'CS'; }
                     elseif (strpos($game_lower, 'val') !== false) { $icon_class = 'icon-val'; $game_short = 'V'; }
                     elseif (strpos($game_lower, 'fc') !== false) { $icon_class = 'icon-fc'; $game_short = 'FC'; }
+                    
+                    // Slot hesaplamaları
+                    $registered = (int)$row['registered_count'];
+                    $max = (int)$row['max_teams'];
+                    $percent = $max > 0 ? min(100, round(($registered / $max) * 100)) : 0;
                 ?>
                   <a href="tournaments-details.php?id=<?php echo $row['id']; ?>" class="t-card" data-game="<?php echo strtolower($game_short); ?>">
                     <div class="t-game-badge <?php echo $icon_class; ?>"><?php echo $game_short; ?></div>
@@ -86,14 +96,14 @@ try {
                       </div>
                       <div class="t-meta-row">
                         <div class="t-meta-item">Format <span>Single Elimination</span></div>
-                        <div class="t-meta-item">Teams <span><?php echo $row['max_teams']; ?></span></div>
+                        <div class="t-meta-item">Teams <span><?php echo $max; ?></span></div>
                         <div class="t-meta-item">Start Date <span><?php echo date('d M Y', strtotime($row['start_date'])); ?></span></div>
                       </div>
                     </div>
                     <div class="t-slots">
                       <div class="slots-label">Slots</div>
-                      <div class="slots-bar"><div class="slots-fill" style="width:50%"></div></div>
-                      <div class="slots-text">0 / <?php echo $row['max_teams']; ?></div>
+                      <div class="slots-bar"><div class="slots-fill" style="width:<?php echo $percent; ?>%"></div></div>
+                      <div class="slots-text"><?php echo $registered; ?> / <?php echo $max; ?></div>
                     </div>
                     <div class="t-prize">
                       <div class="prize-label">Prize</div>
@@ -113,11 +123,9 @@ try {
 
     <script>
     function filterGame(game, el) {
-      // Toggle active class
       document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
       
-      // Filter cards
       const cards = document.querySelectorAll('.t-card');
       cards.forEach(c => {
         if (game === 'all' || c.dataset.game === game) {

@@ -1,0 +1,359 @@
+/* =========================================
+   IKARUS GG - TOURNAMENT DETAILS STYLES
+   ========================================= */
+
+/* ─── Breadcrumb ───────────────────────────────────────── */
+.breadcrumb {
+    font-size: 12px;
+    color: var(--text-faint);
+    padding: 12px 0;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.breadcrumb a          { color: var(--text-muted); transition: color var(--transition); }
+.breadcrumb a:hover    { color: var(--accent); }
+.breadcrumb .sep       { color: var(--border); }
+.breadcrumb .current   { color: var(--accent); }
+
+/* ─── Stats Row ────────────────────────────────────────── */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+}
+@media (max-width: 900px) { .stats-row { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+.stat-card .stat-label {
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+.stat-card .stat-val  { font-size: 18px; font-weight: 500; color: var(--text); }
+.stat-card .stat-sub  { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+
+/* ─── Status Badges / Modifiers ────────────────────────── */
+.s-open, .s-ongoing, .s-completed {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.s-open {
+    background: rgba(72,159,181,0.15);
+    color: var(--accent-soft);
+    border: 1px solid rgba(72,159,181,0.3);
+}
+
+.s-ongoing {
+    background: rgba(255,166,43,0.15);
+    color: #ffa62b;
+    border: 1px solid rgba(255,166,43,0.3);
+}
+
+.s-completed {
+    background: rgba(220,38,38,0.15);
+    color: #f87171;
+    border: 1px solid rgba(220,38,38,0.3);
+}
+
+/* ─── Hero Band ────────────────────────────────────────── */
+.hero-band {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+}
+@media (max-width: 640px) { .hero-band { grid-template-columns: 1fr; } }
+
+.t-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.t-hero-info .t-title  { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.t-badges              { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.t-organizer           { font-size: 12px; color: var(--text-faint); }
+.t-organizer span      { color: var(--text-muted); }
+.hero-right            { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+
+.prize-big .prize-label-sm {
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+    text-align: right;
+}
+.prize-big .prize-amount {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--highlight);
+    text-align: right;
+}
+
+/* Join Button */
+.join-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--surface-2);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+.join-btn:hover:not(:disabled) {
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+}
+.join-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.join-form         { display: inline; }
+
+/* ─── Alert Messages ───────────────────────────────────── */
+.alert         { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+.alert-success { background: rgba(72,159,181,.14); border: 1px solid rgba(72,159,181,.3); color: var(--accent-soft); }
+.alert-error   { background: rgba(220,38,38,.14);  border: 1px solid rgba(220,38,38,.3);  color: #f87171; }
+
+/* ─── Participants Grid ─────────────────────────────────── */
+.participants-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+@media (max-width: 900px) { .participants-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .participants-grid { grid-template-columns: 1fr; } }
+
+.p-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color var(--transition);
+}
+.p-card:hover          { border-color: var(--accent); }
+.p-card.my-team-card   { border-color: rgba(255,166,43,.35); background: rgba(255,166,43,.04); }
+
+.p-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(72,159,181,.12);
+    flex-shrink: 0;
+}
+.p-name { font-size: 12px; color: var(--text); font-weight: 500; }
+.p-tag  { font-size: 10px; color: var(--text-faint); margin-top: 1px; }
+
+/* ─── Rules Box ────────────────────────────────────────── */
+.rules-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+}
+.rules-box h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+.rule-item              { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.rule-item:last-child   { border-bottom: none; }
+.rule-key               { color: var(--text-muted); min-width: 140px; flex-shrink: 0; }
+.rule-val               { color: var(--text); }
+
+/* ─── Bracket Wrapper ──────────────────────────────────── */
+.bracket-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 8px 4px 20px;
+    min-height: 220px;
+}
+
+/* Boş bracket durumu */
+.bracket-empty {
+    padding: 56px 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+}
+.bracket-empty-icon { font-size: 32px; margin-bottom: 12px; opacity: .35; }
+
+/* ─── jquery-bracket — IKARUS DARK THEME OVERRIDE ────────
+ *
+ * jquery-bracket'ın DOM yapısı:
+ *   .jQBracket
+ *     .bracket
+ *       .round          → bir tur sütunu
+ *         .round-title  → bizim eklediğimiz başlık
+ *         .match        → bir maç bloğu (wrapper)
+ *           .teamContainer → iki takımı saran kutu
+ *             .team     → tek takım satırı
+ *               .label  → takım adı
+ *               .score  → skor kutucuğu
+ *             .team.winner
+ *             .team.na  → TBD / boş
+ *
+ * Kütüphanenin inline style ve !important'larını ezmek için
+ * burada da !important kullanıyoruz.
+ * ─────────────────────────────────────────────────────── */
+
+/* Ana konteyner */
+.jQBracket {
+    background: transparent !important;
+    font-family: inherit !important;
+    padding: 8px 0 !important;
+}
+
+/* ── Kütüphanenin beyaz arka planlarını sıfırla ── */
+.jQBracket .match,
+.jQBracket .team,
+.jQBracket .label,
+.jQBracket .score {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Maç Kutusu: teamContainer ── */
+.jQBracket .teamContainer {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 7px !important;
+    overflow: hidden !important;
+    transition: border-color 0.2s ease !important;
+}
+.jQBracket .teamContainer:hover {
+    border-color: rgba(72, 159, 181, 0.4) !important;
+}
+
+/* ── Üst/Alt satır ayırıcı çizgi ── */
+.jQBracket .team:first-child {
+    border-bottom: 1px solid var(--border) !important;
+}
+
+/* ── Takım Adı ── */
+.jQBracket .team .label {
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.3px !important;
+    padding: 0 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+/* ── Skor Kutucuğu ── */
+.jQBracket .team .score {
+    background: var(--surface-2) !important;
+    border-left: 1px solid var(--border) !important;
+    color: var(--text-faint) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    min-width: 32px !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+}
+
+/* ── Kazanan Takım ── */
+.jQBracket .winner .label {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+.jQBracket .winner .score {
+    color: var(--highlight) !important;
+    background: rgba(255, 166, 43, 0.1) !important;
+    border-left-color: rgba(255, 166, 43, 0.25) !important;
+}
+
+/* ── TBD / Boş Takım ── */
+.jQBracket .na .label {
+    color: var(--text-faint) !important;
+    font-style: italic !important;
+    opacity: 0.6 !important;
+}
+.jQBracket .na .score {
+    color: var(--text-faint) !important;
+    opacity: 0.4 !important;
+}
+
+/* ── Bağlantı Çizgileri ── */
+.jQBracket .connector {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    border-width: 1px !important;
+}
+
+/* Kazananın ilerleyeceği yolu accent rengiyle göster */
+.jQBracket .connector.win,
+.jQBracket .connector.highlight,
+.jQBracket .connector.highlightWinner {
+    border-color: rgba(72, 159, 181, 0.45) !important;
+}
+
+/* ── Şampiyon kutusu ── */
+.jQBracket .champion {
+    background: rgba(255, 166, 43, 0.08) !important;
+    border: 1px solid rgba(255, 166, 43, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--highlight) !important;
+}
+
+/* ── Tur başlık satırı (JS ile ekleniyor) ── */
+.bracket-round-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--text-faint);
+    padding: 0 0 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 14px;
+}
