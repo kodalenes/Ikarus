@@ -91,7 +91,7 @@ CREATE TABLE tournament_sponsor (
     PRIMARY KEY (tournament_id, sponsor_id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE tournament_team (
+CREATE TABLE tournament_teams (
     team_id       BIGINT   NOT NULL,
     tournament_id BIGINT   NOT NULL,
     registered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -119,6 +119,34 @@ CREATE TABLE Remember_Tokens (
     FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
     INDEX idx_token_hash (token_hash)
 );
+
+CREATE TABLE Tournament_Rule (
+    id  BIGINT AUTO_INCREMENT PRIMARY KEY ,
+    tournament_id   BIGINT NOT NULL,
+    rule_text   TEXT NOT NULL,
+    sort_order  INT DEFAULT 0,
+    FOREIGN KEY (tournament_id) REFERENCES Tournament(id) ON DELETE CASCADE
+)ENGINE = InnoDB;
+
+CREATE TABLE Password_Reset_Tokens (
+    id      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    player_id BIGINT NOT NULL,
+    token_hash VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
+    INDEX idx_reset_token (token_hash)
+)ENGINE = InnoDB;
+
+ALTER TABLE Tournament
+    ADD COLUMN IF NOT EXISTS desciption          TEXT,
+    ADD COLUMN IF NOT EXISTS checkin_minutes     INT DEFAULT 15,
+    ADD COLUMN IF NOT EXISTS noshow_minutes      INT DEFAULT 10,
+    ADD COLUMN IF NOT EXISTS prize_1st           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXISTS prize_2nd           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXISTS prize_3rd           DECIMAL(10,2),
+    ADD COLUMN IF NOT EXISTS created_at          DATETIME DEFAULT CURRENT_TIMESTAMP;
 
 ALTER TABLE Matches 
 ADD CONSTRAINT match_scores_ck 
@@ -186,11 +214,11 @@ ALTER TABLE tournament_sponsor
 ADD CONSTRAINT Tour_Spon_Tournament_FK 
 FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
 
-ALTER TABLE tournament_team
+ALTER TABLE tournament_teams
     ADD CONSTRAINT TournTeam_Team_FK
     FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE;
 
-ALTER TABLE tournament_team
+ALTER TABLE tournament_teams
     ADD CONSTRAINT TournTeam_Tournament_FK
     FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE;
 
@@ -205,3 +233,17 @@ ALTER TABLE Invitations
 ALTER TABLE Invitations
     ADD CONSTRAINT Invitations_Receiver_FK
     FOREIGN KEY (receiver_id) REFERENCES Player (id) ON DELETE CASCADE;
+
+ALTER TABLE Player ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Tournament ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Game ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Team ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Matches ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+
+ALTER TABLE Team 
+  ADD COLUMN tag VARCHAR(4),
+  ADD COLUMN game VARCHAR(50),
+  ADD COLUMN region VARCHAR(50),
+  ADD COLUMN description TEXT;
+  
+  ALTER TABLE Player ADD COLUMN role VARCHAR(50);

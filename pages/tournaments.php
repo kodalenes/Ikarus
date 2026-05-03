@@ -2,7 +2,7 @@
 require_once '../includes/session.php';
 include '../includes/db.php'; 
 
-// PDO kullanarak veritabanından turnuvaları çekiyoruz
+// Fetch tournaments from database
 try {
     $stmt = $pdo->query("
         SELECT t.*, g.name as game_name 
@@ -23,16 +23,16 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournaments - Ikarus</title>
 
-    <!-- Ana Stiller -->
+    <!-- Main Styles -->
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/modal.css">
     <link rel="stylesheet" href="../assets/css/utils.css">
     
-    <!-- Turnuva Stilleri -->
+    <!-- Tournament Styles -->
     <link rel="stylesheet" href="../assets/css/tournaments.css">
 
     <style>
-        /* Tıklamayı engelleyen görünmez bir katman (overlay) varsa diye üstte tutma garantisi */
+        /* Keeps main content clickable if overlays exist */
         main, .game-filter, .t-card { position: relative; z-index: 10; }
         .t-card { text-decoration: none !important; cursor: pointer !important; }
     </style>
@@ -42,7 +42,8 @@ try {
     <?php require_once '../includes/header.php' ?>
     
     <main>
-        <div class="page">
+        <!-- Added tournaments-wrapper for layout alignment -->
+        <div class="page tournaments-wrapper">
           <div class="content">
             <div class="page-header">
               <div>
@@ -67,7 +68,7 @@ try {
             <div class="tournaments-list" id="tList">
               <?php if (!empty($tournaments)): ?>
                 <?php foreach($tournaments as $row): 
-                    // Oyun ismine göre ikon ve renk belirleme
+                    // Determine game icon and color
                     $game_lower = strtolower($row['game_name'] ?? '');
                     $icon_class = 'icon-all';
                     $game_short = 'T';
@@ -76,7 +77,6 @@ try {
                     elseif (strpos($game_lower, 'val') !== false) { $icon_class = 'icon-val'; $game_short = 'V'; }
                     elseif (strpos($game_lower, 'fc') !== false) { $icon_class = 'icon-fc'; $game_short = 'FC'; }
                 ?>
-                  <!-- Link Etiketi İle Kart Oluşturma -->
                   <a href="tournaments-details.php?id=<?php echo $row['id']; ?>" class="t-card" data-game="<?php echo strtolower($game_short); ?>">
                     <div class="t-game-badge <?php echo $icon_class; ?>"><?php echo $game_short; ?></div>
                     <div class="t-main">
@@ -111,20 +111,19 @@ try {
 
     <?php require_once '../includes/footer.php' ?>
 
-    <!-- JavaScript Filtreleme Fonksiyonu -->
     <script>
     function filterGame(game, el) {
-      // Aktif buton rengini değiştirme
+      // Toggle active class
       document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
       
-      // Kartları filtreleme
+      // Filter cards
       const cards = document.querySelectorAll('.t-card');
       cards.forEach(c => {
         if (game === 'all' || c.dataset.game === game) {
-          c.style.display = ''; // Görünür yap
+          c.style.display = ''; 
         } else {
-          c.style.display = 'none'; // Gizle
+          c.style.display = 'none'; 
         }
       });
     }

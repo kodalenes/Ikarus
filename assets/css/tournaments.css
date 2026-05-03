@@ -1,107 +1,42 @@
 /* =========================================
-   IKARUS GG - GENEL VE TURNUVA STİLLERİ
+   IKARUS GG - TOURNAMENTS STYLES
    ========================================= */
 
-/* --- 1. TEMEL AYARLAR (RESET) --- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: #0d0f14;
-  color: #e8e9ef;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+/* --- 1. LAYOUT WRAPPER --- */
+.tournaments-wrapper {
+  max-width: 1200px; /* Aligned with header-inner */
+  margin: 40px auto; 
+  padding: 0 24px; 
+  width: 100%;
 }
 
 .page {
-  background: #0d0f14;
-  color: #e8e9ef;
+  background: transparent;
+  color: var(--text);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .content {
-  padding: 24px 28px;
+  padding: 24px 0;
 }
 
-/* --- 2. NAVİGASYON VE HEADER --- */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 28px;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
-}
-
-.nav-logo {
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 4px;
-  color: #fff;
-}
-
-.nav-links {
-  display: flex;
-  gap: 22px;
-  align-items: center;
-}
-
-.nav-links a {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: #489fb5;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.welcome {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.welcome strong {
-  color: #e8e9ef;
-}
-
+/* --- 2. HEADER & NAVIGATION COMPONENTS --- */
 .btn-ghost {
   padding: 6px 14px;
-  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--border);
   border-radius: 6px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   font-size: 11px;
   cursor: pointer;
   letter-spacing: 1px;
-  transition: all 0.2s;
+  transition: all var(--transition);
 }
 
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-.breadcrumb {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.3);
-  padding: 12px 28px;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
-}
-
-.breadcrumb span {
-  color: #489fb5;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .page-header {
@@ -114,17 +49,17 @@ body {
 .page-title {
   font-size: 20px;
   font-weight: 500;
-  color: #fff;
+  color: var(--text);
   letter-spacing: 1px;
 }
 
 .page-sub {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--text-muted);
   margin-top: 3px;
 }
 
-/* --- 3. FİLTRELEME VE ARAMA --- */
+/* --- 3. FILTERING --- */
 .game-filter {
   display: flex;
   gap: 10px;
@@ -137,82 +72,28 @@ body {
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
   cursor: pointer;
-  transition: all 0.15s;
-  color: rgba(255, 255, 255, 0.5);
+  transition: all var(--transition);
+  color: var(--text-muted);
   font-size: 12px;
   letter-spacing: 0.5px;
 }
 
 .game-btn:hover {
-  border-color: rgba(72, 159, 181, 0.4);
-  color: rgba(255, 255, 255, 0.8);
+  border-color: var(--accent-soft);
+  color: var(--text);
 }
 
 .game-btn.active {
-  border-color: #489fb5;
+  border-color: var(--accent);
   background: rgba(72, 159, 181, 0.1);
-  color: #fff;
+  color: var(--text);
 }
 
-.filter-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  align-items: center;
-}
-
-.filter-chip {
-  padding: 6px 14px;
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 11px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.15s;
-}
-
-.filter-chip.active {
-  border-color: #489fb5;
-  color: #489fb5;
-  background: rgba(72, 159, 181, 0.08);
-}
-
-.search-wrap {
-  margin-left: auto;
-  position: relative;
-}
-
-.search-input {
-  padding: 7px 12px 7px 32px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #e8e9ef;
-  font-size: 12px;
-  outline: none;
-  width: 200px;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.25);
-}
-
-.search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.3;
-  font-size: 13px;
-}
-
-/* --- 4. OYUN İKONLARI VE ROZETLER --- */
+/* --- 4. ICONS & BADGES --- */
 .game-icon, .t-game-badge {
   display: flex;
   align-items: center;
@@ -235,11 +116,12 @@ body {
   font-size: 14px;
 }
 
+/* Game Colors */
 .icon-cs { background: rgba(255, 165, 0, 0.15); color: #ffa500; }
 .icon-val { background: rgba(255, 70, 84, 0.15); color: #ff4654; }
 .icon-fc { background: rgba(0, 200, 100, 0.15); color: #00c864; }
 .icon-lol { background: rgba(200, 155, 60, 0.15); color: #c89b3c; }
-.icon-all { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.6); }
+.icon-all { background: var(--surface-2); color: var(--text-muted); }
 
 .badge, .status-badge {
   font-size: 10px;
@@ -249,14 +131,12 @@ body {
   text-transform: uppercase;
 }
 
-.s-live, .b-live { background: rgba(220, 38, 38, 0.15); color: #f87171; border: 0.5px solid rgba(220, 38, 38, 0.25); }
-.s-open { background: rgba(99, 153, 34, 0.12); color: #97c459; border: 0.5px solid rgba(99, 153, 34, 0.25); }
-.s-soon { background: rgba(72, 159, 181, 0.12); color: #489fb5; border: 0.5px solid rgba(72, 159, 181, 0.25); }
-.s-full { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.35); border: 0.5px solid rgba(255, 255, 255, 0.1); }
-.b-game { background: rgba(255, 70, 84, 0.1); color: #ff8088; border: 0.5px solid rgba(255, 70, 84, 0.2); }
-.b-format { background: rgba(72, 159, 181, 0.1); color: #489fb5; border: 0.5px solid rgba(72, 159, 181, 0.2); }
+.s-live, .b-live { background: rgba(220, 38, 38, 0.15); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.25); }
+.s-open { background: rgba(99, 153, 34, 0.12); color: #97c459; border: 1px solid rgba(99, 153, 34, 0.25); }
+.s-soon { background: rgba(72, 159, 181, 0.12); color: var(--accent); border: 1px solid rgba(72, 159, 181, 0.25); }
+.s-full { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
 
-/* --- 5. TURNUVA LİSTE KARTLARI --- */
+/* --- 5. TOURNAMENT LIST CARDS --- */
 .tournaments-list {
   display: flex;
   flex-direction: column;
@@ -264,12 +144,12 @@ body {
 }
 
 .t-card {
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 18px 20px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--transition);
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   align-items: center;
@@ -277,13 +157,8 @@ body {
 }
 
 .t-card:hover {
-  border-color: rgba(72, 159, 181, 0.35);
-  background: rgba(72, 159, 181, 0.04);
-}
-
-.t-card.featured {
-  border-color: rgba(72, 159, 181, 0.25);
-  background: rgba(72, 159, 181, 0.04);
+  border-color: var(--accent);
+  background: rgba(72, 159, 181, 0.05);
 }
 
 .t-main {
@@ -299,8 +174,8 @@ body {
 
 .t-name {
   font-size: 14px;
-  font-weight: 500;
-  color: #fff;
+  font-weight: 600;
+  color: var(--text);
 }
 
 .t-meta-row {
@@ -310,11 +185,11 @@ body {
 
 .t-meta-item {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--text-faint);
 }
 
 .t-meta-item span {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-muted);
 }
 
 .t-slots {
@@ -325,27 +200,27 @@ body {
 
 .slots-label, .prize-label {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--text-faint);
   letter-spacing: 1px;
   margin-bottom: 5px;
 }
 
 .slots-bar {
   height: 4px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-2);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .slots-fill {
   height: 100%;
-  background: #489fb5;
+  background: var(--accent);
   border-radius: 2px;
 }
 
 .slots-text {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
   margin-top: 4px;
 }
 
@@ -356,25 +231,28 @@ body {
 
 .prize-val {
   font-size: 16px;
-  font-weight: 500;
-  color: #EF9F27;
+  font-weight: 600;
+  color: var(--highlight);
 }
 
 .empty-state {
   text-align: center;
   padding: 48px 0;
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--text-muted);
   font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
 }
 
-/* --- 6. TURNUVA DETAY SAYFASI (HERO & STATS) --- */
+/* --- 6. TOURNAMENT DETAILS HERO --- */
 .hero-band {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 20px;
   align-items: center;
-  background: rgba(255, 255, 255, 0.02);
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 22px 24px;
   margin-bottom: 20px;
@@ -382,115 +260,33 @@ body {
 
 .t-hero-info .t-title {
   font-size: 20px;
-  font-weight: 500;
-  color: #fff;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--text);
   margin-bottom: 6px;
-}
-
-.t-hero-info .t-badges {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.t-organizer {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.t-organizer span {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.hero-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-}
-
-.prize-big {
-  text-align: right;
-}
-
-.prize-big .label {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.25);
-  letter-spacing: 2px;
-  margin-bottom: 2px;
-  text-transform: uppercase;
-}
-
-.prize-big .val {
-  font-size: 26px;
-  font-weight: 500;
-  color: #EF9F27;
 }
 
 .join-btn {
   padding: 10px 24px;
   border: none;
   border-radius: 8px;
-  background: #489fb5;
-  color: #0d0f14;
+  background: var(--accent);
+  color: var(--bg);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.2s;
+  transition: all var(--transition);
 }
 
 .join-btn:hover:not(:disabled) {
-  background: #3a8296;
+  background: var(--accent-soft);
+  transform: translateY(-1px);
 }
 
-.join-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 0.5px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
-  padding: 14px 16px;
-}
-
-.stat-label {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.28);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-
-.stat-val {
-  font-size: 18px;
-  font-weight: 500;
-  color: #fff;
-}
-
-.stat-sub {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.28);
-  margin-top: 2px;
-}
-
-/* --- 7. SEKME (TAB) YAPISI VE İÇERİKLER --- */
+/* --- 7. TABS --- */
 .tabs {
   display: flex;
   gap: 0;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border);
   margin-bottom: 20px;
 }
 
@@ -499,21 +295,19 @@ body {
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
   font-size: 13px;
   cursor: pointer;
-  letter-spacing: 0.5px;
-  margin-bottom: -0.5px;
-  transition: all 0.15s;
+  transition: all var(--transition);
 }
 
 .tab-btn:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text);
 }
 
 .tab-btn.active {
-  color: #489fb5;
-  border-bottom-color: #489fb5;
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 .tab-pane {
@@ -524,48 +318,10 @@ body {
   display: block;
 }
 
-/* --- 8. BRACKET (EŞLEŞME AĞACI) --- */
-.bracket-wrap {
-  overflow-x: auto;
-  padding-bottom: 8px;
-}
-
-.bracket {
-  display: flex;
-  gap: 0;
-  align-items: stretch;
-  min-width: 700px;
-}
-
-.round {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.round-label {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.25);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 12px;
-  padding: 8px 0;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
-}
-
-.matches {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  flex: 1;
-  gap: 8px;
-  padding: 0 8px;
-}
-
+/* --- 8. BRACKET & MATCHES --- */
 .match {
-  background: rgba(255, 255, 255, 0.03);
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -579,45 +335,28 @@ body {
 }
 
 .match-team:first-child {
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
-}
-
-.match-seed {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.2);
-  width: 14px;
-  text-align: center;
-  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .match-name {
   flex: 1;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-muted);
 }
 
 .match-score {
   font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.3);
-  min-width: 16px;
-  text-align: right;
+  font-weight: 600;
+  color: var(--text-faint);
 }
 
-.match-team.winner .match-name { color: #fff; font-weight: 500; }
-.match-team.winner .match-score { color: #489fb5; }
-.match-team.tbd .match-name { color: rgba(255, 255, 255, 0.2); font-style: italic; }
-.match-team.my-team .match-name { color: #EF9F27; }
+.match-team.winner .match-name { color: var(--text); font-weight: 500; }
+.match-team.winner .match-score { color: var(--accent); }
+.match-team.my-team .match-name { color: var(--highlight); }
 
-/* --- 9. KATILIMCILAR VE KURALLAR --- */
-.participants-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
+/* --- 9. PARTICIPANTS & RULES --- */
 .p-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
   display: flex;
@@ -625,59 +364,24 @@ body {
   gap: 10px;
 }
 
-.p-card.my-team-card {
-  border-color: rgba(239, 159, 39, 0.3);
-  background: rgba(239, 159, 39, 0.04);
-}
-
-.p-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 600;
-  color: #489fb5;
-  background: rgba(72, 159, 181, 0.12);
-  flex-shrink: 0;
-  text-transform: uppercase;
-}
-
 .p-name {
   font-size: 12px;
-  color: #e8e9ef;
+  color: var(--text);
   font-weight: 500;
-}
-
-.p-tag {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.3);
-  margin-top: 1px;
 }
 
 .rules-box {
-  background: rgba(255, 255, 255, 0.02);
-  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
-}
-
-.rules-box h3 {
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 1px;
-  margin-bottom: 14px;
-  text-transform: uppercase;
 }
 
 .rule-item {
   display: flex;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
   font-size: 13px;
 }
 
@@ -686,11 +390,10 @@ body {
 }
 
 .rule-key {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--text-muted);
   min-width: 140px;
-  flex-shrink: 0;
 }
 
 .rule-val {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text);
 }
