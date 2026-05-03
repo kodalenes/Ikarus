@@ -446,10 +446,16 @@ try {
 <main>
 <div class="team-page">
 
-<?php if ($feedback): ?>
-    <div class="tm-alert tm-alert--<?= $feedbackType ?>">
-        <?= htmlspecialchars($feedback) ?>
-    </div>
+<?php if (!empty($feedback)): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // PHP'den gelen mesajı ve tipi direkt Toast'a yolla
+            showToast(<?= json_encode($feedback) ?>, <?= json_encode($feedbackType) ?>);
+            
+            // URL'deki ?updated=1 veya ?created=1 gibi takılı kalan parametreleri temizle
+            window.history.replaceState({}, document.title, window.location.pathname);
+        });
+    </script>
 <?php endif; ?>
 
 <?php if (!$hasTeam): ?>
@@ -616,8 +622,8 @@ try {
 <?php if ($isCaptain): ?>
 <div id="invitePanel" class="tm-panel tm-panel--accent" style="display:none">
     <div class="tm-panel-title">Invite Member</div>
-    <form method="POST" class="tm-invite-form">
-        <input type="hidden" name="action" value="invite">
+    <form id="inviteTeamForm" method="POST" action="team.php" class="tm-invite-form">
+    <input type="hidden" name="action" value="invite">
         <input class="tm-input" type="text" name="invite_username" placeholder="Username" required>
         <button type="submit" class="tm-btn-primary">Add</button>
     </form>
@@ -627,7 +633,7 @@ try {
 <!-- DÜZENLEME PANELİ -->
 <div id="editPanel" class="tm-panel" style="display:none">
     <div class="tm-panel-title">Edit Team</div>
-    <form method="POST" enctype="multipart/form-data">
+    <form id="editTeamForm" method="POST" action="team.php" enctype="multipart/form-data">
         <input type="hidden" name="action" value="update_team">
 
         <!-- Avatar Upload -->
@@ -785,7 +791,17 @@ try {
   <div id="toast" class="tm-toast"></div>
 
 <?php require_once '../includes/footer.php'; ?>
-
+<!-- ÖZEL ONAY (CONFIRM) KUTUSU -->
+<div id="customConfirmOverlay" class="tm-modal-overlay" style="display: none;">
+    <div class="tm-modal-box">
+        <div class="tm-modal-title" id="customConfirmTitle">Confirm Action</div>
+        <div id="customConfirmMessage" class="tm-modal-message">Are you sure?</div>
+        <div class="tm-modal-actions">
+            <button type="button" class="tm-btn-ghost" onclick="closeCustomConfirm()">Cancel</button>
+            <button type="button" id="customConfirmBtn" class="tm-btn-danger">Confirm</button>
+        </div>
+    </div>
+</div>
 
 <script>
 function togglePanel(id) {
@@ -804,10 +820,61 @@ function togglePanel(id) {
     }
 }
 
-function confirmLeave() {
-    if (confirm('Are you sure you want to leave this team?')) {
-        document.getElementById('leaveForm').submit();
+// --- ÖZEL ONAY KUTUSU (CUSTOM CONFIRM) SİSTEMİ ---
+let currentConfirmAction = null;
+let currentConfirmBtn = null;
+
+function showCustomConfirm(title, message, btnText, actionCallback, sourceBtn = null) {
+    document.getElementById('customConfirmTitle').innerText = title;
+    document.getElementById('customConfirmMessage').innerText = message;
+    
+    const confirmBtn = document.getElementById('customConfirmBtn');
+    confirmBtn.innerText = btnText;
+    
+    // İşlemi hafızaya al
+    currentConfirmAction = actionCallback;
+    currentConfirmBtn = sourceBtn;
+    
+    // Kutuyu göster
+    const overlay = document.getElementById('customConfirmOverlay');
+    overlay.style.display = 'flex';
+    setTimeout(() => overlay.classList.add('show'), 10); // Animasyon için ufak gecikme
+}
+
+function closeCustomConfirm() {
+    const overlay = document.getElementById('customConfirmOverlay');
+    overlay.classList.remove('show');
+    setTimeout(() => overlay.style.display = 'none', 300);
+}
+
+// Modal içindeki onay butonuna tıklanınca
+document.getElementById('customConfirmBtn').addEventListener('click', function() {
+    if (currentConfirmAction) {
+        currentConfirmAction(currentConfirmBtn, this);
     }
+});
+
+// --- TAKIMDAN AYRILMA (LEAVE TEAM) İŞLEMİ ---
+function confirmLeave(btn) {
+    showCustomConfirm(
+        'Leave Team', 
+        'Are you sure you want to leave this team? This action cannot be undone.', 
+        'Leave', 
+        function(originalBtn, modalBtn) {
+            
+            // Modal içindeki butonu "Leaving..." yapıp dondur
+            modalBtn.innerText = 'Leaving...';
+            modalBtn.disabled = true;
+            modalBtn.style.opacity = '0.7';
+            modalBtn.style.cursor = 'not-allowed';
+            
+            // 1 saniyelik şık bekleme süresinden sonra formu gönder
+            setTimeout(() => {
+                document.getElementById('leaveForm').submit();
+            }, 1000);
+        },
+        btn
+    );
 }
 
 function previewAvatar(input, previewId) {
@@ -826,20 +893,45 @@ function previewAvatar(input, previewId) {
 
 // Auto-hide success alerts
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.tm-alert--success').forEach(el => {
-        setTimeout(() => {
-            el.style.transition = 'opacity 0.5s';
-            el.style.opacity = '0';
-            setTimeout(() => el.remove(), 500);
-        }, 4000);
-    });
-
+    
     // Tag input auto-uppercase
     document.querySelectorAll('input[name="tag"]').forEach(inp => {
         inp.addEventListener('input', () => {
             inp.value = inp.value.toUpperCase();
         });
     });
+
+    // --- "Save Changes" Fake Delay Animasyonu ---
+    const editForm = document.getElementById('editTeamForm');
+    if (editForm) {
+        editForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const submitBtn = editForm.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerText = 'Saving...';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+            setTimeout(() => { editForm.submit(); }, 1500);
+        });
+    }
+
+    // --- "Invite Member" Fake Delay Animasyonu ---
+    const inviteForm = document.getElementById('inviteTeamForm');
+    if (inviteForm) {
+        inviteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = inviteForm.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerText = 'Inviting...'; // Davet ediliyor...
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+            setTimeout(() => { inviteForm.submit(); }, 500); // 0.5 saniye gecikme
+        });
+    }
 });
 
 function showToast(message, type = 'success') {
@@ -876,6 +968,27 @@ function copyInviteCode() {
         alert('Code: ' + code); 
     });
 }
+const editForm = document.getElementById('editTeamForm');
+if (editForm) {
+    editForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Formun hemen gitmesini engelle
+
+        // Gönder butonunu bul
+        const submitBtn = editForm.querySelector('button[type="submit"]');
+
+        // Butonu pasifleştir ve yazısını değiştir
+        submitBtn.innerText = 'Saving...'; // İstersen 'Kaydediliyor...' yap
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+        submitBtn.style.cursor = 'not-allowed';
+
+        // 1.5 saniye (1500ms) bekleyip formu manuel olarak gönder
+        setTimeout(() => {
+            editForm.submit();
+        }, 1500);
+    });
+}
+
 </script>
 </body>
 </html>

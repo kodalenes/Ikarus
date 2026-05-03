@@ -268,3 +268,20 @@
 /* Durum renkleri */
 .tm-toast--success { border-left: 4px solid var(--success); }
 .tm-toast--error   { border-left: 4px solid var(--danger); }
+.tm-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999999; opacity: 0; transition: opacity 0.3s ease;
+}
+.tm-modal-overlay.show { opacity: 1; }
+.tm-modal-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; width: 100%; max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: translateY(20px); transition: transform 0.3s ease;
+}
+.tm-modal-overlay.show .tm-modal-box { transform: translateY(0); }
+.tm-modal-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+.tm-modal-message { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+.tm-modal-actions { display: flex; justify-content: flex-end; gap: 12px; }
