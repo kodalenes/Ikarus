@@ -24,11 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function gameMatch(r, gameFilter) {
         if (gameFilter === 'all') return true;
         const g = (r.game || '').toLowerCase();
-        if (gameFilter === 'val') return g.includes('valorant');
-        if (gameFilter === 'cs2') return g.includes('cs');
-        if (gameFilter === 'fc')  return g.includes('fc');
-        if (gameFilter === 'lol') return g.includes('league');
-        return true;
+        const f = (gameFilter || '').toLowerCase();
+        return g.includes(f) || f.includes(g);
     }
 
     function getWrClass(wr) { return wr >= 70 ? 'wr-high' : wr >= 50 ? 'wr-mid' : 'wr-low'; }

@@ -116,6 +116,17 @@ $teamSql = "
 ";
 $teamsData = $pdo->query($teamSql)->fetchAll();
 
+// ── FETCH ACTIVE GAMES FOR FILTER ───────────────────────────────────────────
+$gamesSql = "
+    SELECT g.id, g.name, COUNT(t.id) as t_count 
+    FROM Game g
+    LEFT JOIN Tournament t ON g.id = t.game_id AND t.deleted_at IS NULL
+    WHERE g.deleted_at IS NULL 
+    GROUP BY g.id, g.name
+    ORDER BY t_count DESC, g.name ASC
+";
+$gamesList = $pdo->query($gamesSql)->fetchAll();
+
 // ── SESSION: current user ───────────────────────────────────────────
 $me_id      = $_SESSION['user_id'] ?? null;
 $me_team_id = $_SESSION['team_id'] ?? null;
@@ -183,10 +194,26 @@ $jsTeams = array_map(function($t) use ($me_team_id) {
     </div>
     <div class="game-filter" id="gameFilter">
       <button class="gf-btn active" onclick="filterGame('all',this)">All</button>
-      <button class="gf-btn" onclick="filterGame('counter',this)">CS2</button>
-      <button class="gf-btn" onclick="filterGame('val',this)">Valorant</button>
-      <button class="gf-btn" onclick="filterGame('fc',this)">FC 25</button>
-      <button class="gf-btn" onclick="filterGame('lol',this)">LoL</button>
+      
+      <?php 
+        $visibleGames = array_slice($gamesList, 0, 3);
+        $dropdownGames = array_slice($gamesList, 3);
+      ?>
+      
+      <?php foreach ($visibleGames as $g): ?>
+        <button class="gf-btn" onclick="filterGame('<?= htmlspecialchars($g['name'], ENT_QUOTES) ?>',this)">
+          <?= htmlspecialchars($g['name']) ?>
+        </button>
+      <?php endforeach; ?>
+
+      <?php if (count($dropdownGames) > 0): ?>
+        <select class="gf-select" onchange="if(this.value) { filterGame(this.value, this); this.value=''; }">
+          <option value="" disabled selected>Other Games...</option>
+          <?php foreach ($dropdownGames as $g): ?>
+            <option value="<?= htmlspecialchars($g['name'], ENT_QUOTES) ?>"><?= htmlspecialchars($g['name']) ?></option>
+          <?php endforeach; ?>
+        </select>
+      <?php endif; ?>
     </div>
   </div>
 

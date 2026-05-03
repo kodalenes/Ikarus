@@ -26,6 +26,8 @@
 .game-filter {
     display: flex;
     gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 .gf-btn {
     padding: 8px 16px;
@@ -44,7 +46,35 @@
 .gf-btn.active {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(72, 159, 181, 0.08);
+    background: rgba(72, 159, 181, 0.08); /* accent color with opacity */
+}
+
+.gf-select {
+    padding: 8px 32px 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 10px center;
+    background-size: 14px;
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+    font-family: inherit;
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.gf-select:hover {
+    border-color: var(--accent-soft);
+    color: var(--text);
+}
+.gf-select:focus, .gf-select.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: rgba(72, 159, 181, 0.08); /* Matches .gf-btn.active */
+}
+.gf-select option {
+    background: var(--bg);
+    color: var(--text);
 }
 
 /* PODIUM */
