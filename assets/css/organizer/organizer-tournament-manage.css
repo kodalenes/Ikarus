@@ -1,0 +1,107 @@
+/* Header Card */
+.td-header-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.td-title { 
+    font-size: 20px; 
+    font-weight: 700; 
+    color: var(--text); 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+.td-status-badge { 
+    font-size: 11px; 
+    padding: 4px 8px; 
+    background: rgba(72,159,181,0.15); 
+    color: var(--accent); 
+    border-radius: 4px; 
+    text-transform: uppercase; 
+}
+.td-meta { 
+    display: flex; 
+    gap: 16px; 
+    margin-top: 8px; 
+    font-size: 13px; 
+    color: var(--text-muted); 
+}
+.td-actions { display: flex; gap: 8px; }
+
+/* Grid Layout */
+.td-grid { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; 
+    gap: 24px; 
+}
+
+/* Panels */
+.td-panel { 
+    background: var(--surface-2); 
+    border: 1px solid var(--border); 
+    border-radius: 8px; 
+    padding: 20px; 
+    margin-bottom: 24px; 
+}
+.td-panel-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 16px; 
+    border-bottom: 1px solid var(--border); 
+    padding-bottom: 12px; 
+}
+.td-panel-title { 
+    font-weight: 600; 
+    color: var(--text); 
+    font-size: 14px; 
+}
+
+/* Danger Zone Panel Extensions */
+.td-panel--danger { border-color: rgba(220,38,38,0.25); }
+.td-panel-header--danger { border-bottom-color: rgba(220,38,38,0.15); }
+.td-btn-danger { width: 100%; background: transparent; border: 1px solid rgba(220,38,38,0.4); color: #f87171; }
+.td-btn-danger:hover { background: rgba(220,38,38,0.05); }
+
+/* List Items */
+.td-setting-item { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 12px 0; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    transition: 0.2s; 
+}
+.td-setting-item:last-child { border-bottom: none; }
+.td-setting-item:hover { color: var(--text); padding-left: 5px; }
+
+.td-team-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 12px 0; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+}
+.td-team-item:last-child { border-bottom: none; }
+.td-team-info { display: flex; align-items: center; gap: 12px; }
+.td-team-avatar { 
+    width: 36px; 
+    height: 36px; 
+    background: var(--surface-1); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: bold; 
+    color: var(--accent); 
+    text-transform: uppercase;
+}
+.td-team-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.td-team-date { font-size: 11px; color: var(--text-faint); margin-top: 2px; }

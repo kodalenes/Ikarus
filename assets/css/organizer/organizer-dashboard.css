@@ -1,0 +1,14 @@
+/* assets/css/organizer/organizer-dashboard.css */
+
+.db-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.db-card {
+    background: var(--surface-1);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}

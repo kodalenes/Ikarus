@@ -3,11 +3,11 @@
      * 
     */
 
-    //Aktid menu tespiti
+    //Aktif menu tespiti
     $currentPage = basename($_SERVER['PHP_SELF']);
 
     $menuItem = [
-        ['file' => 'dashboard.php',                     'label' => 'Dashboard',         'icon' => 'dashboard'],
+        ['file' => 'dashboard.php',                 'label' => 'Dashboard',         'icon' => 'dashboard'],
         ['file' => 'tournaments.php',               'label' => 'Tournaments',       'icon' => 'trophy'],
         ['file' => 'tournament-create.php',         'label' => 'New Tournaments',   'icon' => 'plus'],
         ['file' => 'match-results.php',             'label' => 'Match Results',     'icon' => 'match'],
@@ -19,7 +19,7 @@
     try {
         $pendingMatches = $pdo->prepare("
         SELECT COUNT(*) FROM Matches
-        WHERE score_team1 IS NULL
+        WHERE winner_id IS NULL
             AND tournament_id IN (
                 SELECT id FROM Tournament WHERE organizer_id = ?
              )
@@ -50,7 +50,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? 'Panel') ?>- Ikarus Organizer</title>
     <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/organizer.css">
+    <link rel="stylesheet" href="../assets/css/organizer/organizer-core.css">
+    <?php
+        /**
+         * 2. Dinamik CSS Yükleyici
+         * Sayfa adını (örn: tournaments.php -> tournaments) otomatik alır.
+         */
+        $currentPage = basename($_SERVER['PHP_SELF'], '.php'); 
+
+        // CSS dosyasının yolunu belirliyoruz
+        $cssFilePath = "../assets/css/organizer/organizer-{$currentPage}.css";
+
+        // 3. Dosya fiziksel olarak sunucuda var mı? (Gereksiz 404 hatalarını önler)
+        if (file_exists(__DIR__ . '/' . $cssFilePath)) {
+            // Dosya varsa HTML'e dahil et
+            // Not: Geliştirme aşamasında CSS önbelleğe takılmasın diye sonuna "?v=time()" eklendi.
+            echo '<link rel="stylesheet" href="' . $cssFilePath . '?v=' . time() . '">';
+        }
+    ?>
 </head>
 
 <body class="organizer-body">

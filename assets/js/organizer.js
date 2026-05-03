@@ -1,21 +1,27 @@
 /* ═══════════════════════════════════════════════════════════════════
    ORGANIZER — PLAYERS PAGE SPECIFIC
    ═══════════════════════════════════════════════════════════════════ */
-const openPlayerRows = new Set(); 
+let openPlayerId = null;
 
 function toggleDetail(playerId) {
     const detailRow = document.getElementById('detail-' + playerId);
     const arrow     = document.getElementById('arr-'    + playerId);
     if (!detailRow) return;
 
-    if (openPlayerRows.has(playerId)) {
+    if (openPlayerId === playerId) {
         detailRow.style.display = 'none';
         arrow.textContent       = '▸';
-        openPlayerRows.delete(playerId);
+        openPlayerId = null;
     } else {
+        if (openPlayerId !== null) {
+            const oldDetail = document.getElementById('detail-' + openPlayerId);
+            const oldArrow = document.getElementById('arr-' + openPlayerId);
+            if (oldDetail) oldDetail.style.display = 'none';
+            if (oldArrow) oldArrow.textContent = '▸';
+        }
         detailRow.style.display = 'table-row';
         arrow.textContent       = '▾';
-        openPlayerRows.add(playerId);
+        openPlayerId = playerId;
     }
 }
 
@@ -66,12 +72,16 @@ function submitWarning(playerId, tournamentId) {
 
                 const item = document.createElement('div');
                 item.className = 'plr-warn-item';
+                item.id = 'warn-item-' + data.warning_id;
                 item.innerHTML = `
                     <div class="plr-warn-item-type plr-warn-item-type--${warnType}">
                         ${warnType === 'noshow' ? '🚫 No-Show' : '⚠️ Warning'}
                     </div>
                     ${note ? `<div class="plr-warn-item-note">${escHtml(note)}</div>` : ''}
-                    <div class="plr-warn-item-date">Just now</div>
+                    <div class="plr-warn-item-date" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span>Just now</span>
+                        <button onclick="removeWarning(${data.warning_id}, ${playerId})" style="background:none; border:none; color:var(--text-faint); cursor:pointer; font-size:11px; padding:0;" title="Remove warning">✕</button>
+                    </div>
                 `;
                 histEl.prepend(item);
             }
@@ -171,6 +181,43 @@ function wrClass(rate) {
     return 'plr-wr-fill--low';
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   ORGANIZER — TEAMS PAGE SPECIFIC
+   ═══════════════════════════════════════════════════════════════════ */
+
+function toggleMembers(rowKey) {
+    const row = document.getElementById('members-' + rowKey);
+    const arrow = document.getElementById('arrow-' + rowKey);
+    if (!row) return;
+
+    if (row.style.display === 'none' || row.style.display === '') {
+        row.style.display = 'table-row';
+        if (arrow) arrow.textContent = '▾';
+    } else {
+        row.style.display = 'none';
+        if (arrow) arrow.textContent = '▸';
+    }
+}
+
+let currentDqTeamId = null;
+let currentDqTourId = null;
+
+function confirmDisqualify(teamId, tourId, teamName) {
+    currentDqTeamId = teamId;
+    currentDqTourId = tourId;
+    const msg = document.getElementById('dq-message');
+    const overlay = document.getElementById('dq-overlay');
+    if (msg) msg.innerHTML = `Are you sure you want to remove <strong>${escHtml(teamName)}</strong>?`;
+    if (overlay) overlay.style.display = 'flex';
+}
+
+function closeDq() {
+    const overlay = document.getElementById('dq-overlay');
+    if (overlay) overlay.style.display = 'none';
+    currentDqTeamId = null;
+    currentDqTourId = null;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Win Rate Barları
     document.querySelectorAll('.plr-wr-fill[data-rate]').forEach(bar => {
@@ -186,9 +233,50 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') e.target.closest('form').submit();
         });
     }
+
+    // Teams - DQ Onay Butonu
+    const dqConfirmBtn = document.getElementById('dq-confirm-btn');
+    if (dqConfirmBtn) {
+        dqConfirmBtn.addEventListener('click', () => {
+            if (!currentDqTeamId || !currentDqTourId) return;
+            
+            dqConfirmBtn.disabled = true;
+            dqConfirmBtn.textContent = 'Removing...';
+
+            const params = new URLSearchParams({
+                action: 'disqualify',
+                team_id: currentDqTeamId,
+                tournament_id: currentDqTourId
+            });
+
+            fetch('teams.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString()
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Error occurred.');
+                    dqConfirmBtn.disabled = false;
+                    dqConfirmBtn.textContent = 'Remove';
+                }
+            })
+            .catch(() => {
+                alert('Connection error.');
+                dqConfirmBtn.disabled = false;
+                dqConfirmBtn.textContent = 'Remove';
+            });
+        });
+    }
 });
 
 // HTML tarafında onClick tetikleyicilerini eşleme
 window.toggleDetail = toggleDetail;
 window.submitWarning = submitWarning;
 window.removeWarning = removeWarning;
+window.toggleMembers = toggleMembers;
+window.confirmDisqualify = confirmDisqualify;
+window.closeDq = closeDq;

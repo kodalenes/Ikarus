@@ -1,11 +1,12 @@
 <?php
     require_once __DIR__ . '/guard.php';
+    require_once __DIR__ . '/../includes/db.php'; // Veritabanı bağlantısı eklendi
 
     $orgId = $_SESSION['user_id'];
     $errors = [];
     $success = '';
 
-    //Sonuc kaydetme
+    // Sonuç kaydetme
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['match_id'])) {
         $matchId = (int)$_POST['match_id'];
         $score1 = isset($_POST['score1']) && $_POST['score1'] !== '' ? (int)$_POST['score1'] : null;
@@ -13,70 +14,91 @@
 
         if ($score1 === null || $score2 === null) {
             $errors[] = 'Both score must be entered.';
-        }else if ($score1 < 0 || $score2 < 0) {
+        } else if ($score1 < 0 || $score2 < 0) {
             $errors[] = 'Score cant be negative.';
-        }else if ($score1 === $score2) {
-            $errors[] = 'Cant be tie - the mmust be winner.';
-        }else {
+        } else if ($score1 === $score2) {
+            $errors[] = 'Cant be tie - there must be a winner.';
+        } else {
             try {
-                //Macin bu organizatore ait oldugunu dogrulama
+                // Macin bu organizatore ait oldugunu dogrulama
                 $check = $pdo->prepare("
-                    SELECT m.id FROM Matches m 
+                    SELECT m.id, m.team1_id, m.team2_id FROM Matches m 
                     JOIN Tournament t ON t.id = m.tournament_id
                     WHERE m.id = ? AND t.organizer_id = ?
                 ");
                 $check->execute([$matchId, $orgId]);
+                $matchData = $check->fetch(PDO::FETCH_ASSOC);
                 
-                if (!$check->fetch()) {
-                    $errors[] = 'You dont have permision on this match.';
-                }else {
+                if (!$matchData) {
+                    $errors[] = 'You dont have permission on this match.';
+                } else {
+                    // Kazanan takımı belirleme
+                    $winnerId = ($score1 > $score2) ? $matchData['team1_id'] : $matchData['team2_id'];
+
                     $pdo->prepare("
-                        UPDATE Matches SET score_team1 = ?, score_team2 = ?
+                        UPDATE Matches 
+                        SET score_team1 = ?, score_team2 = ?, winner_id = ?
                         WHERE id = ?
-                    ")->execute([$score1, $score2, $matchId]);
+                    ")->execute([$score1, $score2, $winnerId, $matchId]);
 
                     $success = 'Match result saved.';
                 }
             } catch (Exception $e) {
-                $errors[] = 'Database error.';
+                // Kayıt hatasını yakala
+                $errors[] = 'Save error: ' . $e->getMessage();
             }
         }
     }
 
-    //Bekleyen maclari cek
+    // Gelen filtre id'si var mı kontrol et
+    $filterTournamentId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
+    // Bekleyen maclari cek
+    $grouped = [];
     try {
-        $stmtPending = $pdo->prepare("
-            SELECT m.id, m.stage, m.date, m.score_team1, m.score_team2,
+        $query = "
+            SELECT m.id, m.stage, m.date, m.score_team1, m.score_team2, m.winner_id,
                     t1.name AS home_team, t2.name AS away_team,
                     tour.name AS tournament_name, tour.id AS tournament_id
             FROM Matches m
-            JOIN Team t1 ON t1.id = m.home_team_id
-            JOIN Team t2 ON t2.id = m.away_team_id
+            JOIN Team t1 ON t1.id = m.team1_id
+            JOIN Team t2 ON t2.id = m.team2_id
             JOIN Tournament tour ON tour.id = m.tournament_id
             WHERE tour.organizer_id = ? 
-                AND tour.status IN ('live', 'registration')
-            ORDER BY m.score_team1 IS NOT NULL, tour.name, m.stage, m.date
-        ");
-        $stmtPending->execute([$orgId]);
-        $matches = $stmtPending->fetchAll();
+                AND tour.deleted_at IS NULL
+        ";
+        
+        $params = [$orgId];
 
-        $grouped = [];
+        // Eğer belirli bir turnuva için filtreleme yapılıyorsa
+        if ($filterTournamentId) {
+            $query .= " AND tour.id = ?";
+            $params[] = $filterTournamentId;
+        }
+
+        $query .= " ORDER BY m.winner_id IS NOT NULL, tour.name, m.stage, m.date";
+
+        $stmtPending = $pdo->prepare($query);
+        $stmtPending->execute($params);
+        $matches = $stmtPending->fetchAll(PDO::FETCH_ASSOC);
+
         foreach ($matches as $m) {
             $grouped[$m['tournament_name']][] = $m;
         }
     } catch (Exception $e) {
+        $errors[] = 'Query Error: ' . $e->getMessage();
         $grouped = [];
     }
 
     $pageTitle = 'Match Results';
-    $pageSubtitle = 'Enter pending amtch results';
+    $pageSubtitle = 'Enter pending match results';
 
     require_once __DIR__ . '/layout-top.php';
 ?>
 
+<!-- Hata Mesajları -->
 <?php if(!empty($errors)): ?>
-    <div class="op-alert op-alert--error">
+    <div class="op-alert op-alert--error" style="font-family:monospace; margin-bottom:16px;">
         <?php foreach($errors as $e): ?>
             <div>• <?= htmlspecialchars($e) ?></div>
         <?php endforeach; ?>
@@ -103,7 +125,7 @@
 
             <div class="op-match-list">
                 <?php foreach($tMatches as $match):
-                    $isDone = $match['score_team1'] !== null;
+                    $isDone = !empty($match['winner_id']);
                 ?>
                     <div class="op-match-row" <?= $isDone ? 'op-match-row--done' : '' ?>>
                         <div class="op-match-stage"><?= htmlspecialchars($match['stage'] ?? 'Match') ?></div>

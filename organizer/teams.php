@@ -46,7 +46,7 @@ try {
     $stmtTours = $pdo->prepare("
         SELECT id, name, status
         FROM Tournament
-        WHERE organizer_id = ? AND status IN ('live','registration','upcoming','finished')
+        WHERE organizer_id = ? AND deleted_at IS NULL
         ORDER BY created_at DESC
     ");
     $stmtTours->execute([$orgId]);
@@ -62,7 +62,7 @@ $searchQuery        = trim($_GET['search'] ?? '');
 // ─── Fetch Team List ────────────────────────────────────────────────────────
 $teams = [];
 if (!empty($myTournaments)) {
-    $where  = ['t.organizer_id = ?'];
+    $where  = ['t.organizer_id = ?', 't.deleted_at IS NULL', 'tm.deleted_at IS NULL'];
     $params = [$orgId];
 
     if ($selectedTournament > 0) {
@@ -97,16 +97,14 @@ if (!empty($myTournaments)) {
                 tt.registered_at,
                 COUNT(DISTINCT m.id)  AS match_count,
                 COALESCE(SUM(
-                    CASE WHEN (m.home_team_id = tm.id AND m.score_team1 > m.score_team2)
-                              OR (m.away_team_id = tm.id AND m.score_team2 > m.score_team1)
-                         THEN 1 ELSE 0 END
+                    CASE WHEN m.winner_id = tm.id THEN 1 ELSE 0 END
                 ), 0)                 AS win_count
             FROM tournament_teams tt
             JOIN Team       tm  ON tm.id  = tt.team_id
             JOIN Tournament t   ON t.id   = tt.tournament_id
             LEFT JOIN Game  g   ON g.id   = t.game_id
             LEFT JOIN Player    cap ON cap.id = tm.captain_id
-            LEFT JOIN Matches   m   ON (m.home_team_id = tm.id OR m.away_team_id = tm.id)
+            LEFT JOIN Matches   m   ON (m.team1_id = tm.id OR m.team2_id = tm.id)
                                     AND m.tournament_id = tt.tournament_id
                                     AND m.score_team1 IS NOT NULL
                                     AND m.deleted_at IS NULL

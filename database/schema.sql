@@ -24,10 +24,6 @@ CREATE TABLE Team (
     logo_url VARCHAR(255),
     invitation_code CHAR(8) UNIQUE,
     captain_id BIGINT,
-    tag VARCHAR(4),
-    game VARCHAR(50),
-    region VARCHAR(50),
-    description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
@@ -43,7 +39,6 @@ CREATE TABLE Player (
     team_id BIGINT,
     role VARCHAR(50),  
     user_type VARCHAR(20) NOT NULL,
-    role VARCHAR(50),
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
@@ -161,6 +156,17 @@ CREATE TABLE Password_Reset_Tokens (
     used_at DATETIME NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_reset_token (token_hash)
+) ENGINE=InnoDB;
+
+CREATE TABLE Player_Warning (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    player_id BIGINT NOT NULL,
+    tournament_id BIGINT NOT NULL,
+    warn_type VARCHAR(20) NOT NULL,
+    note TEXT,
+    created_by BIGINT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 

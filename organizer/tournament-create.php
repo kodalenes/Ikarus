@@ -51,6 +51,9 @@
         $description =trim($_POST['description'] ?? '');
         $status     = $_POST['status_override'] ?? 'draft';
         $ruleTexts  = $_POST['rules'] ?? [];
+        $prize1st   = (float)($_POST['prize_1st'] ?? 0);
+        $prize2nd   = (float)($_POST['prize_2nd'] ?? 0);
+        $prize3rd   = (float)($_POST['prize_3rd'] ?? 0);
 
         //Validasyon
         if(empty($name))                            $errors[] = 'Tournament name is mandatory.';
@@ -69,8 +72,14 @@
                     'game_id' => $gameId,
                     'max_teams' => $maxTeams,
                     'prize_pool' => $prizePool,
+                    'prize_1st' => $prize1st,
+                    'prize_2nd' => $prize2nd,
+                    'prize_3rd' => $prize3rd,
                     'start_date' => $startDate,
                     'end_date' => $endDate,
+                    'checkin_minutes' => $checkIn,
+                    'noshow_minutes' => $noshow,
+                    'description' => $description,
                     'status' => $status,
                     'organizer_id' => $orgId,
                 ];
@@ -79,18 +88,20 @@
                     $pdo->prepare("
                         UPDATE Tournament SET
                             name = :name, game_id = :game_id, max_teams = :max_teams,
-                            prize_pool = :prize_pool, start_date = :start_date,
-                            end_date = :end_date, status = :status
+                            prize_pool = :prize_pool, prize_1st = :prize_1st, prize_2nd = :prize_2nd, prize_3rd = :prize_3rd,
+                            start_date = :start_date, end_date = :end_date, 
+                            checkin_minutes = :checkin_minutes, noshow_minutes = :noshow_minutes,
+                            description = :description, status = :status
                         WHERE id = {$editId} AND organizer_id = :organizer_id
                     ")->execute($data);
-                    $tournament = $editId;
+                    $tournamentId = $editId;
 
                     //Kurallaru sil ve yeniden ekle
                     $pdo->prepare("DELETE FROM Tournament_Rule WHERE tournament_id = ?")->execute([$editId]);
                 }else {
                     $pdo->prepare("
-                        INSERT INTO Tournament(name,game_id,max_teams,prize_pool,start_date,end_date,status,organizer_id)
-                        VALUES(:name, :game_id, :max_teams, :prize_pool, :start_date, :end_date, :status, :organizer_id)    
+                        INSERT INTO Tournament(name, game_id, max_teams, prize_pool, prize_1st, prize_2nd, prize_3rd, start_date, end_date, checkin_minutes, noshow_minutes, description, status, organizer_id)
+                        VALUES(:name, :game_id, :max_teams, :prize_pool, :prize_1st, :prize_2nd, :prize_3rd, :start_date, :end_date, :checkin_minutes, :noshow_minutes, :description, :status, :organizer_id)    
                     ")->execute($data);
                     $tournamentId = (int) $pdo->lastInsertId();
                 }

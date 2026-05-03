@@ -19,11 +19,11 @@
                 (SELECT COUNT(*) 
                     FROM Matches m
                     JOIN Tournament t ON t.id = m.tournament_id
-                    WHERE t.organizer_id = :id5 AND m.score_team1 IS NOT NULL AND t.deleted_at IS NULL) AS matches_done,
+                    WHERE t.organizer_id = :id5 AND m.winner_id IS NOT NULL AND t.deleted_at IS NULL) AS matches_done,
                 (SELECT COUNT(*) 
                     FROM Matches m
                     JOIN Tournament t ON t.id = m.tournament_id
-                    WHERE t.organizer_id = :id6 AND m.score_team1 IS NULL AND t.deleted_at IS NULL) AS matches_pending
+                    WHERE t.organizer_id = :id6 AND m.winner_id IS NULL AND t.deleted_at IS NULL) AS matches_pending
         ");
         
         // 6 parametreye karşılık 6 kez $orgId gönderiyoruz

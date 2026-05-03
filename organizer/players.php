@@ -64,7 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES (?, ?, ?, ?, ?, NOW())
             ")->execute([$playerId, $tournamentId, $warnType, $note, $orgId]);
 
-            echo json_encode(['status' => 'success', 'message' => 'Warning saved.']);
+            $newId = $pdo->lastInsertId();
+
+            echo json_encode(['status' => 'success', 'message' => 'Warning saved.', 'warning_id' => $newId]);
         } catch (Exception $e) {
             // Tablo yoksa — sessizce başarılı döndür, geliştirici migration yapmalı
             echo json_encode([
@@ -108,7 +110,6 @@ try {
         SELECT id, name, status
         FROM Tournament
         WHERE organizer_id = ?
-          AND status IN ('live','registration','upcoming','finished')
           AND deleted_at IS NULL
         ORDER BY created_at DESC
     ");
@@ -117,6 +118,9 @@ try {
 } catch (Exception $e) {
     die("Tournaments Query Error: " . $e->getMessage());
 }
+
+// ─── Organizatörün tüm turnuvaları (uyarı formundaki dropdown için) ─
+$warnTournaments = $myTournaments; // Artık filter yapmıyoruz, silinmemiş tüm turnuvalar çıksın
 
 // ─── Takım listesi (filtre dropdown, seçili turnuvaya göre) ───────
 $teamOptions = [];
@@ -143,7 +147,7 @@ $players = [];
 
 if (!empty($myTournaments)) {
 
-    $where  = ['tour.organizer_id = ?', 'p.deleted_at IS NULL'];
+    $where  = ['tour.organizer_id = ?', 'p.deleted_at IS NULL', 'tour.deleted_at IS NULL'];
     $params = [$orgId];
 
     if ($selectedTournament > 0) {
@@ -173,27 +177,24 @@ if (!empty($myTournaments)) {
                 tm.tag        AS team_tag,
                 tm.captain_id,
 
-                -- Oynanan maç ve galibiyet (tüm turnuvalarda)
-                COUNT(DISTINCT m.id) AS total_matches,
+                -- Sadece winner_id'si olan (tamamlanmış) maçları say
+                COUNT(DISTINCT CASE WHEN m.winner_id IS NOT NULL THEN m.id END) AS total_matches,
+                
+                -- Galibiyet hesaplama
                 COALESCE(SUM(
-                    CASE
-                        WHEN (m.home_team_id = tm.id AND m.score_team1 > m.score_team2)
-                          OR (m.away_team_id = tm.id AND m.score_team2 > m.score_team1)
-                        THEN 1 ELSE 0
-                    END
+                    CASE WHEN m.winner_id = tm.id THEN 1 ELSE 0 END
                 ), 0) AS total_wins,
 
-                -- Kaçıncı turnuvada
                 COUNT(DISTINCT tt.tournament_id) AS tournament_count
 
             FROM Player p
-            JOIN Team            tm  ON tm.id  = p.team_id
+            JOIN Team            tm   ON tm.id  = p.team_id
             JOIN tournament_teams tt  ON tt.team_id = tm.id
             JOIN Tournament      tour ON tour.id = tt.tournament_id
-            LEFT JOIN Matches    m   ON (m.home_team_id = tm.id OR m.away_team_id = tm.id)
-                                     AND m.tournament_id = tt.tournament_id
-                                     AND m.score_team1 IS NOT NULL
-                                     AND m.deleted_at IS NULL
+            -- LEFT JOIN'deki skor kontrolünü kaldırdık, tüm maçları getirsin.
+            LEFT JOIN Matches    m    ON (m.team1_id = tm.id OR m.team2_id = tm.id)
+                                      AND m.tournament_id = tt.tournament_id
+                                      AND m.deleted_at IS NULL
             $whereSql
             GROUP BY
                 p.id, p.username, p.role, p.registered_at,
@@ -201,9 +202,9 @@ if (!empty($myTournaments)) {
             ORDER BY tm.name ASC, p.username ASC
         ");
         $stmtPlayers->execute($params);
-        $players = $stmtPlayers->fetchAll();
+        $players = $stmtPlayers->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        die("Players Query Error: " . $e->getMessage());
+        die("<div class='op-alert op-alert--error'>Players Query Error: " . $e->getMessage() . "</div>");
     }
 }
 
@@ -241,10 +242,7 @@ if (!empty($players)) {
 }
 
 // ─── Organizatörün tüm turnuvaları (uyarı formundaki dropdown için) ─
-$warnTournaments = array_filter(
-    $myTournaments,
-    fn($t) => in_array($t['status'], ['live', 'registration', 'upcoming'])
-);
+$warnTournaments = $myTournaments; // Artık filter yapmıyoruz, silinmemiş tüm turnuvalar çıksın
 
 // ════════════════════════════════════════════════════════════════════
 // ÖZET İSTATİSTİKLER
@@ -271,9 +269,6 @@ $pageSubtitle = 'Players in your tournament teams';
 
 require_once __DIR__ . '/layout-top.php';
 ?>
-
-<!-- ─── CSS ──────────────────────────────────────────────────────────────── -->
-<link rel="stylesheet" href="../assets/css/organizer.css">
 
 <!-- ─── STAT KARTLARI ───────────────────────────────────────────────────── -->
 <div class="op-stat-grid" style="grid-template-columns:repeat(4,1fr); margin-bottom:16px;">
@@ -522,13 +517,14 @@ require_once __DIR__ . '/layout-top.php';
                             <div class="plr-detail-block">
                                 <div class="plr-detail-block-title">Add Warning</div>
                                 <div class="plr-warn-form">
-                                    <select class="plr-warn-select" id="warn-tour-<?= $player['id'] ?>" onchange="document.getElementById('warn-tour-hidden-<?= $player['id'] ?>').value = this.value">
+                                    <select class="plr-warn-select" id="warn-tour-<?= $player['id'] ?>">
                                         <option value="0">Select tournament...</option>
-                                        <?php foreach ($warnTournaments as $wt): ?>
-                                            <option value="<?= $wt['id'] ?>"><?= htmlspecialchars($wt['name']) ?></option>
-                                        <?php endforeach; ?>
+                                        <?php if (!empty($warnTournaments)): ?>
+                                            <?php foreach ($warnTournaments as $wt): ?>
+                                                <option value="<?= $wt['id'] ?>"><?= htmlspecialchars($wt['name']) ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </select>
-                                    <input type="hidden" id="warn-tour-hidden-<?= $player['id'] ?>" value="0">
 
                                     <select class="plr-warn-select" id="warn-type-<?= $player['id'] ?>">
                                         <option value="">Warning type...</option>
@@ -540,7 +536,7 @@ require_once __DIR__ . '/layout-top.php';
                                     <span id="warn-feed-<?= $player['id'] ?>" style="font-size:11px; display:none;"></span>
 
                                     <div class="plr-warn-actions">
-                                        <button class="op-btn-sm op-btn-sm--danger" id="warn-btn-<?= $player['id'] ?>" onclick="submitWarning(<?= $player['id'] ?>, document.getElementById('warn-tour-hidden-<?= $player['id'] ?>').value)">
+                                        <button class="op-btn-sm op-btn-sm--danger" id="warn-btn-<?= $player['id'] ?>" onclick="submitWarning(<?= $player['id'] ?>, document.getElementById('warn-tour-<?= $player['id'] ?>').value)">
                                             Save Warning
                                         </button>
                                     </div>
@@ -556,6 +552,4 @@ require_once __DIR__ . '/layout-top.php';
 <?php endif; ?>
 
 <!-- ─── JS ───────────────────────────────────────────────────────────────── -->
-<script src="../assets/js/organizer.js"></script>
-
 <?php require_once __DIR__ . '/layout-bottom.php'; ?>

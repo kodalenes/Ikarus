@@ -1,0 +1,56 @@
+/* ─── PRIZE GRID ──────────────────────────────────────────────────── */
+.op-prize-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 18px 16px;
+}
+ 
+.op-prize-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+ 
+.op-prize-rank {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+ 
+/* ─── RULES ───────────────────────────────────────────────────────── */
+.op-rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 18px;
+}
+ 
+.op-rule-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+ 
+.op-rule-row .op-input {
+    flex: 1;
+}
+ 
+.op-rule-del {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(220,38,38,0.25);
+    border-radius: 6px;
+    background: transparent;
+    color: #f87171;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background var(--transition);
+}
+ 
+.op-rule-del:hover {
+    background: rgba(220,38,38,0.1);
+}
