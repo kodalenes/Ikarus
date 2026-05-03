@@ -1,0 +1,8 @@
+ALTER TABLE Team 
+  ADD COLUMN tag VARCHAR(4),
+  ADD COLUMN game VARCHAR(50),
+  ADD COLUMN region VARCHAR(50),
+  ADD COLUMN description TEXT,
+  ADD COLUMN captain_id INT;
+  
+  ALTER TABLE Player ADD COLUMN role VARCHAR(50);

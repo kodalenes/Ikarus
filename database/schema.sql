@@ -16,6 +16,10 @@ CREATE TABLE Game (
 CREATE TABLE Team (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    tag VARCHAR(4) NOT NULL,
+    game VARCHAR(50) NOT NULL,
+    region VARCHAR(50),               
+    description TEXT,                 
     rank_point DECIMAL(18,6) DEFAULT 0 NOT NULL,
     logo_url VARCHAR(255),
     invitation_code CHAR(8) UNIQUE,
@@ -37,6 +41,7 @@ CREATE TABLE Player (
     birth_date DATETIME,
     registered_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
     team_id BIGINT,
+    role VARCHAR(50),  
     user_type VARCHAR(20) NOT NULL,
     role VARCHAR(50),
     deleted_at DATETIME DEFAULT NULL,

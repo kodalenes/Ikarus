@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded" , () => {
         }, 300);
     }
 
-        // Auth endpointlerini mevcut sayfa konumuna gore uret.
+    // Auth endpointlerini mevcut sayfa konumuna gore uret.
     const loginEndpoint = new URL('../auth/login-action.php', window.location.href);
     const registerEndpoint = new URL('../auth/register-action.php', window.location.href);
 
