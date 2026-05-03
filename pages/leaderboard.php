@@ -12,16 +12,16 @@ $playerSql = "
         COUNT(DISTINCT m.id) AS total_matches,
         SUM(
             CASE
-                WHEN p.team_id = m.home_team_id AND m.score_team1 > m.score_team2 THEN 1
-                WHEN p.team_id = m.away_team_id AND m.score_team2 > m.score_team1 THEN 1
+                WHEN p.team_id = m.team1_id AND m.score_team1 > m.score_team2 THEN 1
+                WHEN p.team_id = m.team2_id AND m.score_team2 > m.score_team1 THEN 1
                 ELSE 0
             END
         ) AS wins,
         ROUND(
             SUM(
                 CASE
-                    WHEN p.team_id = m.home_team_id AND m.score_team1 > m.score_team2 THEN 1
-                    WHEN p.team_id = m.away_team_id AND m.score_team2 > m.score_team1 THEN 1
+                    WHEN p.team_id = m.team1_id AND m.score_team1 > m.score_team2 THEN 1
+                    WHEN p.team_id = m.team2_id AND m.score_team2 > m.score_team1 THEN 1
                     ELSE 0
                 END
             ) / NULLIF(COUNT(DISTINCT m.id), 0) * 100
@@ -29,33 +29,34 @@ $playerSql = "
         ROUND(
             SUM(
                 CASE
-                    WHEN p.team_id = m.home_team_id AND m.score_team1 > m.score_team2 THEN 1
-                    WHEN p.team_id = m.away_team_id AND m.score_team2 > m.score_team1 THEN 1
+                    WHEN p.team_id = m.team1_id AND m.score_team1 > m.score_team2 THEN 1
+                    WHEN p.team_id = m.team2_id AND m.score_team2 > m.score_team1 THEN 1
                     ELSE 0
                 END
             ) * 40
             +
             SUM(
                 CASE
-                    WHEN p.team_id = m.home_team_id AND m.score_team1 > m.score_team2 THEN 1
-                    WHEN p.team_id = m.away_team_id AND m.score_team2 > m.score_team1 THEN 1
+                    WHEN p.team_id = m.team1_id AND m.score_team1 > m.score_team2 THEN 1
+                    WHEN p.team_id = m.team2_id AND m.score_team2 > m.score_team1 THEN 1
                     ELSE 0
                 END
             ) / NULLIF(COUNT(DISTINCT m.id), 0) * 100 * 20
         , 0) AS points
     FROM Player p
-    LEFT JOIN Team t ON t.id = p.team_id
+    LEFT JOIN Team t ON t.id = p.team_id AND t.deleted_at IS NULL
     LEFT JOIN Game g ON g.id = (
         SELECT tt.game_id
         FROM tournament_teams tmt 
         JOIN Tournament tt ON tt.id = tmt.tournament_id
-        WHERE tmt.team_id = p.team_id
+        WHERE tmt.team_id = p.team_id AND tt.deleted_at IS NULL
         ORDER BY tmt.registered_at DESC
         LIMIT 1
     )
-    LEFT JOIN Matches m ON (m.home_team_id = p.team_id OR m.away_team_id = p.team_id)
+    LEFT JOIN Matches m ON (m.team1_id = p.team_id OR m.team2_id = p.team_id)
                            AND m.score_team1 IS NOT NULL
-    WHERE p.user_type = 'player'
+                           AND m.deleted_at IS NULL
+    WHERE p.user_type = 'player' AND p.deleted_at IS NULL
     GROUP BY p.id, p.username, t.name, g.name
     ORDER BY points DESC
 ";
@@ -71,16 +72,16 @@ $teamSql = "
         COUNT(DISTINCT m.id) AS total_matches,
         SUM(
             CASE
-                WHEN m.home_team_id = t.id AND m.score_team1 > m.score_team2 THEN 1
-                WHEN m.away_team_id = t.id AND m.score_team2 > m.score_team1 THEN 1
+                WHEN m.team1_id = t.id AND m.score_team1 > m.score_team2 THEN 1
+                WHEN m.team2_id = t.id AND m.score_team2 > m.score_team1 THEN 1
                 ELSE 0
             END
         ) AS wins,
         ROUND(
             SUM(
                 CASE
-                    WHEN m.home_team_id = t.id AND m.score_team1 > m.score_team2 THEN 1
-                    WHEN m.away_team_id = t.id AND m.score_team2 > m.score_team1 THEN 1
+                    WHEN m.team1_id = t.id AND m.score_team1 > m.score_team2 THEN 1
+                    WHEN m.team2_id = t.id AND m.score_team2 > m.score_team1 THEN 1
                     ELSE 0
                 END
             ) / NULLIF(COUNT(DISTINCT m.id), 0) * 100
@@ -88,26 +89,28 @@ $teamSql = "
         ROUND(
             SUM(
                 CASE
-                    WHEN m.home_team_id = t.id AND m.score_team1 > m.score_team2 THEN 1
-                    WHEN m.away_team_id = t.id AND m.score_team2 > m.score_team1 THEN 1
+                    WHEN m.team1_id = t.id AND m.score_team1 > m.score_team2 THEN 1
+                    WHEN m.team2_id = t.id AND m.score_team2 > m.score_team1 THEN 1
                     ELSE 0
                 END
             ) * 40
             +
             SUM(
                 CASE
-                    WHEN m.home_team_id = t.id AND m.score_team1 > m.score_team2 THEN 1
-                    WHEN m.away_team_id = t.id AND m.score_team2 > m.score_team1 THEN 1
+                    WHEN m.team1_id = t.id AND m.score_team1 > m.score_team2 THEN 1
+                    WHEN m.team2_id = t.id AND m.score_team2 > m.score_team1 THEN 1
                     ELSE 0
                 END
             ) / NULLIF(COUNT(DISTINCT m.id), 0) * 100 * 20
         , 0) AS points
     FROM Team t
     LEFT JOIN tournament_teams tmt ON tmt.team_id = t.id
-    LEFT JOIN Tournament tn ON tn.id = tmt.tournament_id
-    LEFT JOIN Game g ON g.id = tn.game_id
-    LEFT JOIN Matches m ON (m.home_team_id = t.id OR m.away_team_id = t.id)
-                           AND m.score_team1 IS NOT NULL               
+    LEFT JOIN Tournament tn ON tn.id = tmt.tournament_id AND tn.deleted_at IS NULL
+    LEFT JOIN Game g ON g.id = tn.game_id AND g.deleted_at IS NULL
+    LEFT JOIN Matches m ON (m.team1_id = t.id OR m.team2_id = t.id)
+                           AND m.score_team1 IS NOT NULL
+                           AND m.deleted_at IS NULL
+    WHERE t.deleted_at IS NULL                       
     GROUP BY t.id, t.name, t.rank_point, g.name
     ORDER BY points DESC
 ";
@@ -180,7 +183,7 @@ $jsTeams = array_map(function($t) use ($me_team_id) {
     </div>
     <div class="game-filter" id="gameFilter">
       <button class="gf-btn active" onclick="filterGame('all',this)">All</button>
-      <button class="gf-btn" onclick="filterGame('cs2',this)">CS2</button>
+      <button class="gf-btn" onclick="filterGame('counter',this)">CS2</button>
       <button class="gf-btn" onclick="filterGame('val',this)">Valorant</button>
       <button class="gf-btn" onclick="filterGame('fc',this)">FC 25</button>
       <button class="gf-btn" onclick="filterGame('lol',this)">LoL</button>
