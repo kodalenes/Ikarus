@@ -4,8 +4,12 @@
 
 // CSRF Token'ı sayfadan güvenli bir şekilde çeker
 function getCsrfToken() {
-    const meta = document.querySelector('meta[name="csrf-token"]');
-    return meta ? meta.getAttribute('content') : '';
+    const meta = document.querySelector('meta[name="csrf-token"]') || document.querySelector('meta[name="csrf_token"]');
+    if (meta) return meta.getAttribute('content');
+    
+    // Fallback: Form içindeki gizli input alanını kontrol et
+    const input = document.querySelector('input[name="csrf_token"]') || document.querySelector('input[name="csrf-token"]');
+    return input ? input.value : '';
 }
 
 // XSS Koruması için HTML etiketlerini temizler

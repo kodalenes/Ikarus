@@ -1,11 +1,6 @@
 <?php
     require_once __DIR__ . "/session.php";
 ?>
-<link rel="stylesheet" href="../assets/css/global.css">
-<link rel="stylesheet" href="../assets/css/index.css">
-<link rel="stylesheet" href="../assets/css/modal.css">
-<link rel="stylesheet" href="../assets/css/utils.css">
-
 <header class="site-header">
     <div class="header-inner">
 
@@ -20,11 +15,11 @@
             <a href="../pages/tournaments.php">Tournaments</a>
             <a href="../pages/team.php">Team</a>
             <a href="../pages/leaderboard.php">Leaderboard</a>
-            <?php if(isOrganizer() || isAdmin()): ?>
-                <a href="../organizer/dashboard.php" class="nav-link-panel">Organizer Panel</a>
-            <?php elseif(isAdmin()): ?>
+            <?php if(isAdmin()): ?>
                 <a href="../organizer/dashboard.php" class="nav-link-panel">Organizer Panel</a>
                 <a href="../admin/dashboard.php" class="btn-admin-header">Admin Panel</a>
+            <?php elseif(isOrganizer()): ?>
+                <a href="../organizer/dashboard.php" class="nav-link-panel">Organizer Panel</a>
             <?php endif; ?>
         </nav>
 
