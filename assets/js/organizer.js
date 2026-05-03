@@ -219,6 +219,15 @@ function closeDq() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Başarılı bildirimlerini 2 saniye sonra otomatik kaybet
+    document.querySelectorAll('.op-alert--success').forEach(alertEl => {
+        setTimeout(() => {
+            alertEl.style.transition = 'opacity 0.5s ease';
+            alertEl.style.opacity = '0';
+            setTimeout(() => alertEl.remove(), 500);
+        }, 2000);
+    });
+
     // Win Rate Barları
     document.querySelectorAll('.plr-wr-fill[data-rate]').forEach(bar => {
         const rate = parseInt(bar.dataset.rate, 10);

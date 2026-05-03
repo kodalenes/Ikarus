@@ -165,7 +165,9 @@
     </div>
 <?php endif; ?>
 
-<form method="POST" id="tournamentForm">
+<div id="js-errors" class="op-alert op-alert--error" style="display: none; margin-bottom: 16px;"></div>
+
+<form method="POST" id="tournamentForm" novalidate>
 
     <!-- TEMEL BİLGİLER -->
      <div class="op-card" style="margin-bottom: 16px;">
@@ -336,5 +338,74 @@
      </div>
 
 </form>
+
+<script>
+// 1. Add Rule Butonu İşlevi
+function addRule() {
+    const list = document.getElementById('rules-list');
+    const row = document.createElement('div');
+    row.className = 'op-rule-row';
+    row.innerHTML = `
+        <input class="op-input" type="text" name="rules[]" placeholder="Enter rule text...">
+        <button type="button" class="op-rule-del" onclick="this.parentElement.remove()">x</button>
+    `;
+    list.appendChild(row);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('tournamentForm');
+    const startDateEl = document.querySelector('input[name="start_date"]');
+    const endDateEl = document.querySelector('input[name="end_date"]');
+    const errorContainer = document.getElementById('js-errors');
+
+    function showErrorList(errors) {
+        errorContainer.innerHTML = errors.map(err => `<div>• ${err}</div>`).join('');
+        errorContainer.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function hideErrors() {
+        errorContainer.style.display = 'none';
+        errorContainer.innerHTML = '';
+    }
+
+    // 2. Anlık Tarih Kontrolü
+    function checkDates() {
+        if(startDateEl.value && endDateEl.value) {
+            if(new Date(endDateEl.value) < new Date(startDateEl.value)) {
+                showErrorList(["End date can't be before start date."]);
+                endDateEl.value = ""; // Formu hatalı tarihten temizle
+            } else {
+                hideErrors();
+            }
+        }
+    }
+    if(startDateEl) startDateEl.addEventListener('change', checkDates);
+    if(endDateEl) endDateEl.addEventListener('change', checkDates);
+
+    // 3. Form Validasyon (submit olmadan önce)
+    if(form) {
+        form.addEventListener('submit', (e) => {
+            let errors = [];
+            
+            if(!form.name.value.trim()) errors.push("Tournament name is mandatory.");
+            if(!form.game_id.value) errors.push("Game selection is mandatory.");
+            if(!startDateEl.value) errors.push("Start date is mandatory.");
+            if(!endDateEl.value) errors.push("End date is mandatory.");
+            
+            if(startDateEl.value && endDateEl.value && new Date(endDateEl.value) < new Date(startDateEl.value)) {
+                errors.push("End date can't be before start date.");
+            }
+            
+            if(errors.length > 0) {
+                e.preventDefault();
+                showErrorList(errors);
+            } else {
+                hideErrors();
+            }
+        });
+    }
+});
+</script>
 
 <?php require_once __DIR__ . '/layout-bottom.php'; ?>
