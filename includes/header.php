@@ -35,7 +35,7 @@
             <?php endif; ?>
         </div>
     </div>
-
+    
 </header>
 
 <!--Modal Yapisi  her sayfada hazir bulunur ve css ile gizlenir.

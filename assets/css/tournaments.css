@@ -1,0 +1,399 @@
+/* =========================================
+   IKARUS GG - TOURNAMENTS STYLES
+   ========================================= */
+
+/* --- 1. LAYOUT WRAPPER --- */
+.tournaments-wrapper {
+  max-width: 1200px; /* Aligned with header-inner */
+  margin: 40px auto; 
+  padding: 0 24px; 
+  width: 100%;
+}
+
+.page {
+  background: transparent;
+  color: var(--text);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.content {
+  padding: 24px 0;
+}
+
+/* --- 2. HEADER & NAVIGATION COMPONENTS --- */
+.btn-ghost {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all var(--transition);
+}
+
+.btn-ghost:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+.page-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* --- 3. FILTERING --- */
+.game-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.game-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.game-btn:hover {
+  border-color: var(--accent-soft);
+  color: var(--text);
+}
+
+.game-btn.active {
+  border-color: var(--accent);
+  background: rgba(72, 159, 181, 0.1);
+  color: var(--text);
+}
+
+/* --- 4. ICONS & BADGES --- */
+.game-icon, .t-game-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.game-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  font-size: 11px;
+}
+
+.t-game-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* Game Colors */
+.icon-cs { background: rgba(255, 165, 0, 0.15); color: #ffa500; }
+.icon-val { background: rgba(255, 70, 84, 0.15); color: #ff4654; }
+.icon-fc { background: rgba(0, 200, 100, 0.15); color: #00c864; }
+.icon-lol { background: rgba(200, 155, 60, 0.15); color: #c89b3c; }
+.icon-all { background: var(--surface-2); color: var(--text-muted); }
+
+.badge, .status-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.s-live, .b-live { background: rgba(220, 38, 38, 0.15); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.25); }
+.s-open { background: rgba(99, 153, 34, 0.12); color: #97c459; border: 1px solid rgba(99, 153, 34, 0.25); }
+.s-soon { background: rgba(72, 159, 181, 0.12); color: var(--accent); border: 1px solid rgba(72, 159, 181, 0.25); }
+.s-full { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* --- 5. TOURNAMENT LIST CARDS --- */
+.tournaments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.t-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.t-card:hover {
+  border-color: var(--accent);
+  background: rgba(72, 159, 181, 0.05);
+}
+
+.t-main {
+  min-width: 0;
+}
+
+.t-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.t-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.t-meta-row {
+  display: flex;
+  gap: 16px;
+}
+
+.t-meta-item {
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.t-meta-item span {
+  color: var(--text-muted);
+}
+
+.t-slots {
+  text-align: right;
+  flex-shrink: 0;
+  min-width: 80px;
+}
+
+.slots-label, .prize-label {
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.slots-bar {
+  height: 4px;
+  background: var(--surface-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.slots-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.slots-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.t-prize {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.prize-val {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--highlight);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+/* --- 6. TOURNAMENT DETAILS HERO --- */
+.hero-band {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+
+.t-hero-info .t-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.join-btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.join-btn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+/* --- 7. TABS --- */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* --- 8. BRACKET & MATCHES --- */
+.match {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.match-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.match-team:first-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.match-name {
+  flex: 1;
+  color: var(--text-muted);
+}
+
+.match-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
+.match-team.winner .match-name { color: var(--text); font-weight: 500; }
+.match-team.winner .match-score { color: var(--accent); }
+.match-team.my-team .match-name { color: var(--highlight); }
+
+/* --- 9. PARTICIPANTS & RULES --- */
+.p-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.p-name {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.rules-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.rule-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.rule-item:last-child {
+  border-bottom: none;
+}
+
+.rule-key {
+  color: var(--text-muted);
+  min-width: 140px;
+}
+
+.rule-val {
+  color: var(--text);
+}

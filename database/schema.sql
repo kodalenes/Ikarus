@@ -1,3 +1,7 @@
+-- ---------------------------------------------------------
+-- TABLES
+-- ---------------------------------------------------------
+
 CREATE TABLE Game (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
@@ -5,6 +9,7 @@ CREATE TABLE Game (
     max_team_size BIGINT NOT NULL,
     api_source_url VARCHAR(255),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP(6) NOT NULL,
+    deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -14,8 +19,13 @@ CREATE TABLE Team (
     rank_point DECIMAL(18,6) DEFAULT 0 NOT NULL,
     logo_url VARCHAR(255),
     invitation_code CHAR(8) UNIQUE,
-    captain_id      BIGINT,
+    captain_id BIGINT,
+    tag VARCHAR(4),
+    game VARCHAR(50),
+    region VARCHAR(50),
+    description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
+    deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -28,34 +38,46 @@ CREATE TABLE Player (
     registered_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
     team_id BIGINT,
     user_type VARCHAR(20) NOT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT player_email_un UNIQUE (email),
-    CONSTRAINT player_username_un UNIQUE (username)
+    role VARCHAR(50),
+    deleted_at DATETIME DEFAULT NULL,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Tournament (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,
+    description TEXT,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
     status VARCHAR(20) NOT NULL,
     prize_pool DECIMAL(18,6),
+    prize_1st DECIMAL(10,2),
+    prize_2nd DECIMAL(10,2),
+    prize_3rd DECIMAL(10,2),
     max_teams BIGINT,
     organizer_id BIGINT NOT NULL,
     game_id BIGINT NOT NULL,
+    checkin_minutes INT DEFAULT 15,
+    noshow_minutes INT DEFAULT 10,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Matches (
     id BIGINT NOT NULL AUTO_INCREMENT,
-    date DATETIME NOT NULL,
-    score_team1 BIGINT,
-    score_team2 BIGINT,
-    stage VARCHAR(30),
-    away_team_id BIGINT NOT NULL,
-    home_team_id BIGINT NOT NULL,
     tournament_id BIGINT NOT NULL,
+    round_number INT NOT NULL DEFAULT 1,
+    stage VARCHAR(30),
+    team1_id BIGINT NULL,
+    team2_id BIGINT NULL,
+    score_team1 BIGINT DEFAULT 0,
+    score_team2 BIGINT DEFAULT 0,
+    winner_id BIGINT NULL,
+    next_match_id BIGINT NULL,
+    date DATETIME NULL,
     referee_id BIGINT,
+    deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -66,6 +88,13 @@ CREATE TABLE Prize (
     awarded_date DATETIME,
     tournament_id BIGINT NOT NULL,
     PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE Tournament_Rule (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tournament_id BIGINT NOT NULL,
+    rule_text TEXT NOT NULL,
+    sort_order INT DEFAULT 0
 ) ENGINE=InnoDB;
 
 CREATE TABLE Referee (
@@ -92,150 +121,98 @@ CREATE TABLE tournament_sponsor (
 ) ENGINE=InnoDB;
 
 CREATE TABLE tournament_teams (
-    team_id       BIGINT   NOT NULL,
-    tournament_id BIGINT   NOT NULL,
+    team_id BIGINT NOT NULL,
+    tournament_id BIGINT NOT NULL,
     registered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (team_id, tournament_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Invitations (
-    id           BIGINT      NOT NULL AUTO_INCREMENT,
-    team_id      BIGINT      NOT NULL,
-    sender_id    BIGINT      NOT NULL,
-    receiver_id  BIGINT      NOT NULL,
-    status       ENUM('pending' , 'accepted' , 'declined') NOT NULL DEFAULT 'pending',
-    sent_at      DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    responded_at DATETIME    NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT Inv_Unique_Pending UNIQUE (team_id, receiver_id, status)
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    team_id BIGINT NOT NULL,
+    sender_id BIGINT NOT NULL,
+    receiver_id BIGINT NOT NULL,
+    status ENUM('pending' , 'accepted' , 'declined') NOT NULL DEFAULT 'pending',
+    sent_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    responded_at DATETIME NULL,
+    deleted_at DATETIME NULL,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE Remember_Tokens (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    player_id   BIGINT NOT NULL,
-    token_hash  VARCHAR(64) NOT NULL,
-    expires_at  DATETIME NOT NULL,
-    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    player_id BIGINT NOT NULL,
+    token_hash VARCHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_token_hash (token_hash)
-);
-
-CREATE TABLE Tournament_Rule (
-    id  BIGINT AUTO_INCREMENT PRIMARY KEY ,
-    tournament_id   BIGINT NOT NULL,
-    rule_text   TEXT NOT NULL,
-    sort_order  INT DEFAULT 0,
-    FOREIGN KEY (tournament_id) REFERENCES Tournament(id) ON DELETE CASCADE
-)ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
 CREATE TABLE Password_Reset_Tokens (
-    id      BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     player_id BIGINT NOT NULL,
     token_hash VARCHAR(64) NOT NULL,
     expires_at DATETIME NOT NULL,
     used_at DATETIME NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE,
     INDEX idx_reset_token (token_hash)
-)ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
-ALTER TABLE Tournament
-    ADD COLUMN IF NOT EXISTS desciption          TEXT,
-    ADD COLUMN IF NOT EXISTS checkin_minutes     INT DEFAULT 15,
-    ADD COLUMN IF NOT EXISTS noshow_minutes      INT DEFAULT 10,
-    ADD COLUMN IF NOT EXISTS prize_1st           DECIMAL(10,2),
-    ADD COLUMN IF NOT EXISTS prize_2nd           DECIMAL(10,2),
-    ADD COLUMN IF NOT EXISTS prize_3rd           DECIMAL(10,2),
-    ADD COLUMN IF NOT EXISTS created_at          DATETIME DEFAULT CURRENT_TIMESTAMP;
 
-ALTER TABLE Matches 
-ADD CONSTRAINT match_scores_ck 
-CHECK (score_team1 >= 0 AND score_team2 >= 0);
+-- ---------------------------------------------------------
+-- CONSTRAINTS & FOREIGN KEYS
+-- ---------------------------------------------------------
 
-ALTER TABLE Matches 
-ADD CONSTRAINT Matches_Referee_FK 
-FOREIGN KEY (referee_id) REFERENCES Referee(id)
-ON DELETE SET NULL;
-
-ALTER TABLE Matches 
-ADD CONSTRAINT Matches_Home_Team_FK 
-FOREIGN KEY (home_team_id) REFERENCES Team (id);
-
-ALTER TABLE Matches 
-ADD CONSTRAINT Matches_Away_Team_FK 
-FOREIGN KEY (away_team_id) REFERENCES Team (id);
-
-ALTER TABLE Matches 
-ADD CONSTRAINT Matches_Tournament_FK 
-FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
-
-ALTER TABLE Player ADD CONSTRAINT Player_Team_FK 
-FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE SET NULL;
+ALTER TABLE Player 
+    ADD CONSTRAINT player_email_un UNIQUE (email),
+    ADD CONSTRAINT player_username_un UNIQUE (username),
+    ADD CONSTRAINT Player_Team_FK FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE SET NULL;
 
 ALTER TABLE Team
-    ADD CONSTRAINT Team_Captain_FK
-    FOREIGN KEY (captain_id) REFERENCES Player (id)
-    ON DELETE SET NULL;
+    ADD CONSTRAINT Team_Captain_FK FOREIGN KEY (captain_id) REFERENCES Player (id) ON DELETE SET NULL;
+
+ALTER TABLE Tournament 
+    ADD CONSTRAINT tournament_dates_ck CHECK (end_date >= start_date),
+    ADD CONSTRAINT tournament_max_teams_ck CHECK (max_teams > 1),
+    ADD CONSTRAINT Tournament_Game_FK FOREIGN KEY (game_id) REFERENCES Game (id),
+    ADD CONSTRAINT Tournament_Player_FK FOREIGN KEY (organizer_id) REFERENCES Player (id);
+
+ALTER TABLE Matches 
+    ADD CONSTRAINT match_scores_ck CHECK (score_team1 >= 0 AND score_team2 >= 0),
+    ADD CONSTRAINT Matches_Referee_FK FOREIGN KEY (referee_id) REFERENCES Referee(id) ON DELETE SET NULL,
+    ADD CONSTRAINT Matches_Team1_FK FOREIGN KEY (team1_id) REFERENCES Team (id) ON DELETE SET NULL,
+    ADD CONSTRAINT Matches_Team2_FK FOREIGN KEY (team2_id) REFERENCES Team (id) ON DELETE SET NULL,
+    ADD CONSTRAINT Matches_Winner_FK FOREIGN KEY (winner_id) REFERENCES Team (id) ON DELETE SET NULL,
+    ADD CONSTRAINT Matches_Tournament_FK FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE,
+    ADD CONSTRAINT Matches_NextMatch_FK FOREIGN KEY (next_match_id) REFERENCES Matches (id) ON DELETE SET NULL;
 
 ALTER TABLE Prize 
-ADD CONSTRAINT prize_amount_ck CHECK (amount > 0);
+    ADD CONSTRAINT prize_amount_ck CHECK (amount > 0),
+    ADD CONSTRAINT Prize_Tournament_FK FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
 
-ALTER TABLE Prize 
-ADD CONSTRAINT Prize_Tournament_FK 
-FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
+ALTER TABLE Tournament_Rule
+    ADD CONSTRAINT Tour_Rule_Tournament_FK FOREIGN KEY (tournament_id) REFERENCES Tournament(id) ON DELETE CASCADE;
 
 ALTER TABLE Referee 
-ADD CONSTRAINT Referee_Player_FK 
-FOREIGN KEY (id) REFERENCES Player (id);
-
-ALTER TABLE Referee
-    ADD CONSTRAINT Referee_Game_FK
-    FOREIGN KEY (expertise_game_id) REFERENCES Game (id);
-
-ALTER TABLE Tournament 
-ADD CONSTRAINT tournament_dates_ck CHECK (end_date >= start_date);
-
-ALTER TABLE Tournament 
-ADD CONSTRAINT tournament_max_teams_ck CHECK (max_teams > 1);
-
-ALTER TABLE Tournament 
-ADD CONSTRAINT Tournament_Game_FK 
-FOREIGN KEY (game_id) REFERENCES Game (id);
-
-ALTER TABLE Tournament 
-ADD CONSTRAINT Tournament_Player_FK 
-FOREIGN KEY (organizer_id) REFERENCES Player (id);
+    ADD CONSTRAINT Referee_Player_FK FOREIGN KEY (id) REFERENCES Player (id),
+    ADD CONSTRAINT Referee_Game_FK FOREIGN KEY (expertise_game_id) REFERENCES Game (id);
 
 ALTER TABLE tournament_sponsor 
-ADD CONSTRAINT Tour_Spon_Sponsor_FK 
-FOREIGN KEY (sponsor_id) REFERENCES Sponsor (id);
-
-ALTER TABLE tournament_sponsor 
-ADD CONSTRAINT Tour_Spon_Tournament_FK 
-FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
+    ADD CONSTRAINT Tour_Spon_Sponsor_FK FOREIGN KEY (sponsor_id) REFERENCES Sponsor (id),
+    ADD CONSTRAINT Tour_Spon_Tournament_FK FOREIGN KEY (tournament_id) REFERENCES Tournament (id);
 
 ALTER TABLE tournament_teams
-    ADD CONSTRAINT TournTeam_Team_FK
-    FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE;
-
-ALTER TABLE tournament_teams
-    ADD CONSTRAINT TournTeam_Tournament_FK
-    FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE;
+    ADD CONSTRAINT TournTeam_Team_FK FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE,
+    ADD CONSTRAINT TournTeam_Tournament_FK FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE;
 
 ALTER TABLE Invitations
-    ADD CONSTRAINT Invitations_Team_FK
-    FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE;
+    ADD CONSTRAINT Inv_Unique_Pending UNIQUE (team_id, receiver_id, status),
+    ADD CONSTRAINT Invitations_Team_FK FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE,
+    ADD CONSTRAINT Invitations_Sender_FK FOREIGN KEY (sender_id) REFERENCES Player (id) ON DELETE CASCADE,
+    ADD CONSTRAINT Invitations_Receiver_FK FOREIGN KEY (receiver_id) REFERENCES Player (id) ON DELETE CASCADE;
 
-ALTER TABLE Invitations
-    ADD CONSTRAINT Invitations_Sender_FK
-    FOREIGN KEY (sender_id) REFERENCES Player (id) ON DELETE CASCADE;
+ALTER TABLE Remember_Tokens
+    ADD CONSTRAINT Remember_Tokens_Player_FK FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE;
 
-ALTER TABLE Invitations
-    ADD CONSTRAINT Invitations_Receiver_FK
-    FOREIGN KEY (receiver_id) REFERENCES Player (id) ON DELETE CASCADE;
-
-ALTER TABLE Player ADD COLUMN deleted_at DATETIME DEFAULT NULL;
-ALTER TABLE Tournament ADD COLUMN deleted_at DATETIME DEFAULT NULL;
-ALTER TABLE Game ADD COLUMN deleted_at DATETIME DEFAULT NULL;
-ALTER TABLE Team ADD COLUMN deleted_at DATETIME DEFAULT NULL;
-ALTER TABLE Matches ADD COLUMN deleted_at DATETIME DEFAULT NULL;
+ALTER TABLE Password_Reset_Tokens
+    ADD CONSTRAINT Pwd_Reset_Player_FK FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE;
