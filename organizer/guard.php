@@ -8,7 +8,7 @@
 
     //Giris yapilmamissa giris yap
     if (!isLoggedIn()) {
-        header('Location: /pages/index.php?modal=login');
+    header('Location: ../pages/index.php?modal=login');
         exit;
     }
 

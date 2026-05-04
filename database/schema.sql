@@ -11,7 +11,7 @@ CREATE TABLE Game (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP(6) NOT NULL,
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Team (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE Team (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP(6),
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Player (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -39,9 +39,10 @@ CREATE TABLE Player (
     team_id BIGINT,
     role VARCHAR(50),  
     user_type VARCHAR(20) NOT NULL,
+    avatar_url VARCHAR(255) NULL,
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Tournament (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -62,7 +63,7 @@ CREATE TABLE Tournament (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Matches (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -79,7 +80,7 @@ CREATE TABLE Matches (
     referee_id BIGINT,
     deleted_at DATETIME DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Prize (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -88,21 +89,21 @@ CREATE TABLE Prize (
     awarded_date DATETIME,
     tournament_id BIGINT NOT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Tournament_Rule (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     tournament_id BIGINT NOT NULL,
     rule_text TEXT NOT NULL,
     sort_order INT DEFAULT 0
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Referee (
     id BIGINT NOT NULL,
     team_id BIGINT,
     expertise_game_id BIGINT NOT NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Sponsor (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -112,20 +113,20 @@ CREATE TABLE Sponsor (
     logo_url VARCHAR(255),
     website_url VARCHAR(255),
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE tournament_sponsor (
     tournament_id BIGINT NOT NULL,
     sponsor_id BIGINT NOT NULL,
     PRIMARY KEY (tournament_id, sponsor_id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE tournament_teams (
     team_id BIGINT NOT NULL,
     tournament_id BIGINT NOT NULL,
     registered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (team_id, tournament_id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Invitations (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -133,11 +134,12 @@ CREATE TABLE Invitations (
     sender_id BIGINT NOT NULL,
     receiver_id BIGINT NOT NULL,
     status ENUM('pending' , 'accepted' , 'declined') NOT NULL DEFAULT 'pending',
+    token VARCHAR(64) NULL UNIQUE,
     sent_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     responded_at DATETIME NULL,
     deleted_at DATETIME NULL,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Remember_Tokens (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -146,7 +148,7 @@ CREATE TABLE Remember_Tokens (
     expires_at DATETIME NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_token_hash (token_hash)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Password_Reset_Tokens (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -156,7 +158,7 @@ CREATE TABLE Password_Reset_Tokens (
     used_at DATETIME NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_reset_token (token_hash)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE Player_Warning (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -167,7 +169,7 @@ CREATE TABLE Player_Warning (
     created_by BIGINT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 -- ---------------------------------------------------------
@@ -228,5 +230,3 @@ ALTER TABLE Remember_Tokens
 ALTER TABLE Password_Reset_Tokens
     ADD CONSTRAINT Pwd_Reset_Player_FK FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE;
 
-ALTER TABLE Invitations ADD COLUMN token VARCHAR(64) NULL UNIQUE AFTER status; 
-ALTER TABLE Player ADD COLUMN avatar_url VARCHAR(255) NULL ;

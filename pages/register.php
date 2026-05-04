@@ -4,6 +4,6 @@
         header('Location: /pages/index.php');
         exit;
     }
-    header('Location: /pages/index.php?modal=login');
+header('Location: ../pages/index.php?modal=login');
     exit;
 ?>
