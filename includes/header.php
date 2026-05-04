@@ -4,7 +4,7 @@
 <header class="site-header">
     <div class="header-inner">
 
-        <a href="../pages/index.php" class="logo">
+        <a href="../index.php" class="logo">
             <div class="logo-icon">
                 <img src="../assets/images/Ikarus_Logo.webp" alt="Logo">
             </div>

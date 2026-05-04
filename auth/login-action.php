@@ -34,7 +34,8 @@
 
                 //Organizer giris yapiyorsa organizer dashboarda gitsin
                 $redirect = match($user['user_type']){
-                    'organizer' , 'admin'   => '/Ikarus/organizer/dashboard.php',
+                    'organizer'=> '/organizer/dashboard.php',
+                    'admin' => '/admin/dashboard.php',
                     default                 => null //playersa ayni devam
                 };
 
