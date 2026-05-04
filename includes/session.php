@@ -1,12 +1,12 @@
 <?php
 
-    require_once __DIR__ . '/db.php';
-    require_once __DIR__ . '/remember_me.php';
-
     #If session doesnt started start it
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    require_once __DIR__ . '/db.php';
+    require_once __DIR__ . '/remember_me.php';
+
 
     #Session yoksa remember cookie ye bak
     if (!isset($_SESSION['user_id'])) {

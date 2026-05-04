@@ -10,10 +10,10 @@
         $expiresAt = date('Y-m-d H:i:s' , time() + (REMEMBER_DAYS * 24 * 3600));
 
         //Eski tokeni sil(ayni cihazdan tekrar login)
-        $pdo->prepare("DELETE FROM remember_tokens WHERE player_id = ?")
+        $pdo->prepare("DELETE FROM Remember_Tokens WHERE player_id = ?")
             ->execute([$userId]);
 
-        $pdo->prepare("INSERT INTO remember_tokens (player_id, token_hash, expires_at)
+        $pdo->prepare("INSERT INTO Remember_Tokens (player_id, token_hash, expires_at)
                         VALUES(?,?,?)")
             ->execute([$userId, $tokenHash, $expiresAt]);
 
@@ -46,7 +46,7 @@
         $userId = (int) $userId;
         $tokenHash = hash('sha256' , $token);
 
-        $stmt = $pdo->prepare("SELECT * FROM remember_tokens
+        $stmt = $pdo->prepare("SELECT * FROM Remember_Tokens
                                 WHERE player_id = ?
                                 AND token_hash = ?
                                 AND expires_at >NOW()");
@@ -80,7 +80,7 @@
 
     //Tokeni DB den ve cookie den temizler
     function clearRememberToken(PDO $pdo, int $userId): void {
-        $pdo->prepare("DELETE FROM remember_tokens WHERE player_id = ?")
+        $pdo->prepare("DELETE FROM Remember_Tokens WHERE player_id = ?")
             ->execute([$userId]);
         clearRememberCookie();
     }   

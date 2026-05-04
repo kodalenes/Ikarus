@@ -72,7 +72,7 @@
                     ->execute([$tokenHash]);
 
                 //Guvenlik icin remember me oturumlarini kapatiyoruz
-                $pdo->prepare("DELETE FROM remember_tokens WHERE player_id = ?")
+                $pdo->prepare("DELETE FROM Remember_Tokens WHERE player_id = ?")
                     ->execute([$userId]);
 
                 $pdo->commit();
