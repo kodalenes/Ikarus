@@ -39,7 +39,11 @@
                     $resetUrl = "{$appUrl}/Ikarus/auth/reset-password.php?token={$token}";
 
                     $html = buildResetEmail($user['username'], $resetUrl);
-                    sendMail($email, $user['username'], 'Reset Password - Ikarus', $html);
+                    if (!sendMail($email, $user['username'], 'Reset Password - Ikarus', $html)) {
+                        $feedback = "Mail cannot sent! Please check logs.";
+                        $feedbackType = "error";
+                        $submitted = false; // Başarısızsa kutuyu gösterme
+                    }
                 }
 
                 $submitted = true;

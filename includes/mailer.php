@@ -26,7 +26,7 @@
             $mail->Username = $_ENV['MAIL_USERNAME'] ?? '';
             $mail->Password = $_ENV['MAIL_PASSWORD'] ?? '';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port= (int)($_ENV['MAIL_PORT'] ?? 2525);
+            $mail->Port= (int)($_ENV['MAIL_PORT'] ?? 465);
             $mail->CharSet = 'UTF-8';
 
             $mail->setFrom(

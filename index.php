@@ -7,8 +7,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="description" content="Ikarus, professional tournament management and monitoring platform for players. ">
+    <meta name="keywords" content="tournament, gaming, esports, ikarus, game, competitive">
+    <meta name="author" content="Ahmet Enes Kodal">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikarusgg.me/">
+    <meta property="og:title" content="Ikarus">
+    <meta property="og:description" content="The most advanced tournament management system for players.">
+    <meta property="og:image" content="https://ikarusgg.me/assets/images/social_media_image.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+
     <link rel="shortcut icon" href="assets/images/Ikarus_Logo.webp" type="image/x-icon">
     <title>Ikarus</title>
+
+    <link rel="preload" href="/assets/fonts/Inter-VariableFont_opsz,wght.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/modal.css">

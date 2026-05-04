@@ -25,6 +25,7 @@
             'expires' => $expires,
             'path' => '/',
             'httponly' => true,//JS erisemes XSS korumasi
+            'secure' => true,
             'samesite' => 'Lax',//CSRF korumasi
         ]);
     }
@@ -90,6 +91,7 @@
             'expires' => time() - 3600,
             'path'    => '/',
             'httponly'=> true,
+            'secure' => true,
             'samesite' => 'Lax',
         ]);
     }
