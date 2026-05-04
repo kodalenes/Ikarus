@@ -20,7 +20,7 @@ class FileUploader
     ];
 
     private string $fsBase;     // Absolute filesystem path to upload root
-    private string $webBase;    // Web-relative path prefix (relative to pages/)
+    private string $webBase;    // Web-relative path prefix (relative to )
     private array  $mimes;
     private int    $maxBytes;
     private array  $errors = [];
@@ -33,7 +33,7 @@ class FileUploader
 
     /**
      * @param string $fsBase   Absolute dir for uploads, e.g. dirname(__DIR__).'/assets/uploads'
-     * @param string $webBase  Web-relative prefix from pages/, e.g. '../assets/uploads'
+     * @param string $webBase  Web-relative prefix from , e.g. '../assets/uploads'
      * @param string $profile  'image' | 'avatar' (or override via $mimes/$maxMb)
      * @param array  $mimes    Override allowed MIME types
      * @param int    $maxMb    Override max size in MB

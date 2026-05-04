@@ -4,7 +4,7 @@
 <header class="site-header">
     <div class="header-inner">
 
-        <a href="../pages/index.php" class="logo">
+        <a href="../index.php" class="logo">
             <div class="logo-icon">
                 <img src="../assets/images/Ikarus_Logo.webp" alt="Logo">
             </div>
@@ -12,9 +12,9 @@
         </a>
 
         <nav class="nav-links">
-            <a href="../pages/tournaments.php">Tournaments</a>
-            <a href="../pages/team.php">Team</a>
-            <a href="../pages/leaderboard.php">Leaderboard</a>
+            <a href="../tournaments.php">Tournaments</a>
+            <a href="../team.php">Team</a>
+            <a href="../leaderboard.php">Leaderboard</a>
             <?php if(isAdmin()): ?>
                 <a href="../organizer/dashboard.php" class="nav-link-panel">Organizer Panel</a>
                 <a href="../admin/dashboard.php" class="btn-admin-header">Admin Panel</a>
@@ -30,7 +30,7 @@
                 $avatarUrl = getCurrentUserAvatarUrl();
                 $avatarInitials = getUserInitials($headerUser['username'] ?? null);
             ?>
-            <a href="../pages/profile.php" class="hdr-profile-link" title="<?= htmlspecialchars($headerUser['username'] ?? 'Profile') ?>">
+            <a href="../profile.php" class="hdr-profile-link" title="<?= htmlspecialchars($headerUser['username'] ?? 'Profile') ?>">
                 <?php if ($avatarUrl): ?>
                     <img src="<?= htmlspecialchars($avatarUrl) ?>" alt="<?= htmlspecialchars($headerUser['username'] ?? 'Profile') ?>" class="hdr-profile-avatar-img">
                 <?php else: ?>

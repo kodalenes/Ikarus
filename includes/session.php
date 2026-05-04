@@ -104,7 +104,7 @@
 
     function requireLogin() : void {
         if (!isLoggedIn()) {
-            header('Location: ../pages/index.php?modal=login');
+            header('Location: ../index.php?modal=login');
             exit;
         }
     }
