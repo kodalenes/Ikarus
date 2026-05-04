@@ -146,6 +146,46 @@ a {
     color: var(--accent-soft);
 }
 
+.hdr-profile-link {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(72, 159, 181, 0.28);
+    background: rgba(72, 159, 181, 0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.hdr-profile-link:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent);
+    background: rgba(72, 159, 181, 0.14);
+}
+
+.hdr-profile-avatar,
+.hdr-profile-avatar-img {
+    width: 100%;
+    height: 100%;
+}
+
+.hdr-profile-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-soft);
+    letter-spacing: 1px;
+}
+
+.hdr-profile-avatar-img {
+    object-fit: cover;
+    display: block;
+}
+
 .btn-outline-header {
     background: transparent;
     border: 1px solid var(--accent);

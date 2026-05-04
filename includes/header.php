@@ -25,7 +25,18 @@
 
         <div class="header-auth">
         <?php if (isLoggedIn()): ?>
-            <span class="welcome-text">Welcome, <strong><?= getUsername() ?></strong></span>
+            <?php
+                $headerUser = getCurrentUserRow();
+                $avatarUrl = getCurrentUserAvatarUrl();
+                $avatarInitials = getUserInitials($headerUser['username'] ?? null);
+            ?>
+            <a href="../pages/profile.php" class="hdr-profile-link" title="<?= htmlspecialchars($headerUser['username'] ?? 'Profile') ?>">
+                <?php if ($avatarUrl): ?>
+                    <img src="<?= htmlspecialchars($avatarUrl) ?>" alt="<?= htmlspecialchars($headerUser['username'] ?? 'Profile') ?>" class="hdr-profile-avatar-img">
+                <?php else: ?>
+                    <span class="hdr-profile-avatar"><?= htmlspecialchars($avatarInitials) ?></span>
+                <?php endif; ?>
+            </a>
         
             <!-- Notification Bell -->
             <div class="hdr-notif-wrap" id="hdr-notif-wrap">

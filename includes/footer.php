@@ -33,6 +33,10 @@
     });
 </script>
 
+<?php $currentPage = basename($_SERVER['PHP_SELF'] ?? ''); ?>
+<?php if ($currentPage !== 'team.php'): ?>
+ <script src="../assets/js/header-notifications.js"></script>
+<?php endif; ?>
  <script src="../assets/js/FormValidator.js"></script>
  <script src="../assets/js/utils.js"></script>
  <script src="../assets/js/modal-handler.js"></script>
