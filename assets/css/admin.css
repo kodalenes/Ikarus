@@ -940,3 +940,27 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Stat kart'lar için genişlik onarımı */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Modüller arası boşluk garanti altına almak için */
+.admin-panel {
+    margin-bottom: 24px;
+}

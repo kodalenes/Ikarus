@@ -42,6 +42,7 @@
     
     <!-- Global CSS -->
     <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/utils.css">
     
     <!-- Organizer (Temel panel yapısı) ve Admin üzerine yazan CSS -->
     <link rel="stylesheet" href="../assets/css/organizer/organizer-core.css">

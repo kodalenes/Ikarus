@@ -20,7 +20,7 @@
     
     <main>
         <!--HERO KISMI-->
-        <section class="hero">
+        <section class="hero animate-in" style="--delay: 100ms;">
             <div class="hero-inner">
                 <p class="hero-eyebrow">Tournament Platform</p>
                 <h1 class="hero-title">Compete. <br>Lead. <span>Rise</span></h1>

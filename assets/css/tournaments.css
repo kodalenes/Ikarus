@@ -21,6 +21,24 @@
   padding: 24px 0;
 }
 
+/* Keeps main content clickable if overlays exist */
+main, .game-filter, .t-card { 
+    position: relative; 
+    z-index: 10; 
+}
+.t-card { 
+    text-decoration: none !important; 
+    cursor: pointer !important; 
+}
+
+/* Container align to header */
+.tournaments-container {
+    max-width: 1200px; 
+    margin: 40px auto 0;
+    padding: 0 24px 60px;
+    width: 100%;
+}
+
 /* --- 2. HEADER & NAVIGATION COMPONENTS --- */
 .btn-ghost {
   padding: 6px 14px;

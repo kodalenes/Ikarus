@@ -138,155 +138,164 @@
     require_once __DIR__ . '/layout-top.php';
 ?>
 
-<!--FILTRE CUBUGU -->
-<div class="adm-filter-bar">
-    <div class="adm-role-tabs">
-        <?php
-        $tabs = [
-            ''          => ['label' => 'All'        , 'count' => $roleCounts['all']],
-            'player'    => ['label' => 'Player'     , 'count' => $roleCounts['player']],
-            'organizer' => ['label' => 'Organizer'  , 'count' => $roleCounts['organizer']],
-            'admin'     => ['label' => 'Admin'      , 'count' => $roleCounts['admin']],
-        ];
-        foreach ($tabs as $val => $tab):
-            $href = '?' . http_build_query(array_filter(['search' => $search, 'role' => $val]));
-        ?>
-            <a href="<?= $href ?>" class="adm-role-tab <?= $roleFilter === $val ? 'active' : '' ?>">
-                <?= $tab['label'] ?>
-                <span class="adm-role-tab-count"><?= $tab['count'] ?></span>
-            </a>
-        <?php endforeach; ?>
+<div class="admin-body">
+    <div class="page-header animate-in" style="--delay: 100ms;">
+        <h1 class="page-title"><?= $pageTitle ?></h1>
+        <div class="page-subtitle"><?= $pageSubtitle ?></div>
     </div>
 
-    <form method="GET" class="adm-search-form">
-        <?php if ($roleFilter): ?>
-            <input type="hidden" name="role" value="<?= htmlspecialchars($roleFilter) ?>">
-        <?php endif; ?>
-        <input class="adm-search-input" type="text" name="search"
-               placeholder="Search username or email..."
-               value="<?= htmlspecialchars($search) ?>">
-        <button class="op-btn-sm op-btn-sm--accent" type="submit">Search</button>
-        <?php if ($search): ?>
-            <a href="?<?= $roleFilter ? 'role='.$roleFilter : '' ?>" class="op-btn-sm">Clear</a>
-        <?php endif; ?>
-    </form>
-</div>
-
-<!-- ─── KULLANICI TABLOSU ───────────────────────────────────────────────── -->
-<div class="op-card">
-    <?php if (empty($users)): ?>
-        <div class="op-empty">No users found matching your criteria.</div>
-    <?php else: ?>
-        <table class="op-table">
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Role</th>
-                    <th>Team</th>
-                    <th>Tournaments</th>
-                    <th>Joined</th>
-                    <th>Change Role</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $u):
-                    $isSelf   = ((int)$u['id'] === (int)$_SESSION['user_id']);
-                    $roleStyle = [
-                        'admin'     => 'adm-badge--admin',
-                        'organizer' => 'op-badge--open',
-                        'player'    => 'op-badge--done',
-                    ][$u['user_type']] ?? 'op-badge--done';
+    <div class="filter-bar animate-in" style="--delay: 150ms;">
+        <!--FILTRE CUBUGU -->
+        <div class="adm-filter-bar">
+            <div class="adm-role-tabs">
+                <?php
+                $tabs = [
+                    ''          => ['label' => 'All'        , 'count' => $roleCounts['all']],
+                    'player'    => ['label' => 'Player'     , 'count' => $roleCounts['player']],
+                    'organizer' => ['label' => 'Organizer'  , 'count' => $roleCounts['organizer']],
+                    'admin'     => ['label' => 'Admin'      , 'count' => $roleCounts['admin']],
+                ];
+                foreach ($tabs as $val => $tab):
+                    $href = '?' . http_build_query(array_filter(['search' => $search, 'role' => $val]));
                 ?>
-                <tr data-id="<?= $u['id'] ?>">
- 
-                    <td>
-                        <div class="adm-user-cell">
-                            <div class="adm-u-avatar <?= $u['user_type'] === 'admin' ? 'adm-u-avatar--admin' : '' ?>">
-                                <?= strtoupper(substr($u['username'], 0, 2)) ?>
-                            </div>
-                            <div>
-                                <div class="op-td-name">
-                                    <?= htmlspecialchars($u['username']) ?>
-                                    <?php if ($isSelf): ?>
-                                        <span class="adm-you-badge">You</span>
-                                    <?php endif; ?>
+                    <a href="<?= $href ?>" class="adm-role-tab <?= $roleFilter === $val ? 'active' : '' ?>">
+                        <?= $tab['label'] ?>
+                        <span class="adm-role-tab-count"><?= $tab['count'] ?></span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+
+            <form method="GET" class="adm-search-form">
+                <?php if ($roleFilter): ?>
+                    <input type="hidden" name="role" value="<?= htmlspecialchars($roleFilter) ?>">
+                <?php endif; ?>
+                <input class="adm-search-input" type="text" name="search"
+                       placeholder="Search username or email..."
+                       value="<?= htmlspecialchars($search) ?>">
+                <button class="op-btn-sm op-btn-sm--accent" type="submit">Search</button>
+                <?php if ($search): ?>
+                    <a href="?<?= $roleFilter ? 'role='.$roleFilter : '' ?>" class="op-btn-sm">Clear</a>
+                <?php endif; ?>
+            </form>
+        </div>
+    </div>
+
+    <div class="admin-panel animate-in" style="--delay: 200ms;">
+       <!-- ─── KULLANICI TABLOSU ───────────────────────────────────────────────── -->
+        <div class="op-card">
+            <?php if (empty($users)): ?>
+                <div class="op-empty">No users found matching your criteria.</div>
+            <?php else: ?>
+                <table class="op-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Team</th>
+                            <th>Tournaments</th>
+                            <th>Joined</th>
+                            <th>Change Role</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $u):
+                            $isSelf   = ((int)$u['id'] === (int)$_SESSION['user_id']);
+                            $roleStyle = [
+                                'admin'     => 'adm-badge--admin',
+                                'organizer' => 'op-badge--open',
+                                'player'    => 'op-badge--done',
+                            ][$u['user_type']] ?? 'op-badge--done';
+                        ?>
+                        <tr data-id="<?= $u['id'] ?>">
+     
+                            <td>
+                                <div class="adm-user-cell">
+                                    <div class="adm-u-avatar <?= $u['user_type'] === 'admin' ? 'adm-u-avatar--admin' : '' ?>">
+                                        <?= strtoupper(substr($u['username'], 0, 2)) ?>
                                 </div>
-                                <div class="op-td-sub"><?= htmlspecialchars($u['email']) ?></div>
+                                <div>
+                                    <div class="op-td-name">
+                                        <?= htmlspecialchars($u['username']) ?>
+                                        <?php if ($isSelf): ?>
+                                            <span class="adm-you-badge">You</span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="op-td-sub"><?= htmlspecialchars($u['email']) ?></div>
+                                </div>
                             </div>
-                        </div>
-                    </td>
- 
-                    <td>
-                        <span class="op-badge <?= $roleStyle ?>">
-                            <?= ucfirst($u['user_type']) ?>
-                        </span>
-                    </td>
- 
-                    <td class="op-td-muted">
-                        <?= $u['team_name'] ? htmlspecialchars($u['team_name']) : '—' ?>
-                    </td>
- 
-                    <td class="op-td-muted">
-                        <?= $u['tournament_count'] > 0
-                            ? '<span style="color:var(--accent)">' . $u['tournament_count'] . '</span>'
-                            : '—' ?>
-                    </td>
- 
-                    <td class="op-td-muted">
-                        <?= $u['registered_at'] ? date('d M Y', strtotime($u['registered_at'])) : '—' ?>
-                    </td>
- 
-                    <!-- Rol değiştir -->
-                    <td>
-                        <?php if (!$isSelf): ?>
-                            <select
-                                class="adm-role-select"
-                                data-prev="<?= $u['user_type'] ?>"
-                                onchange="changeUserRole(<?= $u['id'] ?>, this.value, '<?= htmlspecialchars($u['username'], ENT_QUOTES) ?>', this)"
+                        </td>
+     
+                        <td>
+                            <span class="op-badge <?= $roleStyle ?>">
+                                <?= ucfirst($u['user_type']) ?>
+                            </span>
+                        </td>
+     
+                        <td class="op-td-muted">
+                            <?= $u['team_name'] ? htmlspecialchars($u['team_name']) : '—' ?>
+                        </td>
+     
+                        <td class="op-td-muted">
+                            <?= $u['tournament_count'] > 0
+                                ? '<span style="color:var(--accent)">' . $u['tournament_count'] . '</span>'
+                                : '—' ?>
+                        </td>
+     
+                        <td class="op-td-muted">
+                            <?= $u['registered_at'] ? date('d M Y', strtotime($u['registered_at'])) : '—' ?>
+                        </td>
+     
+                        <!-- Rol değiştir -->
+                        <td>
+                            <?php if (!$isSelf): ?>
+                                <select
+                                    class="adm-role-select"
+                                    data-prev="<?= $u['user_type'] ?>"
+                                    onchange="changeUserRole(<?= $u['id'] ?>, this.value, '<?= htmlspecialchars($u['username'], ENT_QUOTES) ?>', this)"
                             >
                                 <option value="player"    <?= $u['user_type'] === 'player'    ? 'selected' : '' ?>>Player</option>
                                 <option value="organizer" <?= $u['user_type'] === 'organizer' ? 'selected' : '' ?>>Organizer</option>
                                 <option value="admin"     <?= $u['user_type'] === 'admin'     ? 'selected' : '' ?>>Admin</option>
                             </select>
-                        <?php else: ?>
-                            <span class="op-td-muted" style="font-size:11px">—</span>
-                        <?php endif; ?>
-                    </td>
- 
-                    <!-- Sil -->
-                    <td>
-                        <?php if (!$isSelf): ?>
-                            <button
-                                class="adm-btn-danger"
-                                onclick="deleteUser(<?= $u['id'] ?>, '<?= htmlspecialchars($u['username'], ENT_QUOTES) ?>')"
-                            >Delete</button>
-                        <?php endif; ?>
-                    </td>
- 
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                            <?php else: ?>
+                                <span class="op-td-muted" style="font-size:11px">—</span>
+                            <?php endif; ?>
+                        </td>
+     
+                        <!-- Sil -->
+                        <td>
+                            <?php if (!$isSelf): ?>
+                                <button
+                                    class="adm-btn-danger"
+                                    onclick="deleteUser(<?= $u['id'] ?>, '<?= htmlspecialchars($u['username'], ENT_QUOTES) ?>')"
+                                >Delete</button>
+                            <?php endif; ?>
+                        </td>
+     
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+     
+    <!-- ─── SAYFALAMA ──────────────────────────────────────────────────────── -->
+    <?php if ($totalPages > 1): ?>
+    <div class="adm-pagination">
+        <?php for ($i = 1; $i <= $totalPages; $i++):
+            $href = '?' . http_build_query(array_filter(['search' => $search, 'role' => $roleFilter, 'page' => $i]));
+        ?>
+            <a href="<?= $href ?>" class="adm-page-btn <?= $i === $page ? 'active' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+        <span class="adm-page-info">
+            <?= (($page - 1) * $perPage) + 1 ?>–<?= min($page * $perPage, $totalUsers) ?>
+            of <?= number_format($totalUsers) ?>
+        </span>
+    </div>
     <?php endif; ?>
 </div>
- 
-<!-- ─── SAYFALAMA ──────────────────────────────────────────────────────── -->
-<?php if ($totalPages > 1): ?>
-<div class="adm-pagination">
-    <?php for ($i = 1; $i <= $totalPages; $i++):
-        $href = '?' . http_build_query(array_filter(['search' => $search, 'role' => $roleFilter, 'page' => $i]));
-    ?>
-        <a href="<?= $href ?>" class="adm-page-btn <?= $i === $page ? 'active' : '' ?>"><?= $i ?></a>
-    <?php endfor; ?>
-    <span class="adm-page-info">
-        <?= (($page - 1) * $perPage) + 1 ?>–<?= min($page * $perPage, $totalUsers) ?>
-        of <?= number_format($totalUsers) ?>
-    </span>
-</div>
-<?php endif; ?>
 
- 
 <?php 
     $pageJs = 'users.js';
     require_once __DIR__ . '/layout-bottom.php'; 

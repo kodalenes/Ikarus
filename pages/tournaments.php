@@ -31,48 +31,28 @@ try {
     
     <!-- Tournament Styles -->
     <link rel="stylesheet" href="../assets/css/tournaments.css">
-
-    <style>
-        /* Keeps main content clickable if overlays exist */
-        main, .game-filter, .t-card { position: relative; z-index: 10; }
-        .t-card { text-decoration: none !important; cursor: pointer !important; }
-    </style>
 </head>
 
 <body>
     <?php require_once '../includes/header.php' ?>
     
-    <main>
-        <div class="page tournaments-wrapper">
-          <div class="content">
-            
-            <!-- Header with Create Button -->
-            <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div class="page-title">Tournaments</div>
-                <div class="page-sub">Choose the tournament you want to join and compete with your team.</div>
-              </div>
-              <?php if (isLoggedIn() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'organizer'): ?>
-                <a href="../organizer/tournament-create.php" class="join-btn" style="text-decoration: none;">Create Tournament</a>
-              <?php endif; ?>
-            </div>
+    <main class="content tournaments-container">
+        <div class="page-header animate-in" style="--delay: 100ms;">
+            <h1 class="page-title">Tournaments</h1>
+            <p class="page-sub">Discover and join active tournaments.</p>
+        </div>
 
-            <!-- Game Filters -->
-            <div class="game-filter" id="gameFilter">
-              <button type="button" class="game-btn all active" onclick="filterGame('all',this)">
-                <div class="game-icon icon-all">∞</div>All Games
-              </button>
-              <button type="button" class="game-btn" onclick="filterGame('cs',this)">
-                <div class="game-icon icon-cs">CS</div>CS2
-              </button>
-              <button type="button" class="game-btn" onclick="filterGame('v',this)">
-                <div class="game-icon icon-val">V</div>Valorant
-              </button>
-            </div>
+        <!-- Filtre veya arama çubuğu -->
+        <div class="filter-bar animate-in" style="--delay: 200ms;">
+          <?php if (isLoggedIn() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'organizer'): ?>
+            <a href="../organizer/tournament-create.php" class="join-btn" style="text-decoration: none;">Create Tournament</a>
+          <?php endif; ?>
+        </div>
 
-            <div class="tournaments-list" id="tList">
-              <?php if (!empty($tournaments)): ?>
-                <?php foreach($tournaments as $row): 
+        <!-- Turnuva Kartlarının listelendiği Grid -->
+        <div class="tournament-grid">
+            <?php if (!empty($tournaments)): ?>
+                <?php foreach($tournaments as $idx => $row): 
                     // Determine game icon and color
                     $game_lower = strtolower($row['game_name'] ?? '');
                     $icon_class = 'icon-all';
@@ -87,7 +67,7 @@ try {
                     $max = (int)$row['max_teams'];
                     $percent = $max > 0 ? min(100, round(($registered / $max) * 100)) : 0;
                 ?>
-                  <a href="tournaments-details.php?id=<?php echo $row['id']; ?>" class="t-card" data-game="<?php echo strtolower($game_short); ?>">
+                  <a href="tournaments-details.php?id=<?php echo $row['id']; ?>" class="t-card animate-in" data-game="<?php echo strtolower($game_short); ?>" style="--delay: <?= 250 + ($idx * 50) ?>ms;">
                     <div class="t-game-badge <?php echo $icon_class; ?>"><?php echo $game_short; ?></div>
                     <div class="t-main">
                       <div class="t-top">
@@ -114,8 +94,6 @@ try {
               <?php else: ?>
                 <div class="empty-state">No tournaments found in the database yet.</div>
               <?php endif; ?>
-            </div>
-          </div>
         </div>
     </main>
 

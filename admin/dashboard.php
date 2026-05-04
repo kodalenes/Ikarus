@@ -61,141 +61,145 @@
     require_once __DIR__ . '/layout-top.php';
 ?>
 
-<!-- ─── STAT CARDS ─────────────────────────────────────────────────────────── -->
-<div class="op-stat-grid adm-stat-grid">
- 
-    <div class="op-stat-card">
-        <div class="op-stat-label">Total Players</div>
-        <div class="op-stat-val"><?= number_format($stats['total_players']) ?></div>
-        <div class="op-stat-sub">
-            <?= $stats['total_organizers'] ?> organizer · <?= $stats['total_admins'] ?> admin
+<div class="admin-body">
+    <!-- İstatistik Kartları -->
+    <div class="stat-grid">
+        <div class="stat-card animate-in" style="--delay: 100ms;">
+            <div class="op-stat-label">Total Players</div>
+            <div class="op-stat-val"><?= number_format($stats['total_players']) ?></div>
+            <div class="op-stat-sub">
+                <?= $stats['total_organizers'] ?> organizer · <?= $stats['total_admins'] ?> admin
+            </div>
         </div>
-    </div>
  
-    <div class="op-stat-card">
-        <div class="op-stat-label">Teams</div>
-        <div class="op-stat-val"><?= number_format($stats['total_teams']) ?></div>
-        <div class="op-stat-sub">Registered teams</div>
-    </div>
- 
-    <div class="op-stat-card">
-        <div class="op-stat-label">Tournaments</div>
-        <div class="op-stat-val"><?= number_format($stats['total_tournaments']) ?></div>
-        <div class="op-stat-sub">
-            <?= $stats['live_tournaments'] ?> live · <?= $stats['reg_tournaments'] ?> open
+        <div class="stat-card animate-in" style="--delay: 150ms;">
+            <div class="op-stat-label">Teams</div>
+            <div class="op-stat-val"><?= number_format($stats['total_teams']) ?></div>
+            <div class="op-stat-sub">Registered teams</div>
         </div>
-    </div>
  
-    <div class="op-stat-card">
-        <div class="op-stat-label">Total Prize Pool</div>
-        <div class="op-stat-val adm-prize-val">
-            ₺<?= number_format($stats['total_prize'], 0, ',', '.') ?>
+        <div class="stat-card animate-in" style="--delay: 200ms;">
+            <div class="op-stat-label">Tournaments</div>
+            <div class="op-stat-val"><?= number_format($stats['total_tournaments']) ?></div>
+            <div class="op-stat-sub">
+                <?= $stats['live_tournaments'] ?> live · <?= $stats['reg_tournaments'] ?> open
+            </div>
         </div>
-        <div class="op-stat-sub">Across all tournaments</div>
-    </div>
  
-    <div class="op-stat-card">
-        <div class="op-stat-label">Matches Played</div>
-        <div class="op-stat-val"><?= number_format($stats['total_matches']) ?></div>
-        <div class="op-stat-sub">Total recorded</div>
-    </div>
+        <div class="stat-card animate-in" style="--delay: 250ms;">
+            <div class="op-stat-label">Total Prize Pool</div>
+            <div class="op-stat-val adm-prize-val">
+                ₺<?= number_format($stats['total_prize'], 0, ',', '.') ?>
+            </div>
+            <div class="op-stat-sub">Across all tournaments</div>
+        </div>
  
-    <div class="op-stat-card <?= $stats['pending_matches'] > 0 ? 'op-stat-card--warn' : '' ?>">
-        <div class="op-stat-label">Pending Results</div>
-        <div class="op-stat-val"><?= number_format($stats['pending_matches']) ?></div>
-        <div class="op-stat-sub">
-            <?php if ($stats['pending_matches'] > 0): ?>
-                Awaiting score entry
+        <div class="stat-card animate-in" style="--delay: 300ms;">
+            <div class="op-stat-label">Matches Played</div>
+            <div class="op-stat-val"><?= number_format($stats['total_matches']) ?></div>
+            <div class="op-stat-sub">Total recorded</div>
+        </div>
+ 
+        <div class="stat-card animate-in <?= $stats['pending_matches'] > 0 ? 'op-stat-card--warn' : '' ?>" style="--delay: 350ms;">
+            <div class="op-stat-label">Pending Results</div>
+            <div class="op-stat-val"><?= number_format($stats['pending_matches']) ?></div>
+            <div class="op-stat-sub">
+                <?php if ($stats['pending_matches'] > 0): ?>
+                    Awaiting score entry
+                <?php else: ?>
+                    All up to date ✓
+                <?php endif; ?>
+            </div>
+        </div>
+ 
+    </div>
+
+    <!-- Tablolar veya Paneller: Recent Registration -->
+    <div class="admin-panel animate-in" style="--delay: 300ms; margin-bottom: 24px;">
+ 
+        <!-- Son Kullanıcılar -->
+        <div class="op-card">
+            <div class="op-card-head">
+                <span class="op-card-title">Recent Registrations</span>
+                <a href="users.php" class="op-link">Manage All →</a>
+            </div>
+ 
+            <?php if (empty($recentUsers)): ?>
+                <div class="op-empty">No users found.</div>
             <?php else: ?>
-                All up to date ✓
+                <table class="op-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Type</th>
+                            <th>Joined</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($recentUsers as $u):
+                            $roleMap = [
+                                'admin'     => ['adm-badge--admin',  'Admin'],
+                                'organizer' => ['op-badge--open',    'Organizer'],
+                                'player'    => ['op-badge--done',    'Player'],
+                            ];
+                            $r = $roleMap[$u['user_type']] ?? ['op-badge--done', $u['user_type']];
+                        ?>
+                        <tr>
+                            <td>
+                                <div class="op-td-name"><?= htmlspecialchars($u['username']) ?></div>
+                                <div class="op-td-sub"><?= htmlspecialchars($u['email']) ?></div>
+                            </td>
+                            <td><span class="op-badge <?= $r[0] ?>"><?= $r[1] ?></span></td>
+                            <td class="op-td-muted">
+                                <?= $u['registered_at'] ? date('d M Y', strtotime($u['registered_at'])) : '—' ?>
+                            </td>
+                            <td>
+                                <a href="users.php?id=<?= $u['id'] ?>" class="op-btn-sm op-btn-sm--accent">View</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             <?php endif; ?>
         </div>
     </div>
- 
-</div>
- 
-<!-- ─── İKİ KOLON: SON KULLANICILAR + SON TURNUVALAR ─────────────────────── -->
-<div class="adm-two-col">
- 
-    <!-- Son Kullanıcılar -->
-    <div class="op-card">
-        <div class="op-card-head">
-            <span class="op-card-title">Recent Registrations</span>
-            <a href="users.php" class="op-link">Manage All →</a>
-        </div>
- 
-        <?php if (empty($recentUsers)): ?>
-            <div class="op-empty">No users found.</div>
-        <?php else: ?>
-            <table class="op-table">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Type</th>
-                        <th>Joined</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($recentUsers as $u):
-                        $roleMap = [
-                            'admin'     => ['adm-badge--admin',  'Admin'],
-                            'organizer' => ['op-badge--open',    'Organizer'],
-                            'player'    => ['op-badge--done',    'Player'],
-                        ];
-                        $r = $roleMap[$u['user_type']] ?? ['op-badge--done', $u['user_type']];
-                    ?>
-                    <tr>
-                        <td>
-                            <div class="op-td-name"><?= htmlspecialchars($u['username']) ?></div>
-                            <div class="op-td-sub"><?= htmlspecialchars($u['email']) ?></div>
-                        </td>
-                        <td><span class="op-badge <?= $r[0] ?>"><?= $r[1] ?></span></td>
-                        <td class="op-td-muted">
-                            <?= $u['registered_at'] ? date('d M Y', strtotime($u['registered_at'])) : '—' ?>
-                        </td>
-                        <td>
-                            <a href="users.php?id=<?= $u['id'] ?>" class="op-btn-sm op-btn-sm--accent">View</a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
-    </div>
- 
-    <!-- Son Turnuvalar -->
-    <div class="op-card">
-        <div class="op-card-head">
-            <span class="op-card-title">Recent Tournaments</span>
-            <a href="tournaments.php" class="op-link">All →</a>
-        </div>
- 
-        <?php if (empty($recentTournaments)): ?>
-            <div class="op-empty">No tournaments found.</div>
-        <?php else: ?>
-            <?php foreach ($recentTournaments as $t):
-                $statusMap = [
-                    'live'         => ['op-badge--live',  'Live'],
-                    'registration' => ['op-badge--open',  'Open'],
-                    'upcoming'     => ['op-badge--soon',  'Upcoming'],
-                    'finished'     => ['op-badge--done',  'Done'],
-                    'draft'        => ['op-badge--draft', 'Draft'],
-                ];
-                $s = $statusMap[$t['status']] ?? ['op-badge--done', $t['status']];
-            ?>
-            <div class="adm-t-row">
-                <div class="adm-t-info">
-                    <div class="op-td-name"><?= htmlspecialchars($t['name']) ?></div>
-                    <div class="op-td-sub">
-                        <?= htmlspecialchars($t['game_name'] ?? '—') ?>
-                        · by <?= htmlspecialchars($t['organizer_name'] ?? '—') ?>
-                    </div>
-                </div>
-                <span class="op-badge <?= $s[0] ?>"><?= $s[1] ?></span>
+    
+    <!-- Tablolar veya Paneller: Recent Tournaments -->
+    <div class="admin-panel animate-in" style="--delay: 400ms;">
+        <!-- Son Turnuvalar -->
+        <div class="op-card">
+            <div class="op-card-head">
+                <span class="op-card-title">Recent Tournaments</span>
+                <a href="tournaments.php" class="op-link">All →</a>
             </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+ 
+            <?php if (empty($recentTournaments)): ?>
+                <div class="op-empty">No tournaments found.</div>
+            <?php else: ?>
+                <?php foreach ($recentTournaments as $t):
+                    $statusMap = [
+                        'live'         => ['op-badge--live',  'Live'],
+                        'registration' => ['op-badge--open',  'Open'],
+                        'upcoming'     => ['op-badge--soon',  'Upcoming'],
+                        'finished'     => ['op-badge--done',  'Done'],
+                        'draft'        => ['op-badge--draft', 'Draft'],
+                    ];
+                    $s = $statusMap[$t['status']] ?? ['op-badge--done', $t['status']];
+                ?>
+                <div class="adm-t-row">
+                    <div class="adm-t-info">
+                        <div class="op-td-name"><?= htmlspecialchars($t['name']) ?></div>
+                        <div class="op-td-sub">
+                            <?= htmlspecialchars($t['game_name'] ?? '—') ?>
+                            · by <?= htmlspecialchars($t['organizer_name'] ?? '—') ?>
+                        </div>
+                    </div>
+                    <span class="op-badge <?= $s[0] ?>"><?= $s[1] ?></span>
+                </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     </div>
  
 </div>

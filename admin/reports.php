@@ -144,6 +144,10 @@ $avgTeamsPerTour = $overview['total_tournaments'] > 0
     : 0;
 ?>
 
+<div class="admin-body">
+    <div class="stat-grid">
+        <div class="stat-card animate-in" style="--delay: 100ms;">
+
 <!-- ─── OVERVIEW STAT CARDS ──────────────────────────────────────────────── -->
 <div class="adm-stat-grid" style="grid-template-columns: repeat(4,1fr); margin-bottom:16px;">
 
@@ -182,6 +186,9 @@ $avgTeamsPerTour = $overview['total_tournaments'] > 0
     </div>
 
 </div>
+
+        </div>
+        <div class="stat-card animate-in" style="--delay: 150ms;">
 
 <!-- ─── TREND GRAFİKLERİ ─────────────────────────────────────────────────── -->
 <div class="adm-two-col" style="margin-bottom:16px;">
@@ -242,6 +249,18 @@ $avgTeamsPerTour = $overview['total_tournaments'] > 0
         </div>
     </div>
 
+</div>
+
+        </div>
+    </div>
+
+    <div class="op-card animate-in" style="margin-bottom: 24px; --delay: 250ms;">
+       <!-- ...existing code... (rapor içerikleri) -->
+    </div>
+    
+    <div class="op-card animate-in" style="margin-bottom: 24px; --delay: 300ms;">
+       <!-- ...existing code... (diğer analizler) -->
+    </div>
 </div>
 
 <!-- ─── OYUN DAĞILIMI + DURUM DAĞILIMI ───────────────────────────────────── -->

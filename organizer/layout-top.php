@@ -50,6 +50,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? 'Panel') ?>- Ikarus Organizer</title>
     <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/utils.css">
     <link rel="stylesheet" href="../assets/css/organizer/organizer-core.css">
     <?php
         /**
@@ -153,4 +154,3 @@
  
         <!-- SAYFA İÇERİĞİ BURAYA -->
         <div class="op-body">
- 

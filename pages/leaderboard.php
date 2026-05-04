@@ -187,7 +187,7 @@ $jsTeams = array_map(function($t) use ($me_team_id) {
 <?php include_once __DIR__ . '/../includes/header.php'; ?>
 
 <main class="content">
-  <div class="page-header">
+  <div class="page-header animate-in" style="--delay: 100ms;">
     <div>
       <h1 class="page-title">Leaderboard</h1>
       <p class="page-sub">Global Ranking · All Time</p>
@@ -217,9 +217,9 @@ $jsTeams = array_map(function($t) use ($me_team_id) {
     </div>
   </div>
 
-  <section class="podium-section" id="podium"></section>
+  <section class="podium-section animate-in" id="podium" style="--delay: 200ms;"></section>
 
-  <div class="table-card">
+  <div class="table-card animate-in" style="--delay: 300ms;">
     <div class="tabs-row">
       <button class="tab-btn active" onclick="switchTab('players',this)">Players</button>
       <button class="tab-btn" onclick="switchTab('teams',this)">Teams</button>

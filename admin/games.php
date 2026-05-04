@@ -158,6 +158,21 @@
     require_once __DIR__ . '/layout-top.php';
 ?>
 
+<div class="admin-body">
+    <div class="page-header animate-in" style="--delay: 100ms;">
+        <h1 class="page-title">Games</h1>
+        <p class="page-sub">Manage supported games and categories.</p>
+    </div>
+
+    <div class="filter-bar animate-in" style="--delay: 150ms;">
+        <!-- ...existing code... -->
+    </div>
+
+    <div class="admin-panel animate-in" style="--delay: 200ms;">
+       <!-- ...existing code... tablonuz veya oyun gridleriniz --> 
+    </div>
+</div>
+
 <!-- ─── ADD GAME FORMU ──────────────────────────────────────────────────── -->
 <div class="op-card adm-game-form-card" id="addGameCard" style="display:none; margin-bottom:16px;">
     <div class="op-card-head">
