@@ -3,7 +3,7 @@
     require_once '../includes/mailer.php';
     require_once '../includes/session.php';
 
-    if (isLoggedIn()) { header('Location: /index.php'); exit; }
+    if (isLoggedIn()) { header('Location: /pages/index.php'); exit; }
 
     $feedback = '';
     $feedbackType = '';
@@ -75,7 +75,7 @@
                     If this email is registered, a reset mail has been sent. <br>
                     Also check spam folder.
                 </p>
-                <a href="../index.php?modal=login" class="auth-back">← Back to Login</a>
+                <a href="../pages/index.php?modal=login" class="auth-back">← Back to Login</a>
             <?php else: ?>
                 <h2 class="auth-title">Forgot Password</h2>
                 <p class="auth-sub">Enter registered email address, we send reset password link.</p>
@@ -95,7 +95,7 @@
                     </div>
                     <button type="submit" class="btn-submit">Send Reset Link</button>
                 </form>
-                <a href="../index.php?modal=login" class="auth-back">← Back to Login</a>
+                <a href="../pages/index.php?modal=login" class="auth-back">← Back to Login</a>
             <?php endif; ?>
         </div>
     </div>

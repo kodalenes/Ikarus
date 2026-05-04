@@ -3,7 +3,7 @@
 
     //Giris yapilmamissa kullaniciyi giris yapmaya yonlendiriryoruz
     if (!isLoggedIn()) {
-        header('Location: ../index.php?modal=login');
+        header('Location: ../pages/index.php?modal=login');
         exit;
     }  
 
@@ -12,7 +12,7 @@
         if (isOrganizer()) {
             header('Location: ../organizer/dashboard.php');
         }else {
-            header('Location: ../index.php');
+            header('Location: ../pages/index.php');
         }
         exit;
     }

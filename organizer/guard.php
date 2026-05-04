@@ -8,13 +8,13 @@
 
     //Giris yapilmamissa giris yap
     if (!isLoggedIn()) {
-    header('Location: ../index.php?modal=login');
+    header('Location: ../pages/index.php?modal=login');
         exit;
     }
 
     //Yetkin yoksa ana menuye git
     if (!isOrganizer() && !isAdmin()) {
-        header('Location: /index.php');
+        header('Location: /pages/index.php');
         exit;
     }
 ?>

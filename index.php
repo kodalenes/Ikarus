@@ -29,7 +29,7 @@
 
                 <div class="hero-cards">
                     <!--Tournaments -->
-                    <a href="pages/tournaments.php" class="hero-card hero-card--primary">
+                    <a href="tournaments.php" class="hero-card hero-card--primary">
                         <div class="hc-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 9H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2"/>
@@ -59,7 +59,7 @@
                             $myTeam = $stmtTeam->fetch();
                         ?>
                         <?php if($myTeam): ?>
-                            <a href="pages/team.php" class="hero-card">
+                            <a href="team.php" class="hero-card">
                                 <div class="hc-icon">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -74,7 +74,7 @@
                                 <div class="hc-arrow">→</div>
                             </a>
                         <?php else: ?>
-                            <a href="pages/team.php?action=create" class="hero-card">
+                            <a href="team.php?action=create" class="hero-card">
                                 <div class="hc-icon">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -90,7 +90,7 @@
                             </a>
                         <?php endif; ?>
                     <?php else: ?>
-                        <a href="pages/team.php" class="hero-card">
+                        <a href="team.php" class="hero-card">
                             <div class="hc-icon">
                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -107,7 +107,7 @@
                     <?php endif; ?>
 
                     <!--Leaderboard -->
-                    <a href="pages/leaderboard.php" class="hero-card">
+                    <a href="leaderboard.php" class="hero-card">
                         <div class="hc-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
@@ -163,8 +163,8 @@
             <!--Sol Aktif turnuvalar -->
             <div class="home-section animate-in" style="--delay: 320ms;">
                 <div class="home-section-header">
-                    <a href="pages/tournaments.php" class="home-section-title">Active Tournaments</a>
-                    <a href="pages/tournaments.php" class="home-section-link">See All</a>
+                    <a href="tournaments.php" class="home-section-title">Active Tournaments</a>
+                    <a href="tournaments.php" class="home-section-link">See All</a>
                 </div>
 
                 <?php
@@ -203,7 +203,7 @@
                                     ? min(100, round($t['registered_teams'] / $t['max_teams'] * 100))
                                     : 0;
                             ?>
-                             <a href="pages/tournament-detail.php?id=<?= $t['id'] ?>" class="t-card">
+                             <a href="tournament-detail.php?id=<?= $t['id'] ?>" class="t-card">
                                     <div class="t-card-top">
                                         <span class="t-badge <?= $s['class'] ?>"><?= $s['label'] ?></span>
                                         <span class="t-game"><?= htmlspecialchars($t['game_name'] ?? '—') ?></span>
@@ -229,8 +229,8 @@
             <!--Sag Top 5 Leaderboard -->
             <div class="home-section animate-in" style="--delay: 380ms;">
                 <div class="home-section-header">
-                    <a href="pages/leaderboard.php" class="home-section-title">Leaderboard</a>
-                    <a href="pages/leaderboard.php" class="home-section-link">See All</a>
+                    <a href="leaderboard.php" class="home-section-title">Leaderboard</a>
+                    <a href="leaderboard.php" class="home-section-link">See All</a>
                 </div>
 
                 <?php

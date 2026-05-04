@@ -290,7 +290,7 @@ switch ($action) {
             try {
                 require_once __DIR__ . '/../includes/mailer.php';
                 $appUrl  = rtrim($_ENV['APP_URL'] ?? 'http://localhost', '/');
-                $invUrl  = "{$appUrl}/Ikarus/team.php?inv={$invId}.{$token}";
+                $invUrl  = "{$appUrl}/Ikarus/pages/team.php?inv={$invId}.{$token}";
                 $html    = _buildInviteEmail($team['name'], getUsername(), $target['username'], $invUrl);
                 sendMail($target['email'], $target['username'], "You've been invited to join {$team['name']} — Ikarus", $html);
             } catch (Throwable $mailErr) {
