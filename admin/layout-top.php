@@ -53,7 +53,7 @@
  
     <!-- SIDEBAR -->
     <aside class="op-sidebar adm-sidebar">
-        <a href="../pages/index.php" class="op-sb-logo adm-logo">
+        <a href="../index.php" class="op-sb-logo adm-logo">
             IKA<span>RUS</span>
             <span class="adm-logo-badge">ADMIN</span>
         </a>
@@ -84,7 +84,7 @@
                 </svg>
                 Organizer Panel
             </a>
-            <a href="../pages/index.php" class="op-sb-item">
+            <a href="../index.php" class="op-sb-item">
                 <svg class="op-sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
                 </svg>

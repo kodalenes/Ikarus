@@ -2,7 +2,7 @@
     require_once '../includes/db.php';
     require_once '../includes/session.php';
 
-    if(isLoggedIn()) { header('Location: /pages/index.php'); exit; }
+    if(isLoggedIn()) { header('Location: /index.php'); exit; }
 
     $token = trim($_GET['token'] ?? '');
     $tokenHash = $token ? hash('sha256', $token) : '';
@@ -105,7 +105,7 @@
             <div style="text-align:center;font-size:40px;margin-bottom:16px;">✅</div>
             <h2 class="auth-title">Password changed</h2>
             <p class="auth-sub">New password saved. You can login.</p>
-            <a href="../pages/index.php?modal=login"
+            <a href="../index.php?modal=login"
                style="display:block;background:var(--accent);color:var(--bg);padding:12px;
                       border-radius:8px;text-align:center;font-weight:600;text-decoration:none;margin-top:8px;">
                 Login
@@ -153,7 +153,7 @@
  
                 <button type="submit" class="btn-submit">Change Password</button>
             </form>
-            <a href="../pages/index.php?modal=login" class="auth-back">← Back to Login</a>
+            <a href="../index.php?modal=login" class="auth-back">← Back to Login</a>
         <?php endif; ?>
     </div>
 </div>

@@ -1,9 +1,9 @@
 <?php
     require_once '../includes/session.php';
     if (isLoggedIn()) {
-        header('Location: /pages/index.php');
+        header('Location: /index.php');
         exit;
     }
-header('Location: ../pages/index.php?modal=login');
+header('Location: ../index.php?modal=login');
     exit;
 ?>
