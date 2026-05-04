@@ -1,5 +1,5 @@
 <?php
-    require_once '../includes/session.php';
+    require_once 'includes/session.php';
 ?>
 
 <!DOCTYPE html>
@@ -7,13 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../assets/images/Ikarus_Logo.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/Ikarus_Logo.webp" type="image/x-icon">
     <title>Ikarus</title>
 
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/utils.css">
-    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
+    <link rel="stylesheet" href="assets/css/utils.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 
 <body>
@@ -301,7 +301,7 @@
         </section>
     </main>
     
-    <?php require_once '../includes/footer.php' ?>
+    <?php require_once 'includes/footer.php' ?>
 </body>
 
 </html>

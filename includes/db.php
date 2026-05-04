@@ -1,10 +1,18 @@
 <?php
+
+use Dotenv\Dotenv;
+
+    require_once __DIR__ . '/../vendor/autoload.php';
+
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->load();
+
     //DB information
-    $host = 'localhost';
-    $db = 'ikarusdb';
-    $user = 'root';
-    $password = '';
-    $charset = 'utf8';
+    $host = $_ENV['DB_HOST'];
+    $db = $_ENV['DB_NAME'];
+    $user = $_ENV['DB_USERNAME'];
+    $password = $_ENV['DB_PASS'];
+    $charset = 'utf8mb4';
 
     //Data Source Name 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -18,6 +26,6 @@
     try {
         $pdo = new PDO($dsn , $user , $password , $options);
     } catch (\PDOException $e) {
-        throw new \PDOException($e -> getMessage(),(int) $e ->getCode());   
+        die("Database connection error: " . $e->getMessage());   
     }
 ?>
