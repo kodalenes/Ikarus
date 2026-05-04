@@ -190,7 +190,7 @@ $statusMap = [
 ?>
 
 <!-- ─── FİLTRE ÇUBUĞU ──────────────────────────────────────────────────── -->
-<div class="adm-filter-bar" style="flex-wrap:wrap; gap:12px;">
+<div class="adm-filter-bar animate-in" style="flex-wrap:wrap; gap:12px; --delay:100ms;">
 
     <!-- Durum sekmeleri -->
     <div class="adm-role-tabs">
@@ -242,7 +242,7 @@ $statusMap = [
 </div>
 
 <!-- ─── TURNUVA TABLOSU ─────────────────────────────────────────────────── -->
-<div class="op-card">
+<div class="op-card animate-in" style="--delay:150ms;">
     <?php if (empty($tournaments)): ?>
         <div class="op-empty">No tournaments found matching your criteria.</div>
     <?php else: ?>
@@ -351,7 +351,7 @@ $statusMap = [
 
 <!-- ─── SAYFALAMA ──────────────────────────────────────────────────────── -->
 <?php if ($totalPages > 1): ?>
-<div class="adm-pagination">
+<div class="adm-pagination animate-in" style="--delay:200ms;">
     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
         <a href="<?= buildTourUrl($search, $statusFilter, $gameFilter, $i) ?>"
            class="adm-page-btn <?= ($i === $page) ? 'active' : '' ?>">

@@ -139,13 +139,7 @@
 ?>
 
 <div class="admin-body">
-    <div class="page-header animate-in" style="--delay: 100ms;">
-        <h1 class="page-title"><?= $pageTitle ?></h1>
-        <div class="page-subtitle"><?= $pageSubtitle ?></div>
-    </div>
-
-    <div class="filter-bar animate-in" style="--delay: 150ms;">
-        <!--FILTRE CUBUGU -->
+    <div class="op-card animate-in" style="--delay: 100ms; margin-bottom: 16px;">
         <div class="adm-filter-bar">
             <div class="adm-role-tabs">
                 <?php
@@ -180,7 +174,7 @@
         </div>
     </div>
 
-    <div class="admin-panel animate-in" style="--delay: 200ms;">
+    <div class="admin-panel animate-in" style="--delay: 150ms;">
        <!-- ─── KULLANICI TABLOSU ───────────────────────────────────────────────── -->
         <div class="op-card">
             <?php if (empty($users)): ?>
@@ -282,7 +276,7 @@
      
     <!-- ─── SAYFALAMA ──────────────────────────────────────────────────────── -->
     <?php if ($totalPages > 1): ?>
-    <div class="adm-pagination">
+    <div class="adm-pagination animate-in" style="--delay: 200ms;">
         <?php for ($i = 1; $i <= $totalPages; $i++):
             $href = '?' . http_build_query(array_filter(['search' => $search, 'role' => $roleFilter, 'page' => $i]));
         ?>

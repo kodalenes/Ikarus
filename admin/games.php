@@ -159,22 +159,9 @@
 ?>
 
 <div class="admin-body">
-    <div class="page-header animate-in" style="--delay: 100ms;">
-        <h1 class="page-title">Games</h1>
-        <p class="page-sub">Manage supported games and categories.</p>
-    </div>
-
-    <div class="filter-bar animate-in" style="--delay: 150ms;">
-        <!-- ...existing code... -->
-    </div>
-
-    <div class="admin-panel animate-in" style="--delay: 200ms;">
-       <!-- ...existing code... tablonuz veya oyun gridleriniz --> 
-    </div>
-</div>
 
 <!-- ─── ADD GAME FORMU ──────────────────────────────────────────────────── -->
-<div class="op-card adm-game-form-card" id="addGameCard" style="display:none; margin-bottom:16px;">
+<div class="op-card adm-game-form-card animate-in" id="addGameCard" style="display:none; margin-bottom:16px; --delay:100ms;">
     <div class="op-card-head">
         <span class="op-card-title">Add New Game</span>
         <button class="op-btn-sm" onclick="toggleAddForm()">✕ Cancel</button>
@@ -200,7 +187,7 @@
 </div>
  
 <!-- ─── OYUN TABLOSU ────────────────────────────────────────────────────── -->
-<div class="op-card" id="gamesCard">
+<div class="op-card animate-in" id="gamesCard" style="--delay:150ms;">
     <?php if (empty($games)): ?>
         <div class="op-empty">
             No games found.
@@ -320,6 +307,7 @@
             </tbody>
         </table>
     <?php endif; ?>
+</div>
 </div>
  
 <?php

@@ -1,8 +1,16 @@
 /* ─── TEAM PAGE LAYOUT ───────────────────────────────────────────── */
-.team-page {
-    max-width: 960px;
+.team-main {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 28px 24px 60px;
+    padding: 40px 24px 60px;
+}
+
+.team-page {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* ─── EMPTY STATE ────────────────────────────────────────────────── */

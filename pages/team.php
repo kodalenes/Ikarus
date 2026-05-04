@@ -231,7 +231,7 @@ $jsInit = json_encode([
 <body>
 <?php require_once '../includes/header.php'; ?>
 
-<main>
+<main class="team-main">
 <div class="team-page">
 
 <?php if (!$team): ?>

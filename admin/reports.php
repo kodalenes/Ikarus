@@ -191,7 +191,7 @@ $avgTeamsPerTour = $overview['total_tournaments'] > 0
         <div class="stat-card animate-in" style="--delay: 150ms;">
 
 <!-- ─── TREND GRAFİKLERİ ─────────────────────────────────────────────────── -->
-<div class="adm-two-col" style="margin-bottom:16px;">
+<div class="adm-two-col animate-in" style="margin-bottom:16px; --delay: 350ms;">
 
     <!-- Kayıt Trendi -->
     <div class="op-card">
@@ -264,7 +264,7 @@ $avgTeamsPerTour = $overview['total_tournaments'] > 0
 </div>
 
 <!-- ─── OYUN DAĞILIMI + DURUM DAĞILIMI ───────────────────────────────────── -->
-<div class="adm-two-col" style="margin-bottom:16px;">
+<div class="adm-two-col animate-in" style="margin-bottom:16px; --delay: 350ms;">
 
     <!-- Oyun Dağılımı -->
     <div class="op-card">
@@ -349,7 +349,7 @@ $avgTeamsPerTour = $overview['total_tournaments'] > 0
 </div>
 
 <!-- ─── TOP ORGANIZERS + TOP TEAMS ───────────────────────────────────────── -->
-<div class="adm-two-col">
+<div class="adm-two-col animate-in" style="--delay: 400ms;">
 
     <!-- Top Organizatörler -->
     <div class="op-card">

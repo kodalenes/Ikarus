@@ -36,7 +36,7 @@ try {
 <body>
     <?php require_once '../includes/header.php' ?>
     
-    <main class="content tournaments-container">
+    <main class="tournaments-container">
         <div class="page-header animate-in" style="--delay: 100ms;">
             <h1 class="page-title">Tournaments</h1>
             <p class="page-sub">Discover and join active tournaments.</p>

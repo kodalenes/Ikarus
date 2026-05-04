@@ -17,10 +17,6 @@
   overflow: hidden;
 }
 
-.content {
-  padding: 24px 0;
-}
-
 /* Keeps main content clickable if overlays exist */
 main, .game-filter, .t-card { 
     position: relative; 
@@ -33,10 +29,11 @@ main, .game-filter, .t-card {
 
 /* Container align to header */
 .tournaments-container {
-    max-width: 1200px; 
-    margin: 40px auto 0;
-    padding: 0 24px 60px;
+    box-sizing: border-box;
     width: 100%;
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 40px 24px 60px;
 }
 
 /* --- 2. HEADER & NAVIGATION COMPONENTS --- */
@@ -60,21 +57,21 @@ main, .game-filter, .t-card {
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  align-items: flex-end;
+  margin-bottom: 32px;
 }
 
 .page-title {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
   color: var(--text);
-  letter-spacing: 1px;
+  letter-spacing: -0.5px;
 }
 
 .page-sub {
   font-size: 13px;
   color: var(--text-muted);
-  margin-top: 3px;
+  margin-top: 6px;
 }
 
 /* --- 3. FILTERING --- */

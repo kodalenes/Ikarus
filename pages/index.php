@@ -137,7 +137,7 @@
                 $stats = ['total_players' => 0, 'active_tournaments' => 0, 'total_teams => 0', 'total_matches' => 0];
             }
         ?>
-        <section class="stats-bar">
+        <section class="stats-bar animate-in" style="--delay: 180ms;">
             <div class="stats-inner">
                 <div class="stat-item">
                     <span class="stat-num"><?= number_format($stats['total_players']) ?></span>
@@ -157,10 +157,10 @@
         </section>
 
         <!--ACTIVE TOURNAMENTS AND LEADERBOARD -->
-        <section class="home-grid">
+        <section class="home-grid animate-in" style="--delay: 260ms;">
             <div class="home-grid-inner">
             <!--Sol Aktif turnuvalar -->
-            <div class="home-section">
+            <div class="home-section animate-in" style="--delay: 320ms;">
                 <div class="home-section-header">
                     <a href="tournaments.php" class="home-section-title">Active Tournaments</a>
                     <a href="tournaments.php" class="home-section-link">See All</a>
@@ -226,7 +226,7 @@
             </div>
 
             <!--Sag Top 5 Leaderboard -->
-            <div class="home-section">
+            <div class="home-section animate-in" style="--delay: 380ms;">
                 <div class="home-section-header">
                     <a href="leaderboard.php" class="home-section-title">Leaderboard</a>
                     <a href="leaderboard.php" class="home-section-link">See All</a>

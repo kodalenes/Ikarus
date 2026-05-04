@@ -964,3 +964,9 @@
 .admin-panel {
     margin-bottom: 24px;
 }
+
+.admin-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
