@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . "/session.php";
 ?>
+
 <header class="site-header">
     <div class="header-inner">
 

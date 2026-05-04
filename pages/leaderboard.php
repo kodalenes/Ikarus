@@ -1,6 +1,8 @@
 <?php
 // Include database and session management
 require_once __DIR__ . '/../includes/session.php';
+$customTitle = 'Leadeboard';
+$extraCss = ['leaderboard'];
 
 // ── FETCH PLAYER LEADERBOARD ──────────────────────────────────────────────────
 $playerSql = "
@@ -172,15 +174,7 @@ $jsTeams = array_map(function($t) use ($me_team_id) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ikarus — Leaderboard</title>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/utils.css">
-    <link rel="stylesheet" href="../assets/css/leaderboard.css">
+  <?php require_once '../includes/head.php' ?>
 </head>
 <body>
 

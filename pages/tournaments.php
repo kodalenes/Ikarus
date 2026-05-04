@@ -1,6 +1,8 @@
 <?php
 require_once '../includes/session.php';
-include '../includes/db.php'; 
+include '../includes/db.php';
+$customTitle = 'Tournaments';
+$extraCss = ['tournaments'];
 
 // Fetch tournaments from database with registered team count
 try {
@@ -20,17 +22,7 @@ try {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournaments - Ikarus</title>
-
-    <!-- Main Styles -->
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/utils.css">
-    
-    <!-- Tournament Styles -->
-    <link rel="stylesheet" href="../assets/css/tournaments.css">
+    <?php require_once '../includes/head.php' ?>
 </head>
 
 <body>

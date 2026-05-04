@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/session.php';
+$extraCss = ['tournaments' , 'tournament-details'];
 
 /* ─── Secure ID retrieval ────────────────────────────────────── */
 $t_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?: 0;
@@ -24,6 +25,9 @@ if (!$tournament) {
     header('Location: tournaments.php');
     exit;
 }
+
+$customTitle =  htmlspecialchars($tournament['name']);
+
 
 /* ─── Registered teams ───────────────────────────────────────── */
 try {
@@ -203,16 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($tournament['name']) ?> — Ikarus</title>
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/utils.css">
-    <link rel="stylesheet" href="../assets/css/tournaments.css">
-    <link rel="stylesheet" href="../assets/css/tournament-details.css">
+    <?php require_once  '../includes/head.php'?>
     <!-- jquery-bracket library -->
     <link rel="stylesheet" href="https://unpkg.com/jquery-bracket@0.11.1/dist/jquery.bracket.min.css">
 </head>

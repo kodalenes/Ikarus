@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/session.php';
 require_once __DIR__ . '/../includes/FileUploader.php';
+$extraCss = ['profile'];
 
 requireLogin();
 
@@ -141,6 +142,8 @@ if (!$player) {
     exit;
 }
 
+$customTitle = htmlspecialchars($player['username']);
+
 $teamId = !empty($player['team_id']) ? (int)$player['team_id'] : 0;
 
 $stats = ['matches' => 0, 'wins' => 0, 'active_tournaments' => 0, 'win_rate' => 0];
@@ -232,13 +235,9 @@ $statusMap = [
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title><?= htmlspecialchars($player['username']) ?> — Profile</title>
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/utils.css">
-    <link rel="stylesheet" href="../assets/css/profile.css">
+    <?php require_once '../includes/head.php' ?>
 </head>
 <body>
 <?php require_once __DIR__ . '/../includes/header.php'; ?>

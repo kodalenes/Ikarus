@@ -1,5 +1,7 @@
 <?php
 require_once '../includes/session.php';
+$customTitle = 'My Team';
+$extraCss = ['team'];
 
 requireLogin();
 
@@ -217,13 +219,7 @@ $jsInit = json_encode([
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Team — Ikarus</title>
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/utils.css">
-    <link rel="stylesheet" href="../assets/css/team.css">
+    <?php require_once '../includes/head.php' ?>
 </head>
 <body>
 <?php require_once '../includes/header.php'; ?>

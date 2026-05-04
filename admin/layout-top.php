@@ -38,8 +38,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title><?= htmlspecialchars($pageTitle ?? 'Admin Panel') ?> — Ikarus</title>
-    
+
+    <link rel="shortcut icon" href="/assets/images/Ikarus_Logo.webp" type="image/x-icon"> <!--[cite: 1] -->
+
     <!-- Global CSS -->
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/utils.css">

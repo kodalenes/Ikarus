@@ -2,6 +2,8 @@
     require_once '../includes/db.php';
     require_once '../includes/mailer.php';
     require_once '../includes/session.php';
+    $customTitle = 'Forgot Password';
+    $extraCss = ['auth-layout'];
 
     if (isLoggedIn()) { header('Location: /index.php'); exit; }
 
@@ -60,12 +62,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - Ikarus</title>
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/modal.css">
-    <link rel="stylesheet" href="../assets/css/auth-layout.css">
+    <?php require_once '../includes/head.php' ?>
 </head>
 <body>
     <div class="auth-page">
