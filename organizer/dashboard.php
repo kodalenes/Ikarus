@@ -71,24 +71,24 @@
 
 <!-- STAT CARDS-->
  <div class="op-stat-grid">
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 100ms;">
         <div class="op-stat-label">Total Tournament</div>
         <div class="op-stat-val"><?= $s['total'] ?></div>
         <div class="op-stat-sub"><?= $s['live'] ?> active, <?= $s['reg'] ?> registration</div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 150ms;">
         <div class="op-stat-label">Total Prize Pool</div>
         <div class="op-stat-val" style="color: var(--highlight);">
             ₺<?= number_format($s['prize'], 0, ',', '.') ?>
         </div>
         <div class="op-stat-sub">In all tournaments</div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 200ms;">
         <div class="op-stat-label">Played Matches</div>
         <div class="op-stat-val"><?= $s['matches_done'] ?></div>
         <div class="op-stat-sub">Complete</div>
     </div>
-    <div class="op-stat-card <?= $s['matches_pending'] > 0 ? 'op-stat-card--warn' : '' ?>">
+    <div class="op-stat-card animate-in <?= $s['matches_pending'] > 0 ? 'op-stat-card--warn' : '' ?>" style="--delay: 250ms;">
         <div class="op-stat-label">Pending Result</div>
         <div class="op-stat-val"><?= $s['matches_pending'] ?></div>
         <div class="op-stat-sub">
@@ -102,14 +102,14 @@
  </div>
 
  <?php if($s['matches_pending'] > 0): ?>
-    <div class="op-alert op-alert--warn">
+    <div class="op-alert op-alert--warn animate-in" style="--delay: 300ms;">
         <strong><?= $s['matches_pending'] ?> Match</strong> results is waiting to be entered.
         <a href="match-results.php" class="op-link">Go to Match Management</a>
     </div>
 <?php endif; ?>
 
  <!-- LATEST TOURNAMENTS -->
- <div class="op-card">
+ <div class="op-card animate-in" style="--delay: 350ms;">
     <div class="op-card-head">
         <span class="op-card-title">Latest Tournaments</span>
         <a href="tournaments.php" class="op-link">See All</a>

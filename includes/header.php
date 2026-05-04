@@ -24,15 +24,42 @@
         </nav>
 
         <div class="header-auth">
-            <?php if (isLoggedIn()): ?>
-                <!-- Kullanıcı giriş yapmışsa: adını ve çıkış butonunu göster -->
-                <span class="welcome-text">Welcome, <strong><?= getUsername() ?></strong></span>
-                <a href="../auth/logout.php" class="btn-outline-header">Logout</a>
-            <?php else: ?>
-                <button class="btn-outline-header" onclick="openModal('login')">Login</button>
-                <button class="btn-primary-header" onclick="openModal('register')">Register</button>
-            <?php endif; ?>
-        </div>
+        <?php if (isLoggedIn()): ?>
+            <span class="welcome-text">Welcome, <strong><?= getUsername() ?></strong></span>
+        
+            <!-- Notification Bell -->
+            <div class="hdr-notif-wrap" id="hdr-notif-wrap">
+                <button class="hdr-notif-btn" id="hdr-notif-btn"
+                        onclick="NotifApp.togglePanel()" title="Notifications"
+                        aria-label="Notifications">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                    </svg>
+                    <span class="hdr-notif-badge hidden" id="hdr-notif-count">0</span>
+                </button>
+        
+                <!-- Notification Dropdown Panel -->
+                <div class="hdr-notif-panel" id="hdr-notif-panel" role="dialog" aria-label="Notifications">
+                    <div class="hdr-notif-header">
+                        <span class="hdr-notif-title">Invitations</span>
+                        <span id="hdr-notif-panel-count" class="hdr-notif-panel-count"></span>
+                    </div>
+                    <div id="hdr-notif-body" class="hdr-notif-body">
+                        <div class="hdr-notif-empty">Loading…</div>
+                    </div>
+                    <a href="team.php" class="hdr-notif-footer">Go to My Team →</a>
+                </div>
+            </div>
+        
+            <a href="../auth/logout.php" class="btn-outline-header">Logout</a>
+        <?php else: ?>
+            <button class="btn-outline-header" onclick="openModal('login')">Login</button>
+            <button class="btn-primary-header" onclick="openModal('register')">Register</button>
+        <?php endif; ?>
+    </div>
     </div>
     
 </header>

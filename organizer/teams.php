@@ -156,19 +156,19 @@ require_once __DIR__ . '/layout-top.php';
 
 <!-- ─── STAT CARDS ──────────────────────────────────────────────────────── -->
 <div class="op-stat-grid" style="grid-template-columns: repeat(3,1fr); margin-bottom:16px;">
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 100ms;">
         <div class="op-stat-label">Total Teams</div>
         <div class="op-stat-val"><?= $totalTeams ?></div>
         <div class="op-stat-sub">
             <?= count($myTournaments) ?> tournament<?= count($myTournaments) !== 1 ? 's' : '' ?>
         </div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 150ms;">
         <div class="op-stat-label">In Live Tournaments</div>
         <div class="op-stat-val"><?= $liveTeams ?></div>
         <div class="op-stat-sub">Currently competing</div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 200ms;">
         <div class="op-stat-label">In Registration</div>
         <div class="op-stat-val"><?= $regTeams ?></div>
         <div class="op-stat-sub">Waiting to start</div>
@@ -176,7 +176,7 @@ require_once __DIR__ . '/layout-top.php';
 </div>
 
 <!-- ─── FILTER BAR ──────────────────────────────────────────────────── -->
-<form method="GET" class="tm-filter-bar op-card" style="margin-bottom:16px;">
+<form method="GET" class="tm-filter-bar op-card animate-in" style="margin-bottom:16px; --delay: 250ms;">
     <select class="op-select" name="tournament_id" onchange="this.form.submit()" style="min-width:220px;">
         <option value="0">All Tournaments</option>
         <?php foreach ($myTournaments as $tour): ?>
@@ -201,7 +201,7 @@ require_once __DIR__ . '/layout-top.php';
 
 <!-- ─── TEAMS LIST ────────────────────────────────────────────────────────── -->
 <?php if (empty($myTournaments)): ?>
-    <div class="op-card op-empty">
+    <div class="op-card op-empty animate-in" style="--delay: 300ms;">
         You haven't created any tournaments yet.
         <a href="tournament-create.php" class="op-btn op-btn--primary" style="margin-top:12px;">
             + Create Tournament
@@ -209,12 +209,12 @@ require_once __DIR__ . '/layout-top.php';
     </div>
 
 <?php elseif (empty($teams)): ?>
-    <div class="op-card op-empty">
+    <div class="op-card op-empty animate-in" style="--delay: 300ms;">
         No teams found<?= $searchQuery ? ' matching "'.htmlspecialchars($searchQuery).'"' : '' ?>.
     </div>
 
 <?php else: ?>
-    <div class="op-card">
+    <div class="op-card animate-in" style="--delay: 300ms;">
         <table class="op-table">
             <thead>
                 <tr>

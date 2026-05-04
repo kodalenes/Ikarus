@@ -272,22 +272,22 @@ require_once __DIR__ . '/layout-top.php';
 
 <!-- ─── STAT KARTLARI ───────────────────────────────────────────────────── -->
 <div class="op-stat-grid" style="grid-template-columns:repeat(4,1fr); margin-bottom:16px;">
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 100ms;">
         <div class="op-stat-label">Total Players</div>
         <div class="op-stat-val"><?= $totalPlayers ?></div>
         <div class="op-stat-sub">Across your tournaments</div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 150ms;">
         <div class="op-stat-label">Captains</div>
         <div class="op-stat-val"><?= $captainCount ?></div>
         <div class="op-stat-sub">Team leaders</div>
     </div>
-    <div class="op-stat-card <?= $warnedCount > 0 ? 'op-stat-card--warn' : '' ?>">
+    <div class="op-stat-card animate-in <?= $warnedCount > 0 ? 'op-stat-card--warn' : '' ?>" style="--delay: 200ms;">
         <div class="op-stat-label">Warned Players</div>
         <div class="op-stat-val"><?= $warnedCount ?></div>
         <div class="op-stat-sub"><?= $warnedCount > 0 ? 'Requires attention' : 'All clear' ?></div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 250ms;">
         <div class="op-stat-label">Avg Win Rate</div>
         <div class="op-stat-val">%<?= $avgWinRate ?></div>
         <div class="op-stat-sub">Platform average</div>
@@ -295,7 +295,7 @@ require_once __DIR__ . '/layout-top.php';
 </div>
 
 <!-- ─── FİLTRE ÇUBUĞU ──────────────────────────────────────────────────── -->
-<form method="GET" class="op-card plr-filter-bar" style="margin-bottom:16px;">
+<form method="GET" class="op-card plr-filter-bar animate-in" style="margin-bottom:16px; --delay: 300ms;">
     <select class="op-select" name="tournament_id" style="min-width:200px;" onchange="this.form.submit()">
         <option value="0">All Tournaments</option>
         <?php foreach ($myTournaments as $tour): ?>
@@ -329,7 +329,7 @@ require_once __DIR__ . '/layout-top.php';
 
 <!-- ─── OYUNCU TABLOSU ───────────────────────────────────────────────────── -->
 <?php if (empty($myTournaments)): ?>
-    <div class="op-card">
+    <div class="op-card animate-in" style="--delay: 350ms;">
         <div class="plr-empty">
             <div class="plr-empty-icon">🏆</div>
             You haven't created any tournaments yet.
@@ -339,14 +339,14 @@ require_once __DIR__ . '/layout-top.php';
         </div>
     </div>
 <?php elseif (empty($players)): ?>
-    <div class="op-card">
+    <div class="op-card animate-in" style="--delay: 350ms;">
         <div class="plr-empty">
             <div class="plr-empty-icon">👤</div>
             No players found<?= $searchQuery ? ' matching "<strong>'.htmlspecialchars($searchQuery).'</strong>"' : '' ?>.
         </div>
     </div>
 <?php else: ?>
-    <div class="op-card">
+    <div class="op-card animate-in" style="--delay: 350ms;">
         <table class="op-table">
             <thead>
                 <tr>

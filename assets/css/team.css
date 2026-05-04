@@ -55,6 +55,14 @@
 .tm-meta-item span { color: var(--text); font-weight: 600; margin-left: 4px; }
 .tm-actions { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
 
+/* ─── GENEL ANİMASYON SINIFI ────────────────────────────────────────── */
+.tm-animate-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: matchCardIn 0.4s ease forwards;
+    animation-delay: var(--delay, 0ms);
+}
+
 /* ─── STATS ──────────────────────────────────────────────────────── */
 .tm-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
 .tm-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
@@ -417,6 +425,12 @@
 }
 .tm-code-copy:hover { border-color: var(--accent); color: var(--accent); }
 
+.tm-code-hint {
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-left: 8px;
+}
+
 /* ── Mini win-rate bar (stat card) ──────────────────────────────── */
 .tm-wr-bar-mini {
     width: 100%;
@@ -434,3 +448,208 @@
 .tm-wr-fill-mini.high { background: #97c459; }
 .tm-wr-fill-mini.mid  { background: var(--accent); }
 .tm-wr-fill-mini.low  { background: #f87171; }
+
+/* ── Section header ──────────────────────────────────────────────── */
+.tm-section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 12px;
+}
+.tm-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.tm-notif-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: rgba(248,113,113,0.15);
+    color: #f87171;
+    border: 1px solid rgba(248,113,113,0.3);
+    font-weight: 700;
+}
+
+/* ── Last 5 matches grid ─────────────────────────────────────────── */
+.tm-matches-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+@media (max-width: 860px) { .tm-matches-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 540px) { .tm-matches-grid { grid-template-columns: 1fr 1fr; } }
+
+.tm-match-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: matchCardIn 0.4s ease forwards;
+    animation-delay: var(--delay, 0ms);
+    transition: border-color var(--transition), transform var(--transition);
+}
+.tm-match-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+@keyframes matchCardIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tm-match-result-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+.tm-match-result-badge--win  { background: rgba(151,196,89,0.15); color: #97c459; border: 1px solid rgba(151,196,89,0.3); }
+.tm-match-result-badge--loss { background: rgba(248,113,113,0.12); color: #f87171; border: 1px solid rgba(248,113,113,0.25); }
+
+.tm-match-body { flex: 1; }
+
+.tm-match-vs {
+    font-size: 10px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+}
+.tm-match-opp {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.tm-match-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 6px 0 5px;
+}
+.tm-match-score {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+}
+.tm-match-score--win  { color: var(--accent); }
+.tm-match-score--loss { color: #f87171; }
+.tm-match-score--opp  { font-size: 16px; color: var(--text-faint); }
+.tm-match-score-sep   { font-size: 14px; color: var(--border); }
+
+.tm-match-meta {
+    font-size: 10px;
+    color: var(--text-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tm-match-date {
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.5px;
+    margin-top: auto;
+}
+
+/* ── Empty matches ───────────────────────────────────────────────── */
+.tm-matches-empty {
+    padding: 28px 18px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+}
+
+/* ── Feedback Messages (Invite / Join) ───────────────────────────── */
+#join-code-feedback, #invite-feedback {
+    transition: color 0.3s ease;
+}
+.tm-success-text { color: var(--accent-soft) !important; }
+.tm-error-text { color: #f87171 !important; }
+
+/* ── Invite cards (in-page, no-team users) ───────────────────────── */
+.tm-invite-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tm-invite-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid rgba(72,159,181,0.25);
+    border-radius: 10px;
+    transition: border-color var(--transition), background var(--transition);
+    animation: matchCardIn 0.35s ease forwards;
+}
+.tm-invite-card:hover { border-color: var(--accent); background: rgba(72,159,181,0.03); }
+
+.tm-invite-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
+    background: rgba(72,159,181,0.12);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid rgba(72,159,181,0.2);
+}
+.tm-invite-body { flex: 1; min-width: 0; }
+.tm-invite-team {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.tm-invite-tag {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    background: rgba(72,159,181,0.1);
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+.tm-invite-sub { font-size: 12px; color: var(--text-muted); }
+
+.tm-invite-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+.tm-btn-sm {
+    padding: 7px 14px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all var(--transition);
+}

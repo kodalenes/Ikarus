@@ -227,3 +227,5 @@ ALTER TABLE Remember_Tokens
 
 ALTER TABLE Password_Reset_Tokens
     ADD CONSTRAINT Pwd_Reset_Player_FK FOREIGN KEY (player_id) REFERENCES Player(id) ON DELETE CASCADE;
+
+ALTER TABLE Invitations ADD COLUMN token VARCHAR(64) NULL UNIQUE AFTER status; 

@@ -147,7 +147,7 @@
 ?>
 
 <?php if(!empty($errors)): ?>
-    <div class="op-alert op-alert--error">
+    <div class="op-alert op-alert--error animate-in" style="--delay: 50ms;">
         <?php foreach($errors as $err): ?>
             <div>• <?= htmlspecialchars($err) ?></div>
         <?php endforeach; ?>
@@ -155,11 +155,11 @@
 <?php endif; ?>
 
 <?php if($success): ?>
-    <div class="op-alert op-alert--success"><?= htmlspecialchars($success) ?></div>
+    <div class="op-alert op-alert--success animate-in" style="--delay: 50ms;"><?= htmlspecialchars($success) ?></div>
 <?php endif; ?>
 
 <?php if(isset($_GET['created'])): ?>
-    <div class="op-alert op-alert--success">
+    <div class="op-alert op-alert--success animate-in" style="--delay: 50ms;">
         Tournament created! You can edit rules or 
         <a href="tournaments.php" class="op-link">back to tournaments list.</a>
     </div>
@@ -170,7 +170,7 @@
 <form method="POST" id="tournamentForm" novalidate>
 
     <!-- TEMEL BİLGİLER -->
-     <div class="op-card" style="margin-bottom: 16px;">
+     <div class="op-card animate-in" style="margin-bottom: 16px; --delay: 100ms;">
         <div class="op-card-head">
             <span class="op-card-title">Basic Information</span>
         </div>
@@ -239,7 +239,7 @@
      </div>
 
     <!-- ÖDÜL DAĞILIMI -->
-     <div class="op-card" style="margin-bottom: 16px;">
+     <div class="op-card animate-in" style="margin-bottom: 16px; --delay: 150ms;">
         <div class="op-card-head">
             <span class="op-card-title">Prize Distribution</span>
         </div>
@@ -274,7 +274,7 @@
      </div>
 
     <!-- KURALLAR -->
-     <div class="op-card" style="margin-bottom: 16px;">
+     <div class="op-card animate-in" style="margin-bottom: 16px; --delay: 200ms;">
         <div class="op-card-head">
             <span class="op-card-title">Tournament Rules</span>
             <button type="button" class="op-btn-sm op-btn-sm--accent" onclick="addRule()">
@@ -309,7 +309,7 @@
      </div>
 
     <!-- DURUM + KAYDET -->     
-     <div class="op-card">
+     <div class="op-card animate-in" style="--delay: 250ms;">
         <div class="op-card-head">
             <span class="op-card-title">Publication Status</span>
         </div>

@@ -97,11 +97,11 @@ require_once __DIR__ . '/layout-top.php';
 
 <!-- Genel Hata Mesajı Alanı -->
 <?php if (!empty($errorMsg)): ?>
-    <div class="op-alert op-alert--error" style="font-family:monospace;"><?= htmlspecialchars($errorMsg) ?></div>
+    <div class="op-alert op-alert--error animate-in" style="font-family:monospace; --delay: 50ms;"><?= htmlspecialchars($errorMsg) ?></div>
 <?php endif; ?>
 
 <!-- Üst Bilgi Kartı -->
-<div class="td-header-card">
+<div class="td-header-card animate-in" style="--delay: 100ms;">
     <div class="td-header-info">
         <div class="td-title">
             <?= htmlspecialchars($tournament['name'] ?? 'No Name') ?> 
@@ -121,19 +121,19 @@ require_once __DIR__ . '/layout-top.php';
 
 <!-- İstatistik Kartları -->
 <div class="op-stat-grid" style="margin-bottom: 24px;">
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 150ms;">
         <div class="op-stat-label">Prize Pool</div>
         <div class="op-stat-val" style="color: var(--highlight);">₺<?= number_format($tournament['prize_pool'] ?? 0) ?></div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 200ms;">
         <div class="op-stat-label">Registered Teams</div>
         <div class="op-stat-val"><?= $tournament['registered_teams'] ?? 0 ?></div>
     </div>
-    <div class="op-stat-card">
+    <div class="op-stat-card animate-in" style="--delay: 250ms;">
         <div class="op-stat-label">Total Matches</div>
         <div class="op-stat-val"><?= $tournament['total_matches'] ?? 0 ?></div>
     </div>
-    <div class="op-stat-card" style="border-color: rgba(239,159,39,0.3); background: rgba(239,159,39,0.04);">
+    <div class="op-stat-card animate-in" style="border-color: rgba(239,159,39,0.3); background: rgba(239,159,39,0.04); --delay: 300ms;">
         <div class="op-stat-label">Pending Matches</div>
         <div class="op-stat-val" style="color: #EF9F27;"><?= $tournament['pending_matches'] ?? 0 ?></div>
     </div>
@@ -142,7 +142,7 @@ require_once __DIR__ . '/layout-top.php';
 <!-- Ana İçerik Izgarası -->
 <div class="td-grid">
     <!-- Sol Panel: Takımlar -->
-    <div class="td-panel">
+    <div class="td-panel animate-in" style="--delay: 350ms;">
         <div class="td-panel-header">
             <span class="td-panel-title">Recently Registered Teams</span>
             <a href="teams.php?tournament_id=<?= $tId ?>" class="op-link">View All</a>
@@ -177,7 +177,7 @@ require_once __DIR__ . '/layout-top.php';
 
     <!-- Sağ Panel: Hızlı Aksiyonlar ve Tehlike Alanı -->
     <div>
-        <div class="td-panel">
+        <div class="td-panel animate-in" style="--delay: 400ms;">
             <div class="td-panel-header">
                 <span class="td-panel-title">Quick Actions</span>
             </div>
@@ -191,7 +191,7 @@ require_once __DIR__ . '/layout-top.php';
             </div>
         </div>
         
-        <div class="td-panel td-panel--danger">
+        <div class="td-panel td-panel--danger animate-in" style="--delay: 450ms;">
             <div class="td-panel-header td-panel-header--danger">
                 <span class="td-panel-title" style="color: #f87171;">Danger Zone</span>
             </div>

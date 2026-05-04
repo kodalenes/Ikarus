@@ -71,16 +71,16 @@ require_once 'layout-top.php';
     
     <!-- Hata Mesajları -->
     <?php if (!empty($deleteError)): ?>
-        <div class="op-alert op-alert--error" style="font-family:monospace; margin-bottom: 20px;"><?= htmlspecialchars($deleteError) ?></div>
+        <div class="op-alert op-alert--error animate-in" style="font-family:monospace; margin-bottom: 20px; --delay: 100ms;"><?= htmlspecialchars($deleteError) ?></div>
     <?php endif; ?>
     
     <?php if (!empty($queryError)): ?>
-        <div class="op-alert op-alert--error" style="font-family:monospace; margin-bottom: 20px;">
+        <div class="op-alert op-alert--error animate-in" style="font-family:monospace; margin-bottom: 20px; --delay: 150ms;">
             <strong>Database Error:</strong><br><?= htmlspecialchars($queryError) ?>
         </div>
     <?php endif; ?>
 
-    <div class="trn-card">
+    <div class="trn-card animate-in" style="--delay: 200ms;">
         <div class="trn-card-header" style="padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
             <span style="font-weight: 600; font-size: 14px; color: var(--text-muted);">Active Tournaments</span>
             <div class="trn-table-search">

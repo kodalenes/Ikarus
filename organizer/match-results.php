@@ -98,7 +98,7 @@
 
 <!-- Hata Mesajları -->
 <?php if(!empty($errors)): ?>
-    <div class="op-alert op-alert--error" style="font-family:monospace; margin-bottom:16px;">
+    <div class="op-alert op-alert--error animate-in" style="font-family:monospace; margin-bottom:16px; --delay:50ms;">
         <?php foreach($errors as $e): ?>
             <div>• <?= htmlspecialchars($e) ?></div>
         <?php endforeach; ?>
@@ -106,16 +106,19 @@
 <?php endif; ?>
 
 <?php if($success): ?>
-    <div class="op-alert op-alert--success"><?= htmlspecialchars($success) ?></div>
+    <div class="op-alert op-alert--success animate-in" style="--delay:50ms;"><?= htmlspecialchars($success) ?></div>
 <?php endif; ?>
 
 <?php if(empty($grouped)): ?>
-    <div class="op-empty op-card">
+    <div class="op-empty op-card animate-in" style="--delay:100ms;">
         There is no pending match result.All matches are up-to date!
     </div>
 <?php else: ?>
-    <?php foreach($grouped as $tournamentName => $tMatches): ?>
-        <div class="op-card" style="margin-bottom: 16px;">
+    <?php 
+    $baseDelay = 100;
+    foreach($grouped as $tournamentName => $tMatches): 
+    ?>
+        <div class="op-card animate-in" style="margin-bottom: 16px; --delay:<?= $baseDelay ?>ms;">
             <div class="op-card-head">
                 <span class="op-card-title"><?= htmlspecialchars($tournamentName) ?></span>
                 <span class="op-td-muted" style="font-size: 12px;">
@@ -166,7 +169,9 @@
                 <?php endforeach; ?>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php 
+    $baseDelay += 50;
+    endforeach; ?>
 <?php endif; ?>
 
 <?php require_once __DIR__ . '/layout-bottom.php' ?>

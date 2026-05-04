@@ -310,15 +310,86 @@ const TeamApp = (() => {
   /* ── Invite form (Part 2 placeholder) ──────────────────────────── */
   function _bindInviteForm() {
     document.getElementById('invite-form')?.addEventListener('submit', async e => {
-      e.preventDefault();
-      const inp = document.getElementById('invite-username-input');
-      const fb  = document.getElementById('invite-feedback');
-      const username = inp?.value.trim();
-      if (!username) return;
-      // Part 2 will replace this with full invitation system
-      fb.textContent = 'Invite system coming in Part 2…';
-      fb.style.color = 'var(--text-muted)';
+        e.preventDefault();
+        const inp  = document.getElementById('invite-username-input');
+        const fb   = document.getElementById('invite-feedback');
+        const btn  = e.currentTarget.querySelector('[type=submit]');
+        const username = inp?.value.trim();
+        if (!username) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        fb.textContent  = '';
+
+        const data = await apiFetch('send_invite', { username });
+        if (data.ok) {
+            fb.style.color = 'var(--accent-soft)';
+            fb.textContent = `✓ ${data.message}`;
+            inp.value = '';
+        } else {
+            fb.style.color = '#f87171';
+            fb.textContent = `✗ ${data.message}`;
+        }
+        btn.disabled = false;
+        btn.textContent = 'Send Invite';
     });
+  }
+
+  async function respondInvite(inviteId, accept) {
+    const card = document.getElementById(`inv-card-${inviteId}`);
+    const btns = card?.querySelectorAll('button');
+    if (btns) btns.forEach(b => { b.disabled = true; b.style.opacity = '0.6'; });
+
+    const data = await apiFetch('respond_invite', {
+        invite_id: inviteId,
+        response: accept ? 'accept' : 'decline',
+    });
+
+    if (data.ok) {
+        toast(data.message, 'success');
+        // Animate card out
+        if (card) {
+            card.style.transition = 'opacity 0.35s, transform 0.35s';
+            card.style.opacity    = '0';
+            card.style.transform  = 'translateX(14px)';
+            setTimeout(() => {
+                card.remove();
+                const remaining = document.querySelectorAll('.tm-invite-card').length;
+                const badge = document.querySelector('.tm-notif-badge');
+                if (badge) badge.textContent = remaining;
+                if (!remaining) {
+                    document.getElementById('tm-invite-list')?.closest('.tm-section-header + *')?.remove();
+                    document.querySelectorAll('.tm-section-header').forEach(h => {
+                        if (h.textContent.includes('Pending')) h.remove();
+                    });
+                }
+                NotifApp.refresh();
+            }, 360);
+        }
+        if (accept) setTimeout(() => location.reload(), 1000);
+    } else {
+        toast(data.message, 'error');
+        if (btns) btns.forEach(b => { b.disabled = false; b.style.opacity = '1'; });
+    }
+  }
+
+  /* ── Auto-show invite from email link ───────────────────────────── */
+  function _handleEmailInvite() {
+      const result = (window.TEAM_INIT || {}).inviteResult;
+      if (!result?.valid) return;
+      // Scroll to invite list and highlight
+      const list = document.getElementById('tm-invite-list');
+      if (list) {
+          setTimeout(() => {
+              list.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              const card = list.querySelector('.tm-invite-card');
+              if (card) {
+                  card.style.transition = 'box-shadow 0.4s';
+                  card.style.boxShadow  = '0 0 0 2px var(--accent)';
+                  setTimeout(() => { card.style.boxShadow = ''; }, 2000);
+              }
+          }, 400);
+      }
   }
 
   /* ── Init ────────────────────────────────────────────────────────── */
@@ -345,11 +416,178 @@ const TeamApp = (() => {
       document.querySelectorAll('.tm-collapsible.is-open').forEach(p => p.classList.remove('is-open'));
       document.querySelectorAll('.tm-region-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
     });
+    _handleEmailInvite();
+    if (window.NotifApp) NotifApp.init();
   }
 
   document.addEventListener('DOMContentLoaded', _init);
 
   /* ── Public API ──────────────────────────────────────────────────── */
-  return { togglePanel, openPanel, closePanel, kick, leaveTeam, removeAvatar, copyCode, previewAvatar };
+  return { togglePanel, openPanel, closePanel, kick, leaveTeam,
+         removeAvatar, copyCode, previewAvatar, respondInvite };
 
 })();
+
+/* ═══════════════════════════════════════════════════════════════════
+   NotifApp — Global Header Notification System
+   ═══════════════════════════════════════════════════════════════════ */
+
+const NotifApp = (() => {
+
+    const API      = 'team-api.php';
+    const INTERVAL = 60_000; // poll every 60s
+    let   _timer   = null;
+    let   _open    = false;
+
+    function _btn()   { return document.getElementById('hdr-notif-btn'); }
+    function _badge() { return document.getElementById('hdr-notif-count'); }
+    function _panel() { return document.getElementById('hdr-notif-panel'); }
+    function _body()  { return document.getElementById('hdr-notif-body'); }
+
+    async function refresh() {
+        try {
+            const res  = await fetch(`${API}?action=get_invites`);
+            const json = await res.json();
+            if (!json.ok) return;
+
+            const invites = json.data?.invites || [];
+            const count   = invites.length;
+
+            // Badge
+            const badge = _badge();
+            const btn   = _btn();
+            if (badge) {
+                badge.textContent = count;
+                badge.classList.toggle('hidden', count === 0);
+            }
+            if (btn) btn.classList.toggle('has-notifs', count > 0);
+
+            // Panel count
+            const panelCount = document.getElementById('hdr-notif-panel-count');
+            if (panelCount) panelCount.textContent = count > 0 ? `${count} pending` : '';
+
+            // Panel body
+            const body = _body();
+            if (!body) return;
+
+            if (count === 0) {
+                body.innerHTML = '<div class="hdr-notif-empty">No pending invitations.</div>';
+                return;
+            }
+
+            body.innerHTML = invites.map(inv => {
+                const initials = inv.team_name.substring(0, 2).toUpperCase();
+                const ava = inv.logo_url
+                    ? `<img src="${_esc(inv.logo_url)}" alt="">`
+                    : initials;
+                const age = _timeAgo(inv.sent_at);
+                return `
+                    <div class="hdr-notif-item" id="hdr-inv-${inv.id}">
+                        <div class="hdr-notif-item-top">
+                            <div class="hdr-notif-ava">${ava}</div>
+                            <div class="hdr-notif-info">
+                                <div class="hdr-notif-team">${_esc(inv.team_name)}</div>
+                                <div class="hdr-notif-sender">from ${_esc(inv.sender_name)} · ${age}</div>
+                            </div>
+                        </div>
+                        <div class="hdr-notif-btns">
+                            <button class="hdr-notif-accept"
+                                    onclick="NotifApp.respond(${inv.id}, true)">Accept</button>
+                            <button class="hdr-notif-decline"
+                                    onclick="NotifApp.respond(${inv.id}, false)">Decline</button>
+                        </div>
+                    </div>`;
+            }).join('');
+
+        } catch (e) {
+            console.error('NotifApp.refresh:', e);
+        }
+    }
+
+    async function respond(inviteId, accept) {
+        const item = document.getElementById(`hdr-inv-${inviteId}`);
+        item?.querySelectorAll('button').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+
+        try {
+            const fd = new FormData();
+            fd.append('action',    'respond_invite');
+            fd.append('invite_id', inviteId);
+            fd.append('response',  accept ? 'accept' : 'decline');
+            const res  = await fetch(API, { method: 'POST', body: fd });
+            const json = await res.json();
+
+            if (json.ok) {
+                if (item) {
+                    item.style.transition = 'opacity 0.3s';
+                    item.style.opacity    = '0';
+                    setTimeout(() => item.remove(), 320);
+                }
+                // toast via TeamApp if available
+                if (window.TeamApp) {
+                    // trigger a small toast by re-using the same DOM element
+                    const t = document.getElementById('tm-toast');
+                    if (t) {
+                        t.className = 'tm-toast tm-toast--success tm-toast--show';
+                        t.textContent = json.message;
+                        setTimeout(() => t.classList.remove('tm-toast--show'), 3400);
+                    }
+                }
+                setTimeout(() => {
+                    refresh();
+                    if (accept) location.reload();
+                }, 400);
+            }
+        } catch (e) {
+            item?.querySelectorAll('button').forEach(b => { b.disabled = false; b.style.opacity = '1'; });
+        }
+    }
+
+    function togglePanel() {
+        const panel = _panel();
+        if (!panel) return;
+        _open = !_open;
+        panel.classList.toggle('is-open', _open);
+        if (_open) refresh();
+    }
+
+    function _closePanel() {
+        _open = false;
+        _panel()?.classList.remove('is-open');
+    }
+
+    function _esc(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function _timeAgo(dt) {
+        const diff = Math.floor((Date.now() - new Date(dt)) / 1000);
+        if (diff < 60)    return 'just now';
+        if (diff < 3600)  return `${Math.floor(diff/60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+        return `${Math.floor(diff/86400)}d ago`;
+    }
+
+    function init() {
+        // Initial fetch
+        refresh();
+        // Poll
+        clearInterval(_timer);
+        _timer = setInterval(refresh, INTERVAL);
+        // Close on outside click
+        document.addEventListener('click', e => {
+            const wrap = document.getElementById('hdr-notif-wrap');
+            if (wrap && !wrap.contains(e.target)) _closePanel();
+        });
+    }
+
+    return { init, refresh, respond, togglePanel };
+
+})();
+
+// Auto-init on every page (header always loads this script via footer.php)
+document.addEventListener('DOMContentLoaded', () => {
+    // Only run if the bell button exists (i.e., user is logged in)
+    if (document.getElementById('hdr-notif-btn')) {
+        NotifApp.init();
+    }
+});
