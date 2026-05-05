@@ -131,7 +131,7 @@ if ($selectedTournament > 0) {
             SELECT tm.id, tm.name
             FROM Team tm
             JOIN tournament_teams tt ON tt.team_id = tm.id
-            WHERE tt.tournament_id = ? AND tm.deleted_At IS NUL
+            WHERE tt.tournament_id = ? AND tm.deleted_At IS NULL
             ORDER BY tm.name
         ");
         $stmtTeamOpts->execute([$selectedTournament]);

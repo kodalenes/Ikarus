@@ -200,7 +200,7 @@
                                     ? min(100, round($t['registered_teams'] / $t['max_teams'] * 100))
                                     : 0;
                             ?>
-                             <a href="pages/tournament-detail.php?id=<?= $t['id'] ?>" class="t-card">
+                             <a href="pages/tournaments-details.php?id=<?= $t['id'] ?>" class="t-card">
                                     <div class="t-card-top">
                                         <span class="t-badge <?= $s['class'] ?>"><?= $s['label'] ?></span>
                                         <span class="t-game"><?= htmlspecialchars($t['game_name'] ?? '—') ?></span>
