@@ -49,7 +49,7 @@
         $checkIn    = (int)($_POST['checkin_minutes'] ?? 15);
         $noshow     = (int)($_POST['noshow_minutes'] ?? 10);
         $description =trim($_POST['description'] ?? '');
-        $status     = $_POST['status_override'] ?? 'draft';
+        $status     = $_POST['status'] ?? 'draft';
         $ruleTexts  = $_POST['rules'] ?? [];
         $prize1st   = (float)($_POST['prize_1st'] ?? 0);
         $prize2nd   = (float)($_POST['prize_2nd'] ?? 0);

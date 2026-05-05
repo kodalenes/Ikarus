@@ -91,7 +91,7 @@ if ($team) {
             SELECT t.id, t.name, t.status, g.name AS game_name, t.start_date
             FROM   tournament_teams tt
             JOIN   Tournament t ON t.id = tt.tournament_id AND t.deleted_at IS NULL
-            LEFT   JOIN Game g  ON g.id = t.game_id
+            LEFT   JOIN Game g  ON g.id = t.game_id AND g.deleted_at IS NULL
             WHERE  tt.team_id = ?
             ORDER  BY t.start_date DESC
             LIMIT  5
@@ -133,8 +133,8 @@ if ($team) {
                    t2.name AS away_name,
                    tour.name AS tournament_name
             FROM   Matches m
-            JOIN   Team t1         ON t1.id  = m.team1_id
-            JOIN   Team t2         ON t2.id  = m.team2_id
+            JOIN   Team t1         ON t1.id  = m.team1_id AND t1.deleted_at IS NULL
+            JOIN   Team t2         ON t2.id  = m.team2_id AND t2.deleted_at IS NULL
             JOIN   Tournament tour ON tour.id = m.tournament_id AND tour.deleted_at IS NULL
             WHERE  (m.team1_id = ? OR m.team2_id = ?)
               AND  m.score_team1 IS NOT NULL

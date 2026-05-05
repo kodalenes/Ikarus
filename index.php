@@ -1,6 +1,5 @@
 <?php
     require_once 'includes/session.php';
-    $customTitle = "Home";
     $extraCss = ['index'];
 ?>
 
@@ -164,20 +163,24 @@
                 <?php
                     try {
                         $stmtT = $pdo->query("
-                            SELECT t.id, t.name, t.status, t.prize_pool, t.max_teams, t.start_date,
+                            SELECT 
+                                t.id, t.name, t.status, t.prize_pool, t.max_teams, t.start_date,
                                 g.name AS game_name,
-                                COUNT(tt.team_id) AS registered_teams
+                                COUNT(tm.id) AS registered_teams
                             FROM Tournament t
-                            LEFT JOIN Game g ON g.id = t.game_id
-                            LEFT JOIN tournament_team tt ON tt.tournament_id = t.id
+                            LEFT JOIN Game g ON g.id = t.game_id AND g.deleted_at IS NULL
+                            LEFT JOIN tournament_teams tt ON tt.tournament_id = t.id
+                            LEFT JOIN Team tm ON tm.id = tt.team_id AND tm.deleted_at IS NULL
                             WHERE t.status IN ('live','registration', 'upcoming') AND t.deleted_at IS NULL
-                            GROUP BY t.id
+                            GROUP BY 
+                                t.id, t.name, t.status, t.prize_pool, t.max_teams, t.start_date, g.name
                             ORDER BY FIELD(t.status, 'live','registration','upcoming'), t.start_date ASC
                             LIMIT 4
-                            ");
+                        ");
                         $tournaments = $stmtT->fetchAll();
                     } catch (Exception $e) {
-                        $tournaments = [];
+                        // Hatayı görebilmek için boş dizi yerine ekrana bastıralım
+                        die("Aktif Turnuva Sorgu Hatası: " . $e->getMessage());
                     }
                 ?>
 

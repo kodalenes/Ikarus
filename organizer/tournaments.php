@@ -48,7 +48,7 @@ try {
         SELECT t.*, g.name AS game_name,
                (SELECT COUNT(*) FROM tournament_teams WHERE tournament_id = t.id) AS registered_teams
         FROM Tournament t
-        LEFT JOIN Game g ON t.game_id = g.id
+        LEFT JOIN Game g ON t.game_id = g.id AND g.deleted_at IS NULL
         WHERE t.deleted_at IS NULL 
           AND t.organizer_id = ?
         ORDER BY t.created_at DESC

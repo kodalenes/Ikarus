@@ -34,7 +34,7 @@ function myTeam(PDO $pdo, int $uid): ?array
         SELECT t.*, cap.username AS captain_name
         FROM   Player p
         JOIN   Team   t   ON t.id  = p.team_id  AND t.deleted_at IS NULL
-        JOIN   Player cap ON cap.id = t.captain_id
+        JOIN   Player cap ON cap.id = t.captain_id AND cap.deleted_at IS NULL
         WHERE  p.id = ? AND p.deleted_at IS NULL
         LIMIT  1
     ");
@@ -71,7 +71,7 @@ switch ($action) {
             SELECT t.id, t.name, t.status, g.name AS game_name, t.start_date
             FROM   tournament_teams tt
             JOIN   Tournament t ON t.id = tt.tournament_id AND t.deleted_at IS NULL
-            LEFT   JOIN Game g  ON g.id = t.game_id
+            LEFT   JOIN Game g  ON g.id = t.game_id AND g.deleted_at IS NULL
             WHERE  tt.team_id = ?
             ORDER  BY t.start_date DESC
             LIMIT  5

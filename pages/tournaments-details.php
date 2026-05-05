@@ -10,14 +10,15 @@ try {
     $stmt = $pdo->prepare("
         SELECT t.*, g.name AS game_name, p.username AS organizer_name
         FROM Tournament t
-        LEFT JOIN Game g  ON g.id = t.game_id
-        LEFT JOIN Player p ON p.id = t.organizer_id
+        LEFT JOIN Game g  ON g.id = t.game_id AND g.deleted_at IS NULL
+        LEFT JOIN Player p ON p.id = t.organizer_id AND p.deleted_at IS NULL
         WHERE t.id = ? AND t.deleted_at IS NULL
     ");
     $stmt->execute([$t_id]);
     $tournament = $stmt->fetch();
 } catch (Exception $e) {
     $tournament = false;
+    die('Database error: ' . $e->getMessage());
 }
 
 /* ─── 404 Redirection ────────────────────────────────────────── */
@@ -34,7 +35,7 @@ try {
     $stmtTeams = $pdo->prepare("
         SELECT t.id, t.name, t.tag, t.rank_point, tt.registered_at
         FROM tournament_teams tt
-        JOIN Team t ON t.id = tt.team_id
+        JOIN Team t ON t.id = tt.team_id t.deleted_at IS NULL
         WHERE tt.tournament_id = ?
         ORDER BY t.rank_point DESC
     ");
@@ -47,14 +48,14 @@ try {
 /* ─── Matches ────────────────────────────────────────────────── */
 try {
     // TBD (Henüz belli olmayan) takımlar için LEFT JOIN kullanıyoruz
-    // Eski home_team_id isimleri team1_id olarak güncellendi
     $stmtMatches = $pdo->prepare("
         SELECT m.*,
-               t1.name AS home_name, t2.name AS away_name
+                t1.name AS home_name,
+                t2.name AS away_name
         FROM Matches m
-        LEFT JOIN Team t1 ON t1.id = m.team1_id
-        LEFT JOIN Team t2 ON t2.id = m.team2_id
-        WHERE m.tournament_id = ?
+        LEFT JOIN Team t1 ON t1.id = m.team1_id AND t1.deleted_at IS NULL
+        LEFT JOIN Team t2 ON t2.id = m.team2_id AND t2.deleted_at IS NULL
+        WHERE m.tournament_id = ? AND m.deleted_at IS NULL
         ORDER BY m.round_number ASC, m.id ASC
     ");
     $stmtMatches->execute([$t_id]);
@@ -66,7 +67,8 @@ try {
 /* ─── Tournament rules ───────────────────────────────────────── */
 try {
     $stmtRules = $pdo->prepare("
-        SELECT rule_text FROM Tournament_Rule
+        SELECT rule_text 
+        FROM Tournament_Rule
         WHERE tournament_id = ?
         ORDER BY sort_order
     ");
@@ -188,6 +190,11 @@ if (!empty($tournament['end_date'])) {
 $joinMsg   = '';
 $joinError = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) && $canJoin) {
+    // Check if the current user is the organizer of the tournament
+    if ($_SESSION['user_id'] === $tournament['organizer_id']) {
+        $errors[] = 'Organizers cannot participate in their own tournaments.';
+        // Redirect back or stop execution
+    }
     try {
         $ins = $pdo->prepare("INSERT INTO tournament_teams (team_id, tournament_id) VALUES (?, ?)");
         $ins->execute([$myTeamId, $t_id]);
@@ -259,7 +266,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
                             <div class="prize-amount">₺<?= number_format($prizePool, 0, ',', '.') ?></div>
                         </div>
                         <?php endif; ?>
-
+                        
+                        <!-- Only display the join button if the user is NOT the organizer -->
+                        <?php if ($_SESSION['user_id'] !== $tournament['organizer_id']): ?>
+                            <a href="tournament-join.php?id=<?= $tournament['id'] ?>" class="op-btn op-btn--primary">Join Tournament</a>
+                        <?php else: ?>
+                            <span class="op-badge op-badge--info">You are the organizer of this event.</span>
+                        <?php endif; ?>
                         <?php if ($myTeamInTournament): ?>
                             <button class="join-btn" disabled>✓ Joined</button>
                         <?php elseif ($canJoin): ?>

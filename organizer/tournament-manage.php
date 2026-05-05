@@ -46,7 +46,7 @@ try {
                (SELECT COUNT(*) FROM Matches WHERE tournament_id = t.id AND deleted_at IS NULL) AS total_matches,
                (SELECT COUNT(*) FROM Matches WHERE tournament_id = t.id AND winner_id IS NULL AND deleted_at IS NULL) AS pending_matches
         FROM Tournament t
-        LEFT JOIN Game g ON t.game_id = g.id
+        LEFT JOIN Game g ON t.game_id = g.id AND g.deleted_at IS NULL
         WHERE t.id = :id AND t.deleted_at IS NULL
     ";
     
@@ -73,7 +73,7 @@ try {
     $teamQuery = "
         SELECT tm.name, tt.registered_at 
         FROM tournament_teams tt
-        JOIN Team tm ON tt.team_id = tm.id
+        JOIN Team tm ON tt.team_id = tm.id AND tm.deleted_at IS NULL
         WHERE tt.tournament_id = :id
         ORDER BY tt.registered_at DESC 
         LIMIT 5

@@ -8,14 +8,19 @@ $extraCss = ['tournaments'];
 try {
     $stmt = $pdo->query("
         SELECT t.*, g.name as game_name,
-               (SELECT COUNT(*) FROM tournament_teams tt WHERE tt.tournament_id = t.id) as registered_count
+               (SELECT COUNT(tm.id) 
+                FROM tournament_teams tt 
+                JOIN Team tm ON tm.id = tt.team_id AND tm.deleted_at IS NULL
+                WHERE tt.tournament_id = t.id) as registered_count
         FROM Tournament t 
-        LEFT JOIN Game g ON t.game_id = g.id 
+        LEFT JOIN Game g ON t.game_id = g.id AND g.deleted_at IS NULL
+        WHERE t.deleted_at IS NULL
         ORDER BY t.start_date DESC
     ");
     $tournaments = $stmt->fetchAll();
 } catch (Exception $e) {
     $tournaments = [];
+    die('Database Error :' . $e->getMessage());
 }
 ?>
 

@@ -109,8 +109,8 @@ try {
     $countStmt = $pdo->prepare("
         SELECT COUNT(DISTINCT t.id)
         FROM Tournament t
-        LEFT JOIN Player p ON p.id = t.organizer_id
-        LEFT JOIN Game g   ON g.id = t.game_id
+        LEFT JOIN Player p ON p.id = t.organizer_id AND p.deleted_at IS NULL
+        LEFT JOIN Game g   ON g.id = t.game_id AND g.deleted_at IS NULL
         $whereSql
     ");
     $countStmt->execute($filterParams);
@@ -136,10 +136,10 @@ try {
             COUNT(DISTINCT m.id)                                           AS total_matches,
             COUNT(DISTINCT CASE WHEN m.score_team1 IS NULL THEN m.id END) AS pending_matches
         FROM Tournament t
-        LEFT JOIN Player p           ON p.id  = t.organizer_id
-        LEFT JOIN Game g             ON g.id  = t.game_id
+        LEFT JOIN Player p           ON p.id  = t.organizer_id AND p.deleted_at IS NULL
+        LEFT JOIN Game g             ON g.id  = t.game_id AND g.deleted_at IS NULL
         LEFT JOIN tournament_teams tt ON tt.tournament_id = t.id
-        LEFT JOIN Matches m          ON m.tournament_id  = t.id
+        LEFT JOIN Matches m          ON m.tournament_id  = t.id AND m.deleted_at IS NULL
         $whereSql
         GROUP BY
             t.id, t.name, t.status, t.prize_pool,

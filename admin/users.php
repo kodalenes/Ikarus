@@ -108,7 +108,7 @@
                 t.name AS team_name,
                 (SELECT COUNT(*) FROM Tournament WHERE organizer_id = p.id) AS tournament_count
             FROM Player p 
-            LEFT JOIN Team t ON t.id = p.team_id
+            LEFT JOIN Team t ON t.id = p.team_id AND t.deleted_at IS NULL
             $whereSql
             ORDER BY p.registered_at DESC
             LIMIT $perPage OFFSET $offset

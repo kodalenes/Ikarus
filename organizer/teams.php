@@ -12,8 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tournamentId = (int)($_POST['tournament_id'] ?? 0);
 
     $authCheck = $pdo->prepare("
-        SELECT tt.team_id FROM tournament_teams tt
-        JOIN Tournament t ON t.id = tt.tournament_id
+        SELECT tt.team_id 
+        FROM tournament_teams tt
+        JOIN Tournament t ON t.id = tt.tournament_id AND t.deleted_at IS NULL
         WHERE tt.team_id = ? AND tt.tournament_id = ? AND t.organizer_id = ?
     ");
     $authCheck->execute([$teamId, $tournamentId, $orgId]);
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo->prepare("
                 DELETE FROM tournament_teams
-                WHERE team_id = ? AND tournament_id = ?
+                WHERE team_id = ? AND tournament_id = ? AND deleted_at IS NULL
             ")->execute([$teamId, $tournamentId]);
 
             echo json_encode(['status' => 'success', 'message' => 'Team removed from tournament.']);
@@ -79,9 +80,6 @@ if (!empty($myTournaments)) {
     $whereSql = 'WHERE ' . implode(' AND ', $where);
 
     try {
-        // DÜZELTME 1: Kartezyen çarpımı önlemek için 'JOIN Player p' kaldırıldı.
-        // DÜZELTME 2: Oyun ismini 'g.name AS game_name' olarak aldık.
-        // DÜZELTME 3: tm.tag ve tm.region eklendi.
         $stmtTeams = $pdo->prepare("
             SELECT
                 tm.id,

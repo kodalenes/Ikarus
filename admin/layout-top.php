@@ -39,6 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="noindex, nofollow">
     <title><?= htmlspecialchars($pageTitle ?? 'Admin Panel') ?> — Ikarus</title>
 
     <link rel="shortcut icon" href="/assets/images/Ikarus_Logo.webp" type="image/x-icon"> <!--[cite: 1] -->

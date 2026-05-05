@@ -22,11 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Bu oyuncunun organizatörün bir turnuvasında olduğunu doğrula
     $authCheck = $pdo->prepare("
-        SELECT p.id FROM Player p
-        JOIN Team t             ON t.id  = p.team_id
+        SELECT p.id 
+        FROM Player p
+        JOIN Team t             ON t.id  = p.team_id AND t.deleted_at IS NULL
         JOIN tournament_teams tt ON tt.team_id = t.id
-        JOIN Tournament tour    ON tour.id = tt.tournament_id
-        WHERE p.id = ? AND tour.organizer_id = ?
+        JOIN Tournament tour    ON tour.id = tt.tournament_id tour.deleted_at IS NULL
+        WHERE p.id = ? AND tour.organizer_id = ? AND p.deleted_at IS NULL
         LIMIT 1
     ");
     $authCheck->execute([$playerId, $orgId]);
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Organizatörün bu turnuvaya yetkisi var mı?
         $tourCheck = $pdo->prepare("
-            SELECT id FROM Tournament WHERE id = ? AND organizer_id = ?
+            SELECT id FROM Tournament WHERE id = ? AND organizer_id = ? AND deleted_at IS NULL
         ");
         $tourCheck->execute([$tournamentId, $orgId]);
         if (!$tourCheck->fetch()) {
@@ -130,7 +131,7 @@ if ($selectedTournament > 0) {
             SELECT tm.id, tm.name
             FROM Team tm
             JOIN tournament_teams tt ON tt.team_id = tm.id
-            WHERE tt.tournament_id = ?
+            WHERE tt.tournament_id = ? AND tm.deleted_At IS NUL
             ORDER BY tm.name
         ");
         $stmtTeamOpts->execute([$selectedTournament]);
@@ -188,10 +189,9 @@ if (!empty($myTournaments)) {
                 COUNT(DISTINCT tt.tournament_id) AS tournament_count
 
             FROM Player p
-            JOIN Team            tm   ON tm.id  = p.team_id
-            JOIN tournament_teams tt  ON tt.team_id = tm.id
+            JOIN Team            tm   ON tm.id  = p.team_id 
+            JOIN tournament_teams tt  ON tt.team_id = tm.id 
             JOIN Tournament      tour ON tour.id = tt.tournament_id
-            -- LEFT JOIN'deki skor kontrolünü kaldırdık, tüm maçları getirsin.
             LEFT JOIN Matches    m    ON (m.team1_id = tm.id OR m.team2_id = tm.id)
                                       AND m.tournament_id = tt.tournament_id
                                       AND m.deleted_at IS NULL
@@ -228,7 +228,7 @@ if (!empty($players)) {
                 pw.created_at,
                 t.name AS tournament_name
             FROM Player_Warning pw
-            LEFT JOIN Tournament t ON t.id = pw.tournament_id
+            LEFT JOIN Tournament t ON t.id = pw.tournament_id AND t.deleted_at IS NULL
             WHERE pw.player_id IN ($inPlaceholders)
             ORDER BY pw.created_at DESC
         ");

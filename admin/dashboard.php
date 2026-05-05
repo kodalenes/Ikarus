@@ -35,6 +35,7 @@
             SELECT id, username, email, user_type, registered_at
             FROM Player
             ORDER BY registered_at DESC
+            WHERE deleted_at IS NULL
             LIMIT 5
         ")->fetchAll();
     } catch (Exception $e) {
