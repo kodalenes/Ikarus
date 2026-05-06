@@ -21,11 +21,12 @@
         $cookieValue = $userId . COOKIE_SEPERATOR . $token;
         $expires = time() + (REMEMBER_DAYS * 24 * 3600);
 
+        $isLocal = ($_ENV['APP_ENV'] ?? 'local') === 'local';
         setcookie(REMEMBER_COOKIE, $cookieValue , [
             'expires' => $expires,
             'path' => '/',
             'httponly' => true,//JS erisemes XSS korumasi
-            'secure' => true,
+            'secure' => !$isLocal,
             'samesite' => 'Lax',//CSRF korumasi
         ]);
     }
@@ -87,11 +88,13 @@
     }   
 
     function clearRememberCookie(): void {
+        $isLocal = ($_ENV['APP_ENV'] ?? 'local') === 'local';
+
         setcookie(REMEMBER_COOKIE, '', [
             'expires' => time() - 3600,
             'path'    => '/',
             'httponly'=> true,
-            'secure' => true,
+            'secure' => !$isLocal,//Dinamik
             'samesite' => 'Lax',
         ]);
     }

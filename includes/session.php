@@ -1,12 +1,24 @@
 <?php
 
+    require_once __DIR__ . '/../vendor/autoload.php';
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->safeLoad();
+
+    $isLocal = ($_ENV['APP_ENV'] ?? 'local') === 'local';
+
     #If session doesnt started start it
     if (session_status() === PHP_SESSION_NONE) {
+        session_set_cookie_params([
+            'secure' => !$isLocal,
+            'httponly' =>true,
+            'samesite' => 'Lax'
+        ]);
         session_start();
     }
+
     require_once __DIR__ . '/db.php';
     require_once __DIR__ . '/remember_me.php';
-
 
     #Session yoksa remember cookie ye bak
     if (!isset($_SESSION['user_id'])) {

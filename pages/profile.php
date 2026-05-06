@@ -23,7 +23,7 @@ function profileInitials(string $name): string {
 function profileUploader(): FileUploader {
     return new FileUploader(
         dirname(__DIR__) . '/assets/uploads',
-        '../assets/uploads',
+        '/assets/uploads',
         'avatar'
     );
 }
