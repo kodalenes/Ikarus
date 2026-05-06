@@ -236,23 +236,23 @@
                                 SELECT
                                     p.id,
                                     p.username,
-                                    COUNT(CASE WHEN m.home_team_id = t2.id AND m.score_team1 > m.score_team2 THEN 1
-                                               WHEN m.away_team_id = t2.id AND m.score_team2 > m.score_team1 THEN 1
+                                    COUNT(CASE WHEN m.team1_id = t2.id AND m.score_team1 > m.score_team2 THEN 1
+                                               WHEN m.team2_id = t2.id AND m.score_team2 > m.score_team1 THEN 1
                                           END) AS wins,
                                     COUNT(m.id) AS total_matches,
                                     ROUND(
-                                        COUNT(CASE WHEN m.home_team_id = t2.id AND m.score_team1 > m.score_team2 THEN 1
-                                                   WHEN m.away_team_id = t2.id AND m.score_team2 > m.score_team1 THEN 1
+                                        COUNT(CASE WHEN m.team1_id = t2.id AND m.score_team1 > m.score_team2 THEN 1
+                                                   WHEN m.team2_id = t2.id AND m.score_team2 > m.score_team1 THEN 1
                                               END) * 40 +
                                         IFNULL(
-                                            COUNT(CASE WHEN m.home_team_id = t2.id AND m.score_team1 > m.score_team2 THEN 1
-                                                       WHEN m.away_team_id = t2.id AND m.score_team2 > m.score_team1 THEN 1
+                                            COUNT(CASE WHEN m.team1_id = t2.id AND m.score_team1 > m.score_team2 THEN 1
+                                                       WHEN m.team2_id = t2.id AND m.score_team2 > m.score_team1 THEN 1
                                                   END) / NULLIF(COUNT(m.id),0) * 100 * 20
                                         , 0)
                                     ) AS points
                                 FROM Player p
                                 LEFT JOIN Team t2 ON t2.id = p.team_id AND t2.deleted_at IS NULL
-                                LEFT JOIN Matches m ON (m.home_team_id = t2.id OR m.away_team_id = t2.id)
+                                LEFT JOIN Matches m ON (m.team1_id = t2.id OR m.team2_id = t2.id)
                                     AND m.score_team1 IS NOT NULL AND m.deleted_at IS NULL
                                 WHERE p.deleted_at IS NULL
                                 GROUP BY p.id

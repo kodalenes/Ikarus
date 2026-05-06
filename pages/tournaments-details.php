@@ -268,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
                         <?php endif; ?>
                         
                         <!-- Only display the join button if the user is NOT the organizer -->
-                        <?php if ($_SESSION['user_id'] !== $tournament['organizer_id']): ?>
+                        <?php if (!isLoggedIn() || $_SESSION['user_id'] !== $tournament['organizer_id']): ?>
                             <a href="tournament-join.php?id=<?= $tournament['id'] ?>" class="op-btn op-btn--primary">Join Tournament</a>
                         <?php else: ?>
                             <span class="op-badge op-badge--info">You are the organizer of this event.</span>
