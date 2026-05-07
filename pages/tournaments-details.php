@@ -35,7 +35,7 @@ try {
     $stmtTeams = $pdo->prepare("
         SELECT t.id, t.name, t.tag, t.rank_point, tt.registered_at
         FROM tournament_teams tt
-        JOIN Team t ON t.id = tt.team_id t.deleted_at IS NULL
+        JOIN Team t ON t.id = tt.team_id AND t.deleted_at IS NULL
         WHERE tt.tournament_id = ?
         ORDER BY t.rank_point DESC
     ");
@@ -83,9 +83,10 @@ $myTeamId          = null;
 $myTeamInTournament = false;
 if (isLoggedIn()) {
     try {
-        $s = $pdo->prepare("SELECT team_id FROM Player WHERE id = ?");
+        $s = $pdo->prepare("SELECT team_id FROM Player WHERE id = ? AND deleted_at IS NULL");
         $s->execute([$_SESSION['user_id']]);
-        $myTeamId = $s->fetchColumn() ?: null;
+        $row = $s->fetch(PDO::FETCH_ASSOC);
+        $myTeamId = $row ? $row['team_id'] : null;
 
         if ($myTeamId) {
             $s2 = $pdo->prepare("SELECT 1 FROM tournament_teams WHERE team_id = ? AND tournament_id = ?");
@@ -98,61 +99,91 @@ if (isLoggedIn()) {
 $registeredCount = count($teams);
 $isFull   = $tournament['max_teams'] > 0 && $registeredCount >= $tournament['max_teams'];
 $canJoin  = isLoggedIn()
-    && $myTeamId
+    && !empty($myTeamId)
     && !$myTeamInTournament
     && !$isFull
     && $tournament['status'] === 'registration';
 
-/* ─── Generate bracket data (jquery-bracket format) ──────────── */
+/* ─── Generate bracket data ──────────────────────────────────── */
 $bracketTeams   = [];
 $bracketResults = [];
+$stageLabels    = [];
 
 if (!empty($matches)) {
-    // 1. Maçları "round_number"a göre grupla ve sırala
+    // 1. Maçları round_number'a göre grupla
     $byRound = [];
     foreach ($matches as $m) {
         $byRound[$m['round_number']][] = $m;
     }
-    ksort($byRound); 
-    
-    $firstRoundNumber = array_key_first($byRound);
-    
-    // 2. Takımları oluştur (SADECE ilk turdaki takımlar)
-    // jQuery Bracket, takımları 2'li diziler halinde bekler: [ ["Team 1", "Team 2"], ["Team 3", "Team 4"] ]
+    ksort($byRound);
+
+    $firstRoundNumber = (int)array_key_first($byRound);
+
+    // 2. İlk turdaki takım çiftlerini al
     foreach ($byRound[$firstRoundNumber] as $m) {
-        $t1 = $m['home_name'] ?? null;
-        $t2 = $m['away_name'] ?? null;
-        $bracketTeams[] = [$t1, $t2];
+        $bracketTeams[] = [
+            $m['home_name'] ?? null,
+            $m['away_name'] ?? null
+        ];
     }
-    
-    // 3. Skorları ve Sonuçları oluştur
-    // jQuery Bracket her turu bir dizi, o turun içindeki maçları da [skor1, skor2] dizisi olarak bekler.
+
+    // 3. Toplam tur sayısını hesapla (2'nin üssü mantığıyla)
+    // Örn: 8 takım → 3 tur, 4 takım → 2 tur
+    $firstRoundMatchCount = count($bracketTeams);
+    $totalRounds = (int)ceil(log($firstRoundMatchCount * 2, 2));
+
+    // 4. Tüm turlar için boş results oluştur (oynanmamış = [null, null])
+    // Bu sayede jquery-bracket tüm turları çizer
+    for ($r = 0; $r < $totalRounds; $r++) {
+        $matchCountInRound = (int)($firstRoundMatchCount / pow(2, $r));
+        $matchCountInRound = max(1, $matchCountInRound); // En az 1 maç (Final)
+        $bracketResults[]  = array_fill(0, $matchCountInRound, [null, null]);
+    }
+
+    // 5. DB'deki gerçek skorları doldur
     foreach ($byRound as $roundNum => $roundMatches) {
-        $roundResults = [];
-        foreach ($roundMatches as $m) {
+        // 0-tabanlı index: round_number 1'den başlıyorsa -1 yap
+        $roundIdx = (int)$roundNum - $firstRoundNumber;
+
+        foreach ($roundMatches as $matchIdx => $m) {
             $s1 = $m['score_team1'];
             $s2 = $m['score_team2'];
-            
-            // Veritabanında skor yoksa, veya maç oynanmadıysa skorları "null" olarak geçmeliyiz.
-            // Aksi takdirde kütüphane maçı 0-0 bitmiş sanıp hata verebilir.
-            if ($s1 === null || $s2 === null || ($s1 == 0 && $s2 == 0 && empty($m['winner_id']))) {
-                 $roundResults[] = [null, null];
-            } else {
-                 $roundResults[] = [(int)$s1, (int)$s2];
+
+            $hasScore = ($s1 !== null && $s2 !== null)
+                     && !($s1 == 0 && $s2 == 0 && empty($m['winner_id']));
+
+            if ($hasScore && isset($bracketResults[$roundIdx][$matchIdx])) {
+                $bracketResults[$roundIdx][$matchIdx] = [(int)$s1, (int)$s2];
             }
         }
-        // ÖNEMLİ: Eğer bu round'da maç yoksa veya eksikse kütüphane çöker. 
-        // Array yapısını korumak için, her turu mutlaka sonuca ekliyoruz.
-        $bracketResults[] = $roundResults;
+    }
+
+    // 6. Stage isimlerini doğru şekilde üret ($byRound kullanarak)
+    $stageSuffixes = [
+        'Final', 'Semi Final', 'Quarter Final',
+        'Round of 16', 'Round of 32', 'Round of 64'
+    ];
+
+    // Tur sayısına göre geriye doğru etiketle
+    $roundNumbers = array_keys($byRound);
+    $maxRound     = max($roundNumbers);
+
+    foreach ($roundNumbers as $rNum) {
+        $distanceToFinal  = $maxRound - $rNum;           // Final'e kaç tur kaldı
+        $stageLabels[]    = $stageSuffixes[$distanceToFinal] ?? "Round {$rNum}";
+    }
+
+    // Bracket tam dolmamış turların etiketleri
+    for ($r = count($stageLabels); $r < $totalRounds; $r++) {
+        $distanceToFinal = $totalRounds - 1 - $r;
+        $stageLabels[]   = $stageSuffixes[$distanceToFinal] ?? "Round " . ($r + 1);
     }
 }
 
-// JSON kodunu oluştur
+// 7. JSON encode
 $bracketData = json_encode([
     'teams'   => $bracketTeams,
-    // jQuery Bracket, "results" arrayini en dışta ekstra bir array içine sarılmış olarak bekler.
-    // Örn: results: [ [ [1,2], [3,4] ], [ [5,6] ] ]
-    'results' => [$bracketResults] 
+    'results' => [$bracketResults]  // Tek dizi: single elimination
 ]);
 
 /* ─── Status badge mapping ───────────────────────────────────── */
@@ -190,11 +221,6 @@ if (!empty($tournament['end_date'])) {
 $joinMsg   = '';
 $joinError = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) && $canJoin) {
-    // Check if the current user is the organizer of the tournament
-    if ($_SESSION['user_id'] === $tournament['organizer_id']) {
-        $errors[] = 'Organizers cannot participate in their own tournaments.';
-        // Redirect back or stop execution
-    }
     try {
         $ins = $pdo->prepare("INSERT INTO tournament_teams (team_id, tournament_id) VALUES (?, ?)");
         $ins->execute([$myTeamId, $t_id]);
@@ -209,6 +235,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
     } catch (Exception $e) {
         $joinError = 'An error occurred while joining.';
     }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['leave_tournament']) && $myTeamInTournament && $tournament['status'] === 'registration') {
+    try {
+        $del = $pdo->prepare("DELETE FROM tournament_teams WHERE team_id = ? AND tournament_id = ?");
+        $del->execute([$myTeamId, $t_id]);
+        $joinMsg = 'Successfully left the tournament.';
+        $myTeamInTournament = false;
+        $canJoin = true;
+        $registeredCount--;
+        $teams = array_filter($teams, fn($team) => $team['id'] != $myTeamId);
+    } catch (Exception $e) {
+        $joinError = 'An error occurred while leaving.';
+    }
+}
+
+// Check if current user is the organizer of this tournament
+$isOrganizerOwner = false;
+if (isLoggedIn() && isset($tournament['organizer_id'])) {
+    $isOrganizerOwner = ($_SESSION['user_id'] == $tournament['organizer_id']);
 }
 ?>
 <!DOCTYPE html>
@@ -266,15 +310,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
                             <div class="prize-amount">₺<?= number_format($prizePool, 0, ',', '.') ?></div>
                         </div>
                         <?php endif; ?>
-                        
-                        <!-- Only display the join button if the user is NOT the organizer -->
-                        <?php if (!isLoggedIn() || $_SESSION['user_id'] !== $tournament['organizer_id']): ?>
-                            <a href="tournament-join.php?id=<?= $tournament['id'] ?>" class="op-btn op-btn--primary">Join Tournament</a>
-                        <?php else: ?>
-                            <span class="op-badge op-badge--info">You are the organizer of this event.</span>
-                        <?php endif; ?>
-                        <?php if ($myTeamInTournament): ?>
-                            <button class="join-btn" disabled>✓ Joined</button>
+
+                        <?php if ($isOrganizerOwner): ?>
+                            <!-- Organizer actions -->
+                            <a href="../organizer/tournament-manage.php?id=<?= $t_id ?>" class="join-btn" style="text-decoration:none; display:inline-block; text-align:center; background:var(--highlight); margin-bottom:8px; width: 100%;">Manage</a>
+                            <a href="../organizer/tournament-create.php?id=<?= $t_id ?>" class="join-btn" style="text-decoration:none; display:inline-block; text-align:center; background:transparent; color:var(--text-muted); border:1px solid var(--border); width: 100%;">Edit</a>
+                        <?php elseif ($myTeamInTournament): ?>
+                            <?php if ($tournament['status'] === 'registration'): ?>
+                                <form class="join-form" method="POST" onsubmit="return confirm('Are you sure you want to leave this tournament?');">
+                                    <input type="hidden" name="leave_tournament" value="1">
+                                    <button class="join-btn" type="submit" style="background:#f87171; border:1px solid rgba(248,113,113,0.3);">Leave</button>
+                                </form>
+                            <?php else: ?>
+                                <button class="join-btn" disabled>✓ Joined</button>
+                            <?php endif; ?>
                         <?php elseif ($canJoin): ?>
                             <form class="join-form" method="POST">
                                 <input type="hidden" name="join_tournament" value="1">
@@ -287,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
                         <?php elseif ($tournament['status'] !== 'registration'): ?>
                             <button class="join-btn" disabled>Registration Closed</button>
                         <?php else: ?>
-                            <button class="join-btn" disabled>Team Required</button>
+                            <button class="join-btn" disabled title="You must be in a team to join.">Team Required</button>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -454,12 +503,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['join_tournament']) &&
 
     <!-- Pass PHP data to JavaScript globally -->
     <script>
-        <?php if (!empty($matches)): ?>
+        <?php if (!empty($bracketTeams)): ?>
             window.bracketData = <?= $bracketData ?>;
-            window.stageLabels = <?= json_encode(array_values(array_filter(
-                ['Round of 32','Round of 16','Quarter Final','Semi Final','Final'],
-                fn($s) => isset($byStage[$s])
-            ))) ?>;
+            window.stageLabels = <?= json_encode($stageLabels) ?>;
         <?php else: ?>
             window.bracketData = null;
             window.stageLabels = [];

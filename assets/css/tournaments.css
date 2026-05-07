@@ -207,6 +207,13 @@ main, .game-filter, .t-card {
   color: var(--text-muted);
 }
 
+.t-meta-item.t-meta-game span {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .t-slots {
   text-align: right;
   flex-shrink: 0;

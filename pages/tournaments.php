@@ -37,13 +37,10 @@ try {
         <div class="page-header animate-in" style="--delay: 100ms;">
             <h1 class="page-title">Tournaments</h1>
             <p class="page-sub">Discover and join active tournaments.</p>
-        </div>
-
-        <!-- Filtre veya arama çubuğu -->
-        <div class="filter-bar animate-in" style="--delay: 200ms;">
-          <?php if (isLoggedIn() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'organizer'): ?>
-            <a href="../organizer/tournament-create.php" class="join-btn" style="text-decoration: none;">Create Tournament</a>
-          <?php endif; ?>
+            
+            <?php if (isLoggedIn() && isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'organizer'): ?>
+              <a href="../organizer/tournament-create.php" class="join-btn" style="text-decoration: none;">Create Tournament</a>
+            <?php endif; ?>
         </div>
 
         <!-- Turnuva Kartlarının listelendiği Grid -->
@@ -72,6 +69,7 @@ try {
                         <span class="status-badge s-open"><?php echo strtoupper($row['status']); ?></span>
                       </div>
                       <div class="t-meta-row">
+                        <div class="t-meta-item t-meta-game">Game <span><?php echo htmlspecialchars($row['game_name'] ?? 'Unknown'); ?></span></div>
                         <div class="t-meta-item">Format <span>Single Elimination</span></div>
                         <div class="t-meta-item">Teams <span><?php echo $max; ?></span></div>
                         <div class="t-meta-item">Start Date <span><?php echo date('d M Y', strtotime($row['start_date'])); ?></span></div>
