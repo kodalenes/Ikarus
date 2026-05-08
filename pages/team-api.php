@@ -81,12 +81,12 @@ switch ($action) {
         $stats = $pdo->prepare("
             SELECT COUNT(*) AS matches,
                    COALESCE(SUM(
-                       CASE WHEN (home_team_id = :t AND score_team1 > score_team2)
-                                 OR (away_team_id = :t AND score_team2 > score_team1)
+                       CASE WHEN (team1_id = :t AND score_team1 > score_team2)
+                                 OR (team2_id = :t AND score_team2 > score_team1)
                             THEN 1 ELSE 0 END
                    ), 0) AS wins
             FROM   Matches
-            WHERE  (home_team_id = :t OR away_team_id = :t)
+            WHERE  (team1_id = :t OR team2_id = :t)
               AND  score_team1 IS NOT NULL
               AND  deleted_at  IS NULL
         ");

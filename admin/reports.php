@@ -87,11 +87,11 @@ try {
             tm.id, tm.name,
             COUNT(m.id) AS total_matches,
             SUM(
-                (m.home_team_id = tm.id AND m.score_team1 > m.score_team2) OR
-                (m.away_team_id = tm.id AND m.score_team2 > m.score_team1)
+                (m.team1_id = tm.id AND m.score_team1 > m.score_team2) OR
+                (m.team2_id = tm.id AND m.score_team2 > m.score_team1)
             ) AS wins
         FROM Team tm
-        JOIN Matches m ON (m.home_team_id = tm.id OR m.away_team_id = tm.id) AND m.deleted_at IS NULL
+        JOIN Matches m ON (m.team1_id = tm.id OR m.team2_id = tm.id) AND m.deleted_at IS NULL
         WHERE m.score_team1 IS NOT NULL AND tm.deleted_at IS NULL
         GROUP BY tm.id, tm.name
         HAVING total_matches > 0

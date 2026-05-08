@@ -183,7 +183,7 @@ if (!empty($matches)) {
 // 7. JSON encode
 $bracketData = json_encode([
     'teams'   => $bracketTeams,
-    'results' => [$bracketResults]  // Tek dizi: single elimination
+    'results' => $bracketResults
 ]);
 
 /* ─── Status badge mapping ───────────────────────────────────── */

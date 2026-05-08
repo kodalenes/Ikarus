@@ -173,97 +173,133 @@
 .rule-val { color: var(--text); }
 
 
-/* ─── 7. BRACKET WRAPPER ───────────────────────────────── */
+/* ─── 7. BRACKET WRAPPER (TEMİZ VE KAYMASIZ UI) ────────── */
 .bracket-scroll {
     overflow-x: auto;
-    overflow-y: visible;
-    padding: 8px 4px 20px;
-    min-height: 220px;
+    overflow-y: hidden;
+    padding: 20px 10px 40px;
+    min-height: 300px;
 }
 
-.bracket-empty {
-    padding: 56px 32px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-}
-.bracket-empty-icon { font-size: 32px; margin-bottom: 12px; opacity: .35; }
-
-
-/* ─── 8. JQUERY BRACKET OVERRIDES (NATIVE LAYOUT) ─ */
-.jQBracket {
-    background: transparent !important;
+/* Ana kapsayıcıyı temanın fontuna entegre et */
+div.jQBracket {
     font-family: inherit !important;
-    padding: 8px 0 !important;
+    background: transparent !important;
 }
 
-/* Arka planları ve sınırları sıfırla */
-.jQBracket .match,
-.jQBracket .team,
-.jQBracket .label,
-.jQBracket .score {
+/* Eşleşme Dış Kutusu (.match) */
+div.jQBracket .match {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+    padding: 0 !important; /* DÜZELTME: Padding JS hesaplamasını bozar, sıfırladık */
+    overflow: visible !important; /* DÜZELTME: Gölgelerin kesilmemesi için görünür yaptık */
 }
 
-/* Maç Kutusu (teamContainer) */
-.jQBracket .teamContainer {
-    background: var(--surface) !important;
+/* Eşleşme Kutusu (Team Container) */
+div.jQBracket .teamContainer {
+    background-color: var(--surface) !important;
     border: 1px solid var(--border) !important;
-    border-radius: 7px !important;
-    transition: border-color 0.2s ease !important;
-    display: block !important; /* Flexbox iptal, orijinal display */
-}
-.jQBracket .teamContainer:hover {
-    border-color: rgba(72, 159, 181, 0.4) !important;
-}
-
-/* Tekil Takım Satırı */
-.jQBracket .team {
-    height: 22px !important; 
-    box-sizing: content-box !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+    transition: border-color var(--transition), box-shadow var(--transition) !important;
+    overflow: hidden !important;
+    width: 100% !important; /* DÜZELTME: Dış div'in genişliğini tam alması için */
+    box-sizing: border-box !important; /* DÜZELTME: Border kalınlığının dışarı taşmasını engeller */
 }
 
-/* İki takım arasına ayırıcı çizgi */
-.jQBracket .team:first-child {
+/* Alt elemanların da dışarı taşmasını engellemek için */
+div.jQBracket .team,
+div.jQBracket .team .label,
+div.jQBracket .team .score {
+    box-sizing: border-box !important;
+}
+/* Hover Efekti (Tüm Eşleşme Kutusunun Üzerine Gelindiğinde Mavi Vurgu) */
+div.jQBracket .teamContainer:hover {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(72, 159, 181, 0.15) !important;
+}
+
+/* Takım Satırı */
+div.jQBracket .team {
+    background-color: transparent !important;
+    color: var(--text) !important;
+    cursor: default !important; /* El işaretini kaldır */
+}
+
+/* İlk satır ile ikinci satır arasındaki ayrım çizgisi */
+div.jQBracket .team:first-child {
     border-bottom: 1px solid var(--border) !important;
 }
 
-/* Takım Adı (.label) */
-.jQBracket .team .label {
+/* Takım İsmi (Label) */
+div.jQBracket .team .label {
     color: var(--text-muted) !important;
-    font-size: 12px !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.3px !important;
-    padding: 0 10px !important;
-    line-height: 22px !important; /* Dikey ortalama için */
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    padding: 4px 8px !important;
+    background-color: transparent !important;
 }
 
-/* Skor Kutucuğu (.score) */
-.jQBracket .team .score {
-    background: var(--surface-2) !important;
-    border-left: 1px solid var(--border) !important;
+/* Skor Kutusu */
+div.jQBracket .team .score {
     color: var(--text-faint) !important;
+    background-color: var(--surface-2) !important;
     font-size: 13px !important;
     font-weight: 600 !important;
-    line-height: 22px !important; /* Dikey ortalama için */
     text-align: center !important;
-    width: 32px !important;
+    border-left: 1px solid var(--border) !important;
 }
 
-/* Kazanan Takım Vurgusu */
-.jQBracket .winner .label { color: var(--text) !important; font-weight: 600 !important; }
-.jQBracket .winner .score { color: var(--highlight) !important; background: rgba(255, 166, 43, 0.1) !important; border-left-color: rgba(255, 166, 43, 0.25) !important; }
+/* KAZANAN TAKIM (Winner) */
+div.jQBracket .team.win {
+    background-color: rgba(255, 166, 43, 0.08) !important;
+}
+div.jQBracket .team.win .label {
+    color: var(--highlight) !important;
+    font-weight: 700 !important;
+    background-color: transparent !important;
+}
+div.jQBracket .team.win .score {
+    color: var(--highlight) !important;
+    background-color: rgba(255, 166, 43, 0.15) !important;
+}
 
-/* TBD / Henüz Belli Olmayan Takım */
-.jQBracket .na .label { color: var(--text-faint) !important; font-style: italic !important; opacity: 0.6 !important; }
+/* KAYBEDEN TAKIM (Loser) */
+div.jQBracket .team.lose .label,
+div.jQBracket .team.lose .score {
+    color: var(--text-faint) !important;
+    background-color: transparent !important;
+}
 
-/* Turlar Arası Bağlantı Çizgileri */
-.jQBracket .connector { border-color: rgba(255, 255, 255, 0.12) !important; border-width: 1px !important; }
-.jQBracket .connector.win { border-color: rgba(72, 159, 181, 0.45) !important; }
+/* BOŞ/BELİRSİZ TAKIM (BYE/TBD) */
+div.jQBracket .team.na .label,
+div.jQBracket .team.na .score {
+    color: var(--text-faint) !important;
+    font-style: italic !important;
+    opacity: 0.6 !important;
+    background-color: transparent !important;
+}
 
-/* Tur Başlığı */
-.bracket-round-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; text-align: center; color: var(--text-faint); padding: 0 0 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 14px; }
+/* ÇİZGİLER (Connectors) */
+div.jQBracket .connector {
+    border-color: var(--border) !important;
+}
+div.jQBracket .connector.highlightWinner,
+div.jQBracket .connector.highlight {
+    border-color: var(--accent) !important;
+}
+div.jQBracket .connector.highlightLoser {
+    border-color: #f87171 !important;
+}
+
+/* TUR BAŞLIKLARI (JS ile eklenir) */
+.bracket-round-title {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
+}

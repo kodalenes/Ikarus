@@ -32,6 +32,7 @@ function renderBracket() {
         scoreWidth:   34,
         matchMargin:  48,
         roundMargin:  60,
+        skipConsolationRound: true,
         decorator: {
             edit: function() {},
             render: function(container, data) {

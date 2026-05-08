@@ -128,9 +128,9 @@ if ($team) {
     try {
         $rm = $pdo->prepare("
             SELECT m.id, m.date, m.stage, m.score_team1, m.score_team2,
-                   m.team1_id AS home_team_id, m.team2_id AS away_team_id,
-                   t1.name AS home_name,
-                   t2.name AS away_name,
+                   m.team1_id, m.team2_id,
+                   t1.name AS team1_name,
+                   t2.name AS team2_name,
                    tour.name AS tournament_name
             FROM   Matches m
             JOIN   Team t1         ON t1.id  = m.team1_id AND t1.deleted_at IS NULL
@@ -672,10 +672,10 @@ $wrCls  = $wr >= 60 ? 'high' : ($wr >= 40 ? 'mid' : 'low');
 </div>
 <div class="tm-matches-grid">
     <?php foreach ($recentMatches as $idx => $m):
-        $isHome   = (int)$m['home_team_id'] === (int)$team['id'];
-        $myScore  = $isHome ? (int)$m['score_team1'] : (int)$m['score_team2'];
-        $oppScore = $isHome ? (int)$m['score_team2'] : (int)$m['score_team1'];
-        $oppName  = $isHome ? $m['away_name']         : $m['home_name'];
+        $isTeam1  = (int)$m['team1_id'] === (int)$team['id'];
+        $myScore  = $isTeam1 ? (int)$m['score_team1'] : (int)$m['score_team2'];
+        $oppScore = $isTeam1 ? (int)$m['score_team2'] : (int)$m['score_team1'];
+        $oppName  = $isTeam1 ? $m['team2_name']       : $m['team1_name'];
         $won      = $myScore > $oppScore;
         $resCls   = $won ? 'win' : 'loss';
         $resLbl   = $won ? 'W'  : 'L';
