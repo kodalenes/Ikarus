@@ -259,6 +259,45 @@ const TeamApp = (() => {
     else toast(data.message, 'error');
   }
 
+  /* ── Form: Join by Code ──────────────────────────────────────────── */
+  async function _submitJoinCode(e) {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const btn  = form.querySelector('[type=submit]');
+      const fb   = document.getElementById('join-code-feedback');
+      const inp  = document.getElementById('join-code-input');
+      const code = inp?.value.trim();
+
+      if (!code) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      fb.textContent  = '';
+
+      // FormData kullanarak doğrudan gönderiyoruz (En garantisi)
+      const fd = new FormData();
+      fd.append('action', 'join_by_code');
+      fd.append('code', code);
+
+      try {
+          const res = await fetch(API, { method: 'POST', body: fd });
+          const data = await res.json();
+
+          if (data.ok) {
+              fb.style.color = 'var(--accent-soft)';
+              fb.textContent = `✓ ${data.message}`;
+              setTimeout(() => location.reload(), 1000);
+          } else {
+              throw new Error(data.message || 'Invalid code.');
+          }
+      } catch (err) {
+          fb.style.color = '#f87171';
+          fb.textContent = `✗ ${err.message}`;
+          btn.disabled = false;
+          btn.textContent = 'Join';
+      }
+  }
+
   /* ── Kick Member ─────────────────────────────────────────────────── */
   async function kick(memberId, username) {
     const ok = await confirm('Remove Member', `Remove ${username} from the team?`, 'Remove');
@@ -392,11 +431,14 @@ const TeamApp = (() => {
       }
   }
 
+  
+
   /* ── Init ────────────────────────────────────────────────────────── */
   function _init() {
     // Forms
     document.getElementById('create-team-form')?.addEventListener('submit', _submitCreate);
     document.getElementById('edit-team-form')?.addEventListener('submit',   _submitUpdate);
+    document.getElementById('join-code-form')?.addEventListener('submit',   _submitJoinCode);
 
     // Region selectors
     initRegionSelector('create-region-sel', 'create-region-hidden');

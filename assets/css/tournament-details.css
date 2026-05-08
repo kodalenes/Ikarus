@@ -303,3 +303,25 @@ div.jQBracket .connector.highlightLoser {
     text-align: center !important;
     margin-bottom: 12px !important;
 }
+
+
+/* ─── EMPTY BRACKET STATE (TEMA İLE UYUMLU) ─── */
+.bracket-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: var(--surface); /* Rules ve Participants ile aynı arkaplan */
+    border: 1px solid var(--border); /* Kesik çizgiler yerine düz kenarlık */
+    border-radius: 10px; /* Diğer kutularla aynı köşe ovalliği */
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.bracket-empty-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    opacity: 0.7;
+}

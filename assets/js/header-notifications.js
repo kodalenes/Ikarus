@@ -1,5 +1,5 @@
 const NotifApp = (() => {
-    const API = 'team-api.php';
+    const API = '/pages/team-api.php';
     const INTERVAL = 60_000;
     let timer = null;
     let isOpen = false;

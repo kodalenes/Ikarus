@@ -25,6 +25,7 @@ use Dotenv\Dotenv;
 
     try {
         $pdo = new PDO($dsn , $user , $password , $options);
+        $pdo->exec("SET time_zone = '+03:00'");
     } catch (\PDOException $e) {
         die("Database connection error: " . $e->getMessage());   
     }

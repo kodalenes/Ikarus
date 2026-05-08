@@ -215,9 +215,8 @@ main, .game-filter, .t-card {
 }
 
 .t-slots {
-  text-align: right;
-  flex-shrink: 0;
-  min-width: 80px;
+  width: 140px !important; /* Genişliği sabitledik */
+  flex-shrink: 0; /* Daralmayı engelledik */
 }
 
 .slots-label, .prize-label {
@@ -247,8 +246,9 @@ main, .game-filter, .t-card {
 }
 
 .t-prize {
-  text-align: right;
-  flex-shrink: 0;
+    width: 120px !important; /* Ödül alanı için sabit genişlik */
+    flex-shrink: 0;
+    text-align: right; /* Rakamları sağa yaslamak daha profesyonel durur */
 }
 
 .prize-val {

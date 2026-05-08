@@ -31,6 +31,15 @@
             icon.innerText = "🎵";
         }
     });
+    
+    //Ikarus Arka Plan Motoru (Sessiz Cron Tetikleyici)
+    // Sayfa yüklendikten 5 saniye sonra kullanıcıyı hiç yormadan arka planda çalışır
+    setTimeout(function() {
+        fetch('https://ikarusgg.me/cron.php?key=/Enes5384&i=1')
+            .then(response => console.log('Ikarus Engine Checked'))
+            .catch(error => console.log('Engine Skip'));
+    }, 5000);
+
 </script>
 
 <?php $currentPage = basename($_SERVER['PHP_SELF'] ?? ''); ?>

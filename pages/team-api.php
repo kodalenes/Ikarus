@@ -304,6 +304,30 @@ switch ($action) {
         }
     }
 
+    case 'join_by_code':
+    $code = trim($_POST['code'] ?? '');
+    if (strlen($code) !== 8) {
+        echo json_encode(['ok' => false, 'message' => 'Invalid code format.']);
+        exit;
+    }
+
+    // Veritabanında bu koda sahip takımı bul
+    $stmt = $pdo->prepare("SELECT id, name FROM Team WHERE invitation_code = ? AND deleted_at IS NULL LIMIT 1");
+    $stmt->execute([$code]);
+    $targetTeam = $stmt->fetch();
+
+    if (!$targetTeam) {
+        echo json_encode(['ok' => false, 'message' => 'Team not found or code expired.']);
+        exit;
+    }
+
+    // Kullanıcıyı takıma ekle (Burada senin mevcut Player tablonu güncelleme kodun olmalı)
+    $update = $pdo->prepare("UPDATE Player SET team_id = ? WHERE id = ?");
+    $update->execute([$targetTeam['id'], $_SESSION['user_id']]);
+
+    echo json_encode(['ok' => true, 'message' => 'Welcome to ' . $targetTeam['name'] . '!']);
+    exit;
+
     /* ── RESPOND TO INVITE ────────────────────────────────────────────── */
     case 'respond_invite': {
         if (myTeam($pdo, $userId)) err('You are already in a team. Leave it first.');
