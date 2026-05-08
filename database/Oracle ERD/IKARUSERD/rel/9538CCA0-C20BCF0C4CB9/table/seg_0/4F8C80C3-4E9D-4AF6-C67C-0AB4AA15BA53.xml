@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4F8C80C3-4E9D-4AF6-C67C-0AB4AA15BA53" name="Password_Reset_Tokens">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>C0F5B95D-B753-4BE4-E541-D3A91684846C</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="5B0AB501-10F3-E223-9A17-C87C5C92B575">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>2C56E64B-3DB6-6E6F-7FEB-9FE81A701F72</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="token_hash" id="7B8FE344-5EB8-A143-4F82-99A54A5F651D">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>C228F1B8-4373-D393-6CD8-3D38D2E5306A</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="expires_at" id="A06B96C4-4517-A8FE-5B0B-7670E66F482F">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>501DF5A1-8FF1-8C36-4FAD-B18F9128B509</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="used_at" id="44ED9AE2-C854-488F-0BFB-1DA9C617BB64">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>8E1EA5E3-18B5-5997-CB95-70AA9D23568E</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="created_at" id="879A7CD7-6EE4-5BAB-E31B-E2CBDC27D4BE">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>722D8FD4-0E2C-F27B-8531-3582803237F2</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="player_id" id="E190FA68-EE1A-24B1-2A79-14ECD505A291">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>65CCD37A-8CBF-3C54-2202-22435F087017</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E4102455-AAF1-BCB1-F516-BBB7465B25B4" referredColumn="6E6A065F-0AFA-6965-E0A4-E241D2FBCEC6"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="17147894-A514-F7F3-85F7-682E5F293332" name="Password_Reset_Tokens_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>92CD0062-0679-2EE4-D89C-2A939E1359EC</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5B0AB501-10F3-E223-9A17-C87C5C92B575"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9BFAEF0E-7D99-1FF4-F42E-A54EBB8B3AAC" name="Password_Reset_Tokens_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>81923503-9C42-0F84-F5C6-CCDD626704AE</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E190FA68-EE1A-24B1-2A79-14ECD505A291"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

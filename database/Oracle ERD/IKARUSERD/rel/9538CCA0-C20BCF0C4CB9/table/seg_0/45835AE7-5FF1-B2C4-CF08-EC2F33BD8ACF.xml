@@ -1,0 +1,177 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="45835AE7-5FF1-B2C4-CF08-EC2F33BD8ACF" name="Invitations">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>1781B239-1918-E894-F5CC-BD46C8B4B0F4</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="69067F50-6D48-30D9-7203-14103C88D044">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>70DF7546-1066-E1F7-6688-D3CA9362351C</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="status" id="2B59CADF-9DBB-9B74-1F35-D144667603F5">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>7CC24AA9-7C35-CC48-71BB-862AB8BFDC1F</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<defaultValue>&apos;pending&apos;</defaultValue>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="token" id="3B01294F-3529-C255-E4CC-4F7E6410620F">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>E1F4777B-598E-8FD3-2494-1B50547FB45C</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sent_at" id="BF9593BD-3912-B727-78E5-1951644CC92C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>E66F0837-C4C1-CB80-D34C-FA9FE2088326</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>CURRENT TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="responed_at" id="FE6E2E7B-59C8-E7CA-F91B-DCCDB85F64AD">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>7D95AE99-C5C8-1FFA-D11E-1EC396C8B823</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="deleted_at" id="80F64E62-2380-AA59-6CBE-2C8225D559B6">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>EED9B591-2A5D-6526-A2E3-1E2B2FA4628C</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>&apos;pending&apos;</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="team_id" id="89756D3E-855E-D6C5-8452-F00634371536">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>71F0F9DB-DCBA-C592-50DE-60DC9EB904AA</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2F3D13D7-61E8-3E86-128E-2120A1AD4701" referredColumn="3E5E7595-F7B9-B5F7-936C-B30B40E60183"/>
+</associations>
+</Column>
+<Column name="sender_id" id="51AC14ED-E4B8-A57B-8457-794CCAE0E265">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>308A4125-E9A9-A36F-4CB0-94119236E8D7</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4C9C2D80-220E-9A49-2B5E-EF08258018EB" referredColumn="6E6A065F-0AFA-6965-E0A4-E241D2FBCEC6"/>
+</associations>
+</Column>
+<Column name="receiver_id" id="552D8386-1157-D198-EE73-09BB06F88DFF">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>5CCE8BB4-5E30-116C-97CE-EAEBBF68511D</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8899D7F6-9913-8402-EA2D-20D734278425" referredColumn="6E6A065F-0AFA-6965-E0A4-E241D2FBCEC6"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="28DB50C8-E27B-3E58-6892-F36FDE9D464B" name="Invitations_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>AAAE8EB2-9CFB-F28C-FF3C-30E815021DFA</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="69067F50-6D48-30D9-7203-14103C88D044"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="53CFF0CC-D71D-75A3-7A8F-00AAF2572623" name="Invitations_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>3E1BE8ED-4E46-0BE7-8C75-22CD92EA029A</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="51AC14ED-E4B8-A57B-8457-794CCAE0E265"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F7B87237-227F-C662-D762-EE401B429F1D" name="Invitations_Player_FKv2">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>E08F09E3-7D1D-4C94-E07A-CE023EA771B4</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="552D8386-1157-D198-EE73-09BB06F88DFF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3AE9F516-EAE4-0D70-D4BC-98337F8DD7A3" name="Invitations_Team_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>4239B5C5-52DD-32D8-2687-01A057961F73</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="89756D3E-855E-D6C5-8452-F00634371536"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

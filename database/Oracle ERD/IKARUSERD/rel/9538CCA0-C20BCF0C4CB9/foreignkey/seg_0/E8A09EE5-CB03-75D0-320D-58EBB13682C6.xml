@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E8A09EE5-CB03-75D0-320D-58EBB13682C6" containerWithKeyObject="73194C2D-835C-7AC1-0F7E-0FE01FAECEE3" localFKIndex="F976D523-E4A3-3D4E-9097-043F47964492" name="Remember_Tokens_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>4D2EF9B9-0EFA-94B8-7E50-2F3228310211</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<referredTableLongName>Player</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>312C83BC-EC1C-A6A7-82A0-A6B6184FB6D5</referredTableID>
+<keyObject>20C1478A-0E86-3C97-7CC8-3214564BFAA4</keyObject>
+<referredKeyID>20C1478A-0E86-3C97-7CC8-3214564BFAA4</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

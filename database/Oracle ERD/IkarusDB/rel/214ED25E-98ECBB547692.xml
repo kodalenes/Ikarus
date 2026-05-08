@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="214ED25E-EE1A-5D11-228F-98ECBB547692" mainViewID="D8F2AFF3-2AEF-5AC4-1959-0691229D8B24">
-<createdBy>m0dY</createdBy>
-<createdTime>2026-04-15 11:03:13 UTC</createdTime>
-<ownerDesignName>IkarusDB</ownerDesignName>
-<shouldBeOpen>false</shouldBeOpen>
-<selectedRDBMSSite>01F6E6D1-21D0-CFBD-ABDD-3988D1813575</selectedRDBMSSite>
-</relationalModel>

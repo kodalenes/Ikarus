@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_MATCH_REFEREE" directorySegmentName="seg_0" id="A5FA03EF-125C-78BB-D1AE-4206FBCC84DB">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:22:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<sourcePk>A2EDA172-76F4-B94A-12BC-D90A236D59D7</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>officiates</nameOnSource>
+<nameOnTarget>assigned_referee</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6559FCC8-62D6-3502-A7D8-F06AE1F9B4F7</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F1B0495B-35E1-FF0C-30B2-CC69ABA997D5</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D0B0BF3A-B221-C7EC-3B4F-ABB40BF19CF2" name="Referee">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>C37C5CD7-B286-483D-3EAA-401CA472D900</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="DD16F5A9-6F49-DD19-9F47-8BCA54753657">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>25D764A8-D28B-5366-C1A3-1E7F8AFED7BF</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E495DE8C-D2CE-3B2E-DED7-875F13042703" referredColumn="6E6A065F-0AFA-6965-E0A4-E241D2FBCEC6"/>
+</associations>
+</Column>
+<Column name="username" id="75D0FA16-EA42-B4F6-ECA7-FFAD7B6E2011">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>57B9E338-4211-45FE-47BA-722B23E4D4C2</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="BF3F918E-3EDE-23BF-03EB-37D4F7CF4F09">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>1A1D3244-9AF9-91DC-D6F2-B7E2E31F06E1</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password_hash" id="F0106070-B7B5-C804-9A29-197840EA0889">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>10057D0E-8A54-EF23-515C-AC24A89B52F6</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="birth_date" id="42A63D27-F22F-7438-1EE5-D37F87AD0BD4">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>F55EE9C3-AEB9-2AF0-8442-5CB06BBD9FE8</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="registered_at" id="0A498679-D472-08C7-32A3-AA53FB65A822">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>66DF6A66-F7D8-5AAB-6E01-CB7A8A149234</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="team_id" id="1025DFC5-DFBD-2FC6-ED74-FDB09F0C0983">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>5D2649BB-1807-D202-FC16-475FDA29FC98</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="expertise_game_id" id="171E3C18-2258-0C79-EFC7-A9A11EF117C2">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>9658F07A-7845-0FE3-1D7F-06628C6843AB</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CC059F81-4733-9C6E-C7D2-A3206BD15ABE" name="Referee_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>A2EDA172-76F4-B94A-12BC-D90A236D59D7</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DD16F5A9-6F49-DD19-9F47-8BCA54753657"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A2A9056F-43BF-0A08-C223-DF63313070F5" name="Referee_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>1801B09E-53A6-605E-5734-39F01AAA3F07</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DD16F5A9-6F49-DD19-9F47-8BCA54753657"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

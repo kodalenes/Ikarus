@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="5901E2FD-B015-24D7-9EEC-9972468A6AA0" mainViewID="C08144C2-837D-71C2-41D9-6FDF16859D0A">
-<createdBy>m0dY</createdBy>
-<createdTime>2026-04-14 11:59:49 UTC</createdTime>
-<ownerDesignName>IkarusDB</ownerDesignName>
-<shouldBeOpen>false</shouldBeOpen>
-</LogicalDesign>

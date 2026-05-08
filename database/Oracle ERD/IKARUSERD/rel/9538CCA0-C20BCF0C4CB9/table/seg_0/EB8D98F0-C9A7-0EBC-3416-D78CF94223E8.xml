@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="EB8D98F0-C9A7-0EBC-3416-D78CF94223E8" name="FK_TOURNAMENT_TEAMS">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="team_id" id="82710D97-3299-CD1A-101D-31BB02897D40">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9A8B00C0-32D5-804A-E45C-BF29E3C88225" referredColumn="3E5E7595-F7B9-B5F7-936C-B30B40E60183"/>
+</associations>
+</Column>
+<Column name="tournament_id" id="085B0DC0-3F18-B511-0CDA-AE6D64429FA4">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DDB95E7C-E6C5-363B-6624-C4BE40F2B32B" referredColumn="33234A37-78B1-A066-3B09-C4821924DC6F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5BF4FF16-2E73-0AFE-7147-B7537B542BAE" name="FK_TOURNAMENT_TEAMS_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="82710D97-3299-CD1A-101D-31BB02897D40"/>
+<colUsage columnID="085B0DC0-3F18-B511-0CDA-AE6D64429FA4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8376C88A-7774-A2B4-83C7-9449181BDE50" name="FK_TOURNAMENT_TEAMS_Team_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>7B8FB15F-C483-977A-466D-6A6C2C7517CF</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="82710D97-3299-CD1A-101D-31BB02897D40"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8A6A0955-902E-EE38-379C-C405CD389016" name="FK_TOURNAMENT_TEAMS_Tournament_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>7B8FB15F-C483-977A-466D-6A6C2C7517CF</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="085B0DC0-3F18-B511-0CDA-AE6D64429FA4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

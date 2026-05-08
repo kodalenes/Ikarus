@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E4102455-AAF1-BCB1-F516-BBB7465B25B4" containerWithKeyObject="4F8C80C3-4E9D-4AF6-C67C-0AB4AA15BA53" localFKIndex="9BFAEF0E-7D99-1FF4-F42E-A54EBB8B3AAC" name="Password_Reset_Tokens_Player_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>81923503-9C42-0F84-F5C6-CCDD626704AE</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<referredTableLongName>Player</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>312C83BC-EC1C-A6A7-82A0-A6B6184FB6D5</referredTableID>
+<keyObject>20C1478A-0E86-3C97-7CC8-3214564BFAA4</keyObject>
+<referredKeyID>20C1478A-0E86-3C97-7CC8-3214564BFAA4</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

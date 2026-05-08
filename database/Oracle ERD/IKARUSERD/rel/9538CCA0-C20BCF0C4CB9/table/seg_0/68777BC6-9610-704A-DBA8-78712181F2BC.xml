@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="68777BC6-9610-704A-DBA8-78712181F2BC" name="FK_TOURNAMENT_SPONSOR">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="sponsor_id" id="A63D987E-D3A5-A72F-96EE-67BA9904967B">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ABEF1247-7C3E-6826-3C4A-C5C613EF9D50" referredColumn="33234A37-78B1-A066-3B09-C4821924DC6F"/>
+</associations>
+</Column>
+<Column name="tournament_id" id="F89C2723-9221-6F36-B822-951A5C66AFDF">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD0974A3-4A7B-D531-468D-5473CE543C6F" referredColumn="04BAA203-7398-FD7C-9B3C-B0681BCD4714"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="676C1E96-EE4E-B070-E414-8C81F765AD86" name="FK_TOURNAMENT_SPONSOR_PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A63D987E-D3A5-A72F-96EE-67BA9904967B"/>
+<colUsage columnID="F89C2723-9221-6F36-B822-951A5C66AFDF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4633244F-74B6-CC78-3D1A-BAE2A42B23DE" name="FK_TOURNAMENT_SPONSOR_Tournament_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>A04A0CE4-8675-FECB-1CE4-EB952BEC6417</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A63D987E-D3A5-A72F-96EE-67BA9904967B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9539E90F-EC6C-F86A-0388-1AA1AAC1756C" name="FK_TOURNAMENT_SPONSOR_Sponsor_FK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:51:17 UTC</createdTime>
+<generatorID>A04A0CE4-8675-FECB-1CE4-EB952BEC6417</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F89C2723-9221-6F36-B822-951A5C66AFDF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

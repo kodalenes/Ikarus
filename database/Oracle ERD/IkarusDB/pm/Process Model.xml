@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="D72386AF-23E0-BB63-A958-EE5B9BB5C4F4">
-<createdBy>m0dY</createdBy>
-<createdTime>2026-04-14 11:59:49 UTC</createdTime>
-<ownerDesignName>IkarusDB</ownerDesignName>
-<shouldBeOpen>false</shouldBeOpen>
-</ProcessModel>

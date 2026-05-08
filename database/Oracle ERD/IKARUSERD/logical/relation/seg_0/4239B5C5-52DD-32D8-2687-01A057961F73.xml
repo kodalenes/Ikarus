@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_INVITATIONS_TEAM" directorySegmentName="seg_0" id="4239B5C5-52DD-32D8-2687-01A057961F73">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:21:16 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<sourcePk>655159BF-9D8F-2381-5A6F-E76D320A2FD9</sourcePk>
+<identifying>false</identifying>
+<nameOnTarget>team_id</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>3E9194D5-9B4C-2294-FDBE-9FA0D17AE8B3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>1781B239-1918-E894-F5CC-BD46C8B4B0F4</targetEntity>
+<transferable>true</transferable>
+<deleteRule>CASCADE</deleteRule>
+</Relation>

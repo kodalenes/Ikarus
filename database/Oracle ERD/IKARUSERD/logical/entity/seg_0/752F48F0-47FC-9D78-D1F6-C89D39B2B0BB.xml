@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="752F48F0-47FC-9D78-D1F6-C89D39B2B0BB" name="Tournament_Rule">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:55:57 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="2607D5D9-AA43-14C3-1E70-644CC4A514A3">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:56:13 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rule_text" id="40509C89-1D55-1F82-C06A-219F4234C85D">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:56:37 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="sort_order" id="C4920477-8269-DD37-EA08-2C14DB2D765D">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:57:12 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id1" id="034385A8-52C4-7CF0-AB75-3D450293ED7C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:58:12 UTC</createdTime>
+<generatorID>71E10EBF-87B9-AD0B-3032-000A949FD885</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<referedAttribute>6E59C32D-3631-8799-515C-8E9C6D014E9A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="1025EB81-56D7-879B-B149-B7A735E60C79" name="Tournament_Rule PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:56:34 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>2607D5D9-AA43-14C3-1E70-644CC4A514A3</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

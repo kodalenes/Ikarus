@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_TOURNAMENT_TEAMS" directorySegmentName="seg_0" id="7B8FB15F-C483-977A-466D-6A6C2C7517CF">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 15:53:13 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<nameOnSource>team_id</nameOnSource>
+<nameOnTarget>tournament_id</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>3E9194D5-9B4C-2294-FDBE-9FA0D17AE8B3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>41D636AC-3EB0-A66B-256B-B2CA38F2E971</targetEntity>
+<transferable>true</transferable>
+<deleteRule>CASCADE</deleteRule>
+</Relation>

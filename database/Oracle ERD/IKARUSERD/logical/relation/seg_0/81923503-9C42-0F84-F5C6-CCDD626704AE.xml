@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_PASS_RES_TOKEN_PLAYER" directorySegmentName="seg_0" id="81923503-9C42-0F84-F5C6-CCDD626704AE">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:15:18 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<sourcePk>A2EDA172-76F4-B94A-12BC-D90A236D59D7</sourcePk>
+<identifying>false</identifying>
+<nameOnTarget>player_id</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6559FCC8-62D6-3502-A7D8-F06AE1F9B4F7</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C0F5B95D-B753-4BE4-E541-D3A91684846C</targetEntity>
+<transferable>true</transferable>
+<deleteRule>CASCADE</deleteRule>
+</Relation>

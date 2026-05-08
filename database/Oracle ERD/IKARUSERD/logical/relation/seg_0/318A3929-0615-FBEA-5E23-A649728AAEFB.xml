@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_TOURNAMENT_PLAYER" directorySegmentName="seg_0" id="318A3929-0615-FBEA-5E23-A649728AAEFB">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-04-14 13:02:15 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="214ED25E-EE1A-5D11-228F-98ECBB547692" value="true"/>
+</engineerTo>
+<sourcePk>A2EDA172-76F4-B94A-12BC-D90A236D59D7</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>organizes</nameOnSource>
+<nameOnTarget>organized by</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6559FCC8-62D6-3502-A7D8-F06AE1F9B4F7</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>41D636AC-3EB0-A66B-256B-B2CA38F2E971</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_INVITATION_RECEIVER_PLAYER" directorySegmentName="seg_0" id="3E1BE8ED-4E46-0BE7-8C75-22CD92EA029A">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:22:07 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<sourcePk>A2EDA172-76F4-B94A-12BC-D90A236D59D7</sourcePk>
+<identifying>false</identifying>
+<nameOnTarget>receiver_id</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>6559FCC8-62D6-3502-A7D8-F06AE1F9B4F7</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>1781B239-1918-E894-F5CC-BD46C8B4B0F4</targetEntity>
+<transferable>true</transferable>
+<deleteRule>CASCADE</deleteRule>
+</Relation>

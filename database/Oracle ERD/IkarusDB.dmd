@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="IkarusDB" id="993CA140-F2D5-8A17-0674-9908F833087B" version="3.5">
-<createdBy>m0dY</createdBy>
-<createdTime>2026-04-14 11:59:49 UTC</createdTime>
-<ownerDesignName>IkarusDB</ownerDesignName>
-<capitalNames>false</capitalNames>
-<designId>993CA140-F2D5-8A17-0674-9908F833087B</designId>
-</OSDM_Design>

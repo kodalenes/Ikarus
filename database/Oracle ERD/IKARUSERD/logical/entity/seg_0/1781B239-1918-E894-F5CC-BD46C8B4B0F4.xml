@@ -1,0 +1,154 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="1781B239-1918-E894-F5CC-BD46C8B4B0F4" name="Invitations">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:16:32 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="70DF7546-1066-E1F7-6688-D3CA9362351C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:16:40 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="status" id="7CC24AA9-7C35-CC48-71BB-862AB8BFDC1F">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:16:54 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<defaultValue>&apos;pending&apos;</defaultValue>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="token" id="E1F4777B-598E-8FD3-2494-1B50547FB45C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:17:56 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="sent_at" id="E66F0837-C4C1-CB80-D34C-FA9FE2088326">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:18:08 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>CURRENT TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="responed_at" id="7D95AE99-C5C8-1FFA-D11E-1EC396C8B823">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:18:17 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="deleted_at" id="EED9B591-2A5D-6526-A2E3-1E2B2FA4628C">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:18:25 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<defaultValue>&apos;pending&apos;</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id1" id="71F0F9DB-DCBA-C592-50DE-60DC9EB904AA">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:21:16 UTC</createdTime>
+<generatorID>4239B5C5-52DD-32D8-2687-01A057961F73</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<referedAttribute>5AA12C60-9A2B-519C-5486-E0A15F6F341D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id2" id="308A4125-E9A9-A36F-4CB0-94119236E8D7">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:22:07 UTC</createdTime>
+<generatorID>3E1BE8ED-4E46-0BE7-8C75-22CD92EA029A</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<referedAttribute>25D764A8-D28B-5366-C1A3-1E7F8AFED7BF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id3" id="5CCE8BB4-5E30-116C-97CE-EAEBBF68511D">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:22:38 UTC</createdTime>
+<generatorID>E08F09E3-7D1D-4C94-E07A-CE023EA771B4</generatorID>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<referedAttribute>25D764A8-D28B-5366-C1A3-1E7F8AFED7BF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="AAAE8EB2-9CFB-F28C-FF3C-30E815021DFA" name="Invitations PK">
+<createdBy>m0dY</createdBy>
+<createdTime>2026-05-08 16:16:45 UTC</createdTime>
+<ownerDesignName>IKARUSERD</ownerDesignName>
+<engineerTo>
+<item key="9538CCA0-CD1E-1CA7-9593-C20BCF0C4CB9" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>70DF7546-1066-E1F7-6688-D3CA9362351C</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
